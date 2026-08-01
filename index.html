@@ -177,14 +177,22 @@ body.dark .detail-inner{background:#0f172a}
   <p class="sec-label">VISÃO GERAL</p>
   <h1 class="sec-title">Painel de Qualidade</h1>
   <p class="sec-subtitle" id="subtitleGeral">Cartão Z-ON Condor — dados consolidados de todos os lotes</p>
+  <div class="filter-row">
+    <span class="filter-label">Mês:</span>
+    <div id="filterMesGeral"></div>
+  </div>
+  <div class="filter-row" id="filterLoteGeralRow" style="display:none">
+    <span class="filter-label">Lote:</span>
+    <div id="filterLoteGeral"></div>
+  </div>
   <div class="kpi-grid" id="kpiGeral"></div>
   <div class="chart-grid">
     <div class="chart-card">
-      <div class="chart-title">Score médio por critério (todos os lotes)</div>
+      <div class="chart-title" id="titleCriterioGeral">Score médio por critério</div>
       <div class="chart-wrap h300"><canvas id="chartCriterioGeral"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Distribuição de status — todas as avaliações</div>
+      <div class="chart-title" id="titleDistStatus">Distribuição de status</div>
       <div class="chart-wrap h300"><canvas id="chartDistStatus"></canvas></div>
     </div>
   </div>
@@ -425,7 +433,27 @@ function makeDoughnut(id,labels,data,colors){
 // ── State ─────────────────────────────────────────────────────────────
 let DATA=null;
 let state={op:'all',loteOp:'all',crit:'abertura',loteCrit:'all',
-           loteEv:'all',loteAnalise:1,crmLote:'all',crmOp:'all',crmFech:'all'};
+           loteEv:'all',loteAnalise:1,crmLote:'all',crmOp:'all',crmFech:'all',
+           geralMes:'all',geralLote:'all'};
+
+// ── KPI card color helpers ─────────────────────────────────────────────
+function kpiColorOk(pct){
+  if(pct>=81) return 'green';
+  if(pct>=51) return 'gold';
+  return 'red';
+}
+function kpiColorParcial(pct){
+  // menor % parcial = melhor (a maioria já está ok)
+  if(pct<=20) return 'green';
+  if(pct<=35) return 'gold';
+  return 'red';
+}
+function kpiColorNao(pct){
+  // menor % não atendido = melhor
+  if(pct<=10) return 'green';
+  if(pct<=20) return 'gold';
+  return 'red';
+}
 
 // ── Init ──────────────────────────────────────────────────────────────
 async function init(){
@@ -438,7 +466,7 @@ async function init(){
     $('updateDate').textContent=DATA.meta.ultima_atualizacao||'—';
     setupTabs();
     setupDarkMode();
-    renderGeral();
+    setupGeralFiltros();
     setupOperadores();
     setupCriterios();
     renderEvolucao();
@@ -508,33 +536,105 @@ function getAllOps(loteFilter='all'){
 }
 
 // ── PAINEL GERAL ──────────────────────────────────────────────────────
+function setupGeralFiltros(){
+  // Extrair meses únicos dos lotes
+  const meses=[...new Set(DATA.lotes.map(l=>l.periodo))].sort();
+  const mesDiv=$('filterMesGeral');
+  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
+  meses.forEach(mes=>{
+    const label=DATA.lotes.find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes;
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.mes=mes;b.textContent=label;
+    b.addEventListener('click',()=>{
+      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.geralMes=mes;state.geralLote='all';
+      atualizarFiltroLoteGeral();renderGeral();
+    });
+    mesDiv.appendChild(b);
+  });
+  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
+    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.geralMes='all';state.geralLote='all';
+    $('filterLoteGeralRow').style.display='none';renderGeral();
+  });
+  renderGeral();
+}
+
+function atualizarFiltroLoteGeral(){
+  const mes=state.geralMes;
+  const lotesFiltrados=DATA.lotes.filter(l=>l.periodo===mes);
+  const row=$('filterLoteGeralRow');
+  if(lotesFiltrados.length<=1){row.style.display='none';return;}
+  row.style.display='flex';
+  const lDiv=$('filterLoteGeral');
+  lDiv.innerHTML='<button class="filter-btn active" data-lot="all">Todos do mês</button>';
+  lotesFiltrados.forEach(l=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.lot=l.id;b.textContent=l.label.split('—')[0].trim();
+    b.addEventListener('click',()=>{
+      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.geralLote=l.id;renderGeral();
+    });
+    lDiv.appendChild(b);
+  });
+  lDiv.querySelector('[data-lot="all"]').addEventListener('click',e=>{
+    lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.geralLote='all';renderGeral();
+  });
+}
+
+function getGeralCalls(){
+  // Filtra por mês e/ou lote de acordo com o estado
+  return DATA.lotes
+    .filter(l=>state.geralMes==='all'||l.periodo===state.geralMes)
+    .filter(l=>state.geralLote==='all'||l.id===+state.geralLote)
+    .flatMap(l=>l.operadores.flatMap(op=>
+      op.ligacoes.map(lig=>({...lig,operador:op.nome,isVirtual:op.isVirtual,loteId:l.id,loteLabel:l.label}))
+    ));
+}
+
 function renderGeral(){
-  const allCalls=getAllCalls();
+  const allCalls=getGeralCalls();
   const humanCalls=allCalls.filter(c=>!c.isVirtual);
   const crits=DATA.meta.criterios;
-  const avgScore=Math.round(humanCalls.reduce((a,c)=>a+callScore(c.criterios),0)/humanCalls.length);
+  const avgScore=humanCalls.length?Math.round(humanCalls.reduce((a,c)=>a+callScore(c.criterios),0)/humanCalls.length):0;
 
   // Contar status em todas as avaliações (excluindo na)
-  let totalOk=0,totalParcial=0,totalNao=0,totalEval=0;
+  let totalOk=0,totalParcial=0,totalNao=0,totalNa=0,totalEval=0;
   humanCalls.forEach(c=>{
     crits.forEach(cr=>{
       const s=c.criterios[cr.key]?.status;
       if(s==='ok'){totalOk++;totalEval++;}
       else if(s==='parcial'){totalParcial++;totalEval++;}
       else if(s==='nao'){totalNao++;totalEval++;}
+      else{totalNa++;}
     });
   });
   const pctOk=totalEval?Math.round((totalOk/totalEval)*100):0;
   const pctParcial=totalEval?Math.round((totalParcial/totalEval)*100):0;
+  const pctNao=totalEval?Math.round((totalNao/totalEval)*100):0;
 
   // Unique human ops
   const humanOps=new Set(humanCalls.map(c=>c.operador));
 
+  // Lotes visíveis no filtro atual
+  const lotesVisiveis=DATA.lotes
+    .filter(l=>state.geralMes==='all'||l.periodo===state.geralMes)
+    .filter(l=>state.geralLote==='all'||l.id===+state.geralLote);
+  const subtitleTxt=state.geralMes==='all'
+    ?'Cartão Z-ON Condor — dados consolidados de todos os lotes'
+    :`Cartão Z-ON Condor — ${lotesVisiveis.map(l=>l.label).join(', ')}`;
+  $('subtitleGeral').textContent=subtitleTxt;
+  const contextLabel=state.geralMes==='all'?'todos os lotes':lotesVisiveis.map(l=>l.label).join(', ');
+  if($('titleCriterioGeral')) $('titleCriterioGeral').textContent=`Score médio por critério — ${contextLabel}`;
+  if($('titleDistStatus')) $('titleDistStatus').textContent=`Distribuição de status — ${contextLabel}`;
+
   $('kpiGeral').innerHTML=`
-    <div class="kpi-card navy"><div class="kpi-label">Lotes Analisados</div><div class="kpi-value">${DATA.lotes.length}</div><div class="kpi-sub">${DATA.lotes.map(l=>l.label).join(' · ')}</div></div>
+    <div class="kpi-card navy"><div class="kpi-label">Lotes Analisados</div><div class="kpi-value">${lotesVisiveis.length}</div><div class="kpi-sub">${lotesVisiveis.map(l=>l.label).join(' · ')||'—'}</div></div>
     <div class="kpi-card"><div class="kpi-label">Total de Áudios</div><div class="kpi-value">${humanCalls.length}</div><div class="kpi-sub">ligações humanas avaliadas</div></div>
-    <div class="kpi-card green"><div class="kpi-label">Itens Atendidos</div><div class="kpi-value">${pctOk}%</div><div class="kpi-sub">${totalOk} de ${totalEval} avaliações com ✅ ok</div></div>
-    <div class="kpi-card gold"><div class="kpi-label">Itens Parcialmente Atendidos</div><div class="kpi-value">${pctParcial}%</div><div class="kpi-sub">${totalParcial} de ${totalEval} avaliações com ⚠️ parcial</div></div>
+    <div class="kpi-card ${kpiColorOk(pctOk)}"><div class="kpi-label">Itens Atendidos</div><div class="kpi-value">${pctOk}%</div><div class="kpi-sub">${totalOk} de ${totalEval} avaliações com ✅ ok</div></div>
+    <div class="kpi-card ${kpiColorParcial(pctParcial)}"><div class="kpi-label">Itens Parcialmente Atendidos</div><div class="kpi-value">${pctParcial}%</div><div class="kpi-sub">${totalParcial} de ${totalEval} avaliações com ⚠️ parcial</div></div>
+    <div class="kpi-card ${kpiColorNao(pctNao)}"><div class="kpi-label">Itens Não Atendidos</div><div class="kpi-value">${pctNao}%</div><div class="kpi-sub">${totalNao} de ${totalEval} avaliações com ❌ não</div></div>
     <div class="kpi-card blue"><div class="kpi-label">Score Médio Geral</div><div class="kpi-value">${avgScore}%</div><div class="kpi-sub">ok=2pts · parcial=1pt · não=0 · na excluído</div></div>
     <div class="kpi-card"><div class="kpi-label">Operadores Avaliados</div><div class="kpi-value">${humanOps.size}</div><div class="kpi-sub">operadores humanos únicos</div></div>
   `;
@@ -545,10 +645,8 @@ function renderGeral(){
   const colors=critScores.map(s=>s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
   makeBarChart('chartCriterioGeral',critLabels,[{label:'Score %',data:critScores,backgroundColor:colors,borderRadius:4}],{horizontal:true});
 
-  // Chart: distribuição status (reaproveitando totais já calculados)
-  let na=0;
-  humanCalls.forEach(c=>{crits.forEach(cr=>{const s=c.criterios[cr.key]?.status;if(s==='na')na++;});});
-  makeDoughnut('chartDistStatus',['✅ Atendido','⚠️ Parcialmente','❌ Não atendido','N/A'],[totalOk,totalParcial,totalNao,na],
+  // Chart: distribuição status
+  makeDoughnut('chartDistStatus',['✅ Atendido','⚠️ Parcialmente','❌ Não atendido','N/A'],[totalOk,totalParcial,totalNao,totalNa],
     ['#22c55e','#eab308','#ef4444','#d1d5db']);
 
   // Insights
