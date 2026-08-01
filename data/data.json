@@ -1,0 +1,1394 @@
+{
+  "meta": {
+    "empresa": "Assessoria Fácil",
+    "produto": "Cartão Z-ON Condor",
+    "ultima_atualizacao": "2026-07",
+    "criterios": [
+      {
+        "key": "abertura",
+        "label": "1. Abertura da ligação"
+      },
+      {
+        "key": "lgpd",
+        "label": "2. LGPD"
+      },
+      {
+        "key": "sondagem",
+        "label": "3. Sondagem"
+      },
+      {
+        "key": "conduzir",
+        "label": "4. Conduziu a negociação"
+      },
+      {
+        "key": "gradatividade",
+        "label": "5. Gradatividade"
+      },
+      {
+        "key": "criatividade",
+        "label": "6. Criatividade"
+      },
+      {
+        "key": "clareza",
+        "label": "7. Clareza dos números"
+      },
+      {
+        "key": "fechamento",
+        "label": "8. Fechamento do acordo"
+      },
+      {
+        "key": "beneficios",
+        "label": "9. Benefícios/consequências"
+      },
+      {
+        "key": "canais",
+        "label": "10. Canais de contato"
+      }
+    ]
+  },
+  "lotes": [
+    {
+      "id": 1,
+      "periodo": "2026-07",
+      "label": "Lote 1 — Jul/2026",
+      "total_audios": 13,
+      "operadores": [
+        {
+          "nome": "Clarisse",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 1,
+              "cliente": "Cliente 01",
+              "duracao": "3:41",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor. Abertura cordial."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou o nome completo do cliente. Não foram solicitados dígitos do CPF para validação adicional."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Não houve sondagem do motivo do atraso. A operadora partiu diretamente para a proposta sem entender a situação do cliente."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Apresentou os valores e aguardou a reação do cliente, mas a condução contém elementos passivos — perguntas como \"quando você pode pagar?\" ou \"fica bom pra você?\" transferem o controle para o cliente. O padrão esperado é propor afirmativamente, pressionar e tratar a objeção sem abrir espaço para o cliente ditar o ritmo."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Ofereceu à vista com desconto — correto. Depois parcelamento em 3x. Porém não tentou segunda proposta à vista com condição diferente antes do parcelamento, e a progressão de prazo não foi avaliada (ligação curta)."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Argumentos de regularização de nome e oportunidade de desconto, mas sem elementos externos ou criativos diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Informou o valor em R$, mas não mencionou o percentual (ex.: \"95% de desconto\") para ampliar o impacto."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado — cliente informou que retornaria."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou benefícios de forma informativa, mas sem estrutura comparativa: não organizou benefícios vs. consequências de forma persuasiva e clara."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou o número 0800 ao encerrar a ligação."
+                }
+              }
+            },
+            {
+              "audio": 3,
+              "cliente": "Cliente 02",
+              "duracao": "1:41",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita). Contexto Z-ON/Condor já estabelecido (renegociação)."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou o nome completo da cliente. Não foram solicitados dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Por ser renegociação, verificou o histórico do acordo quebrado — sondagem implícita do contexto. Porém não explorou o motivo do descumprimento para usar na nova proposta."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "O contexto de renegociação favoreceu uma postura mais direta. Porém ainda faltou a firmeza plena de uma condução totalmente afirmativa — conduzir exige que o operador imponha o ritmo da negociação, não aguarde o cliente decidir."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Cenário de renegociação limitou a gradatividade padrão; apresentou uma única proposta de exceção sem progressão de tiers."
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Argumento da \"exceção à regra\" — mesmo com acordo quebrado (que normalmente impede nova proposta), abriu exceção para motivar a cliente. Recurso criativo e eficaz."
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Informou valores específicos da proposta de renegociação com clareza e objetividade."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado — cliente informou que retornaria."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Reforçou a urgência e a oportunidade, mas de forma informativa. Faltou estrutura comparativa entre pagar agora vs. consequências de não pagar."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato ao encerrar a ligação."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Jennifer",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 2,
+              "cliente": "Cliente 03",
+              "duracao": "1:55",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou nome completo e endereço do cliente. Endereço reforça a validação, mas não substitui os dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Não houve sondagem. Foi diretamente para a proposta comercial sem investigar o motivo do atraso para personalizar os argumentos."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Estrutura de valores apresentada de forma progressiva — ponto positivo. Porém em ligação de 1:55 min a condução tem limitações: perguntar \"quando pode pagar?\" ou deixar o cliente encerrar sem pressão não é conduzir. O padrão é propor afirmativamente e tratar a objeção até o limite da ligação."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Apresentou à vista com desconto — correto. Depois parcelamento 3x. Porém não tentou segunda proposta à vista com condição diferente antes de ir ao parcelamento. O contraste de valores (original → projeção de juros → desconto) foi ponto forte."
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Contraste de alto impacto — original R$1.231 → com juros R$7.528 → com desconto R$492. Recurso muito diferenciado na amostra."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Apresentou os valores em R$ com clareza e comparação, mas não informou o percentual de desconto explicitamente."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado — cliente encerrou a ligação."
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Estrutura clara: mostrou o crescimento da dívida com juros (consequência de não pagar) e o desconto disponível (benefício de pagar agora). Melhor uso estruturado do critério nas ligações mais curtas."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou o 0800 e o portal digital ao encerrar a ligação."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Thaís",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 4,
+              "cliente": "Cliente 04",
+              "duracao": "1:28",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou o nome completo da cliente. Não solicitou dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem. Foi diretamente para a proposta sem investigar o motivo do atraso ou a situação atual da cliente."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "PONTO CRÍTICO: Em ligação de 1:28 min não houve condução real. Perguntar ao cliente \"quando você pode pagar?\" ou \"fica bom pra você?\" transfere o controle da negociação para ele — o oposto de conduzir. O operador deve apresentar a proposta de forma afirmativa e tratar a objeção até o fechamento."
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Não explorou opção à vista com desconto. Não apresentou progressão de tiers nem de prazo. A gradatividade não foi aplicada."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos ou elementos externos diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Mencionou valores em R$, mas sem informar o percentual de desconto."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado."
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Benefícios mencionados de forma superficial e não estruturada. Não estabeleceu comparação entre pagar agora vs. permanecer em atraso."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato ao encerrar a ligação."
+                }
+              }
+            },
+            {
+              "audio": 7,
+              "cliente": "Cliente 05",
+              "duracao": "4:07",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou o nome completo do cliente. Não solicitou dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Em ligação mais longa (4:07 min), captou algumas informações do contexto do cliente, mas sem sondagem estruturada e intencional para direcionar os melhores argumentos."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Perguntas abertas sem direção ao longo da ligação substituíram a condução real. \"Quando você pode pagar?\", \"fica bom pra você?\" são perguntas que cedem o controle ao cliente — o oposto do que se espera. O operador deve afirmar, propor e tratar a objeção. Perguntar sem proposta afirmativa não é conduzir."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Tentou explorar gradatividade, mas não apresentou opção à vista com desconto antes de ir ao parcelamento; não explorou dois tiers de proposta antes do parcelamento. Progressão de prazo também ausente."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Argumentação sem elementos criativos ou diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Informou valores em R$, mas sem mencionar percentual de desconto."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou benefícios ao longo da ligação, mas sem estrutura comparativa clara. Informativo, mas não persuasivamente organizado em bloco."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato ao encerrar a ligação."
+                }
+              }
+            },
+            {
+              "audio": 12,
+              "cliente": "Cliente 06",
+              "duracao": "10:40",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor. Ligação de 10:40 min com alto engajamento."
+                },
+                "lgpd": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Única operadora a solicitar dígitos do CPF para validação — melhor prática de conformidade LGPD em toda a amostra."
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Ao longo da extensa ligação, captou informações sobre a situação da cliente, mas não realizou sondagem estruturada no início para direcionar os argumentos mais cedo."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Demonstrou persistência e fechou o acordo em ligação de 10:40 min — ponto positivo. Porém ao longo da negociação houve momentos de postura passiva, cedendo o ritmo ao cliente em vez de manter controle total da condução. O padrão esperado é firmeza e afirmação durante toda a ligação."
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Boa gradatividade: progressão de datas e valores ao longo da longa ligação — tentou fechar com prazo mais curto antes de estender. Segunda melhor gradatividade do lote."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Utilizou alguns argumentos adicionais, mas sem alta criatividade ou uso de elementos externos diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Mencionou valores em R$ com clareza, mas sem informar o percentual de desconto explicitamente."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Acordo fechado com boa ratificação: confirmou condições com a cliente e buscou confirmação antes do encerramento."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Informou benefícios e consequências ao longo da ligação, mas de forma distribuída — não em bloco estruturado. Uma apresentação mais organizada aumentaria o impacto persuasivo."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou o número 0800 ao encerrar a ligação."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "João",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 5,
+              "cliente": "Cliente 07",
+              "duracao": "1:41",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Abertura mais completa da amostra — único a incluir variante \"Fácil\", Z-ON do Condor e aviso de gravação."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou o nome completo da cliente. Não solicitou dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem. Partiu diretamente para a proposta sem entender o contexto da cliente."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Apresentou a proposta com clareza em ligação curta (1:41 min). Porém a condução apresenta elementos passivos — em vez de propor afirmativamente e tratar a objeção, o ritmo da negociação é cedido ao cliente. Afirmar mais e perguntar menos é o padrão esperado."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Apresentou opções progressivas iniciando pelo prazo do dia — positivo. Porém não apresentou opção à vista com desconto antes das propostas parceladas; não tentou segunda proposta antes de ceder."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Utilizou alguns argumentos, mas sem criatividade marcante ou elementos externos diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Informou valores em R$, mas não mencionou o percentual de desconto."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Apresentou benefícios de forma informativa, mas sem estrutura comparativa persuasiva entre pagar vs. não pagar."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato ao encerrar a ligação."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Júlia",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 6,
+              "cliente": "Cliente 08",
+              "duracao": "1:00",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificou-se com variante \"Fácil\", mas a brevidade da ligação (1:00 min) não permitiu verificar se o Z-ON do Condor foi mencionado completamente."
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Verificação incompleta — a ligação foi curta demais para confirmar sequer o nome completo da cliente adequadamente."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem — ligação curta demais para qualquer investigação do contexto da cliente."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Sem condução real da negociação em 1 minuto. Não chegou a apresentar proposta, valores ou argumentação."
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Sem gradatividade — a brevidade não permitiu apresentar sequer uma proposta completa."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos ou externos."
+                },
+                "clareza": {
+                  "status": "nao",
+                  "obs": "Não chegou a informar valores ou percentuais."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado."
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não apresentou benefícios ou consequências de forma alguma."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato."
+                }
+              }
+            },
+            {
+              "audio": 8,
+              "cliente": "Cliente 09",
+              "duracao": "3:34",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor. Ligação mais longa (3:34 min)."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou o nome completo da cliente. Não solicitou dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem do motivo do atraso. Partiu para a proposta sem entender o contexto da cliente."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Perguntas abertas sem direção substituíram a condução real. Em 3:34 min havia tempo suficiente para uma condução estruturada: proposta afirmativa → tratamento de objeção → pressão para fechamento. Perguntar ao invés de afirmar não é conduzir."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Apresentou proposta inicial mas sem explorar à vista com desconto como primeira opção e sem dois tiers de proposta antes do parcelamento."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos ou elementos externos diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Mencionou valor em R$, mas sem informar percentual de desconto."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado."
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Mencionou benefícios superficialmente e sem estrutura. Não comparou a situação atual com o que muda ao regularizar."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Naty (Assistente Virtual)",
+          "isVirtual": true,
+          "ligacoes": [
+            {
+              "audio": 9,
+              "cliente": "Cliente 10",
+              "duracao": "3:42",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Script padronizado; identificação básica sem flexibilidade de composição da abertura."
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Verificação automatizada básica — não confirmou nome completo nem dígitos do CPF de forma verificável."
+                },
+                "sondagem": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual com script fixo; sem capacidade de sondagem real."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Seguiu o script pré-definido; sem capacidade de adaptação ou firmeza dinâmica — limitação do canal."
+                },
+                "gradatividade": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual com opções fixas pré-definidas."
+                },
+                "criatividade": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Informou valores conforme script; sem percentual de desconto identificado."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "N/A — Direcionou para canal humano."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Benefícios básicos conforme script; sem estrutura persuasiva ou personalização."
+                },
+                "canais": {
+                  "status": "na",
+                  "obs": "N/A — O próprio atendente virtual é um canal de contato."
+                }
+              }
+            },
+            {
+              "audio": 11,
+              "cliente": "Cliente 11",
+              "duracao": "0:58",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Mesmo script padronizado. Ligação muito curta (0:58 min)."
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Verificação automatizada básica; brevidade limitou qualquer validação."
+                },
+                "sondagem": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Seguiu o script; ligação muito breve."
+                },
+                "gradatividade": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual."
+                },
+                "criatividade": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores básicos conforme script."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "N/A — Não fechou acordo."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Benefícios básicos conforme script; sem estrutura."
+                },
+                "canais": {
+                  "status": "na",
+                  "obs": "N/A — Atendente virtual."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Micaela",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 10,
+              "cliente": "Cliente 12",
+              "duracao": "10:32",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor. Ligação de 10:32 min com altíssimo engajamento."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou os dados completos da cliente (nome completo). Não foi identificada solicitação de dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Ao longo da longa ligação captou informações sobre a situação da cliente. Porém não realizou sondagem estruturada no início — o que teria permitido direcionar os argumentos com mais precisão desde o começo."
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Melhor condução da amostra. Postura assertiva e firme ao longo de toda a ligação — afirmou mais do que perguntou, manteve o ritmo e não perdeu o controle da negociação."
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Melhor gradatividade da amostra — exploração de múltiplos tiers de prazo e valor, iniciou com prazo mais curto e foi abrindo gradualmente. Tentou à vista antes de oferecer parcelamento."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Utilizou alguns argumentos diferenciadores ao longo da ligação, mas com espaço para maior criatividade."
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Apresentou valores de forma organizada, comparativa e clara — melhor uso do critério entre os operadores humanos."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Fechou o acordo e ratificou exemplarmente — recapitulou todas as condições, buscou confirmação explícita e encerrou com clareza. Melhor fechamento da amostra."
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Apresentação mais estruturada e persuasiva da amostra — comparou a situação de inadimplência com a situação regularizada, abordando benefícios, consequências e urgência ao longo da negociação."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou o 0800 e o portal digital ao encerrar a ligação."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Mateus",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 13,
+              "cliente": "Cliente 13",
+              "duracao": "1:06",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado\" (variante aceita) e mencionou o cartão Z-ON do Condor."
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Verificação de dados incompleta — não confirmou o nome completo da cliente adequadamente."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem alguma. Não houve tentativa de entender o motivo do atraso ou a situação da cliente."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "PONTO CRÍTICO: Não apresentou valores nem proposta. Engajamento mínimo — a negociação não chegou a ser iniciada. Ausência total de assertividade."
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Sem gradatividade — não chegou a apresentar sequer uma proposta."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos ou persuasivos de qualquer natureza."
+                },
+                "clareza": {
+                  "status": "nao",
+                  "obs": "Não informou valores, percentuais ou condições."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Acordo não fechado — negociação não foi conduzida."
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não apresentou benefícios ou consequências."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não deixou número de contato."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "analise_geral": [
+        {
+          "key": "abertura",
+          "status": "ok",
+          "obs": "Critério atendido na maioria das ligações: todos os operadores utilizaram variante aceita do nome (\"Fácil Resultado\", \"Assessoria Fácil\" ou derivados) e mencionaram o cartão Z-ON do Condor. DESTAQUE: João (Áudio 5) teve a abertura mais completa, único a incluir também o aviso de gravação. ATENÇÃO: Júlia (Áudio 6) ficou com avaliação parcial pela brevidade da ligação."
+        },
+        {
+          "key": "lgpd",
+          "status": "parcial",
+          "obs": "A maioria confirmou o nome completo do cliente (⚠️ Parcialmente). DESTAQUE ÚNICO: Thaís (Áudio 12) solicitou dígitos do CPF — única a atingir ✅ Atendido. PONTOS CRÍTICOS: Júlia (Áudio 6), Mateus (Áudio 13) e Naty (virtual) não confirmaram os dados mínimos (❌). A validação por CPF precisa ser padronizada para toda a equipe humana."
+        },
+        {
+          "key": "sondagem",
+          "status": "nao",
+          "obs": "FALHA GERAL: A sondagem praticamente não aconteceu em nenhuma ligação. Nenhum operador fez perguntas estruturadas para entender o motivo do atraso antes de apresentar a proposta. Entender o contexto do cliente (sem dinheiro, esqueceu, problema temporário, outra dívida maior) permite usar o argumento certo no momento certo. AÇÃO: criar roteiro de sondagem com 2-3 perguntas objetivas no início da negociação."
+        },
+        {
+          "key": "conduzir",
+          "status": "nao",
+          "obs": "FALHA GERAL: A condução foi precária na grande maioria das ligações. O comportamento mais identificado foi a postura passiva — perguntar \"quando você pode pagar?\" ou \"fica bom pra você?\" em vez de propor afirmativamente e tratar a objeção. Isso transfere o controle da negociação para o cliente. ÚNICO DESTAQUE: Micaela (Áudio 10) — postura assertiva e firme ao longo de toda a ligação de 10 minutos. FALHAS CRÍTICAS: Thaís (Áudios 4 e 7), Júlia (Áudios 6 e 8), Mateus (Áudio 13). AÇÃO: treinar a distinção entre sondagem (perguntas com propósito estratégico) e condução passiva (perguntar sem proposta = ceder o controle)."
+        },
+        {
+          "key": "gradatividade",
+          "status": "parcial",
+          "obs": "A maioria iniciou com proposta de desconto — correto, pois a política já remove juros e multa. As falhas recorrentes: (1) não tentar segunda proposta à vista com condição diferente antes de ir ao parcelamento; (2) não iniciar com oferta para hoje e não progredir o prazo gradualmente. MELHORES: Micaela (Áudio 10) e Thaís (Áudio 12) — melhor progressão de prazo e valores. PIORES: Thaís (Áudio 4), Júlia (Áudio 6) e Mateus (Áudio 13) — sem progressão alguma."
+        },
+        {
+          "key": "criatividade",
+          "status": "nao",
+          "obs": "PRINCIPAL GAP: Falha em quase todas as ligações. ÚNICOS DESTAQUES: Jennifer (Áudio 2) — contraste de valores R$1.231 → R$7.528 → R$492; Clarisse (Áudio 3) — argumento da \"exceção à regra\" em renegociação. Os demais limitaram-se a argumentos padrão sem elementos externos. AÇÃO: criar banco de argumentos criativos (urgência de prazo, impacto do CPF negativo em crédito/financiamento, sazonalidade, proposta única)."
+        },
+        {
+          "key": "clareza",
+          "status": "parcial",
+          "obs": "SEGUNDO PRINCIPAL GAP: Nenhum operador informou o percentual de desconto — todos apresentaram apenas o valor absoluto em R$. O percentual gera maior impacto psicológico (ex.: \"70% de desconto, ou seja, de R$1.500 por apenas R$450\"). MELHORES: Jennifer e Micaela apresentaram os valores de forma mais comparativa. PIORES: Júlia (Áudio 6) e Mateus (Áudio 13) não chegaram a informar valores."
+        },
+        {
+          "key": "fechamento",
+          "status": "parcial",
+          "obs": "Apenas 2 das 13 ligações resultaram em acordo: Micaela (Áudio 10) e Thaís (Áudio 12) — ambas acima de 10 minutos. Quanto à qualidade da ratificação: ambas confirmaram as condições com clareza e buscaram confirmação da cliente (✅). Nas demais, o cliente encerrou sem acordo. Correlação clara entre tempo de engajamento e conversão."
+        },
+        {
+          "key": "beneficios",
+          "status": "parcial",
+          "obs": "OPORTUNIDADE ESTRUTURAL: A maioria mencionou benefícios de forma informativa e não estruturada. Um uso correto do critério deve: (1) nomear o benefício imediato de pagar agora, (2) mostrar o custo de não pagar (crescimento da dívida, restrição no CPF, dificuldade de crédito), (3) criar senso de urgência/oportunidade. MELHORES: Micaela e Jennifer. PIORES: Júlia (Áudios 6 e 8) e Mateus (Áudio 13)."
+        },
+        {
+          "key": "canais",
+          "status": "nao",
+          "obs": "FALHA MAJORITÁRIA: Apenas 4 das 13 ligações deixaram canal de contato — Clarisse (Áudio 1), Jennifer (Áudio 2), Micaela (Áudio 10) e Thaís (Áudio 12). Jennifer e Micaela também informaram o portal digital. Os 9 demais atendimentos encerraram sem fornecer qualquer referência ao cliente — ponto crítico a ser padronizado e cobrado de imediato."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "periodo": "2026-07",
+      "label": "Lote 2 — Jul/2026",
+      "total_audios": 12,
+      "operadores": [
+        {
+          "nome": "Leonardo",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 1,
+              "cliente": "Cliente 14",
+              "duracao": "~5",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se como \"Fácil Resultado, representante do Condor\". Z-on mencionado à esposa na transferência da ligação. Abertura completa no contexto."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou nome completo \"[cliente]\". Nenhum dígito do CPF solicitado."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem. Foi direto à proposta sem investigar o motivo do atraso."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Perguntas passivas que cederam o controle ao cliente: \"O senhor conseguiria?\" e \"Que dia mais ou menos ali?\" — o cliente ditou o prazo (quarta-feira) sem que o operador propusesse uma data afirmativa."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Ofereceu R$868 à vista com desconto como primeira proposta. Porém: não tentou segunda proposta à vista antes de ceder o prazo; não iniciou com oferta para hoje — aceitou diretamente quarta-feira sem progressão de prazo."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "\"Pequeno desconto\" com remoção de juros. Sem argumento diferenciador ou elemento criativo."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores apresentados em R$. Percentual de desconto não informado."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Acordo fechado e ratificado: confirmou data (quarta-feira) e valor (R$868), encerrando com as condições claras para o cliente."
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Mencionou a saída da restrição apenas no encerramento, de passagem. Sem bloco estruturado de benefícios vs. consequências."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Mencionou gravação da ligação mas não deixou 0800 nem portal de contato."
+                }
+              }
+            },
+            {
+              "audio": 2,
+              "cliente": "Cliente 15",
+              "duracao": "~3",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "\"Fácil Resultado, representante do Condor\" — correto. Porém apresentou o motivo da ligação como \"fatura do Condor\" sem nomear o cartão Z-on."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem dígitos do CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem. Direto à \"campanha de desconto\" sem investigar o contexto do cliente."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Cliente aceitou imediatamente (\"Fechou, vou pagar aqui\") — não houve teste real de objeção. A apresentação dos valores foi assertiva; difícil avaliar a firmeza da condução sem resistência do cliente."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Bom contraste (R$1.157 → projeção R$1.700 de juros → R$867 com desconto). Cliente aceitou de imediato — não houve resistência para testar segunda proposta ou progressão de prazo. Avaliação parcial pois a sequência não foi testada sob objeção."
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "DESTAQUE DO LOTE: Contraste de alto impacto — original R$1.157 → com juros R$1.700 → com desconto R$867. Recurso de ancoragem muito eficaz e diferenciado."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores apresentados em R$ com boa comparação. Percentual de desconto não informado."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Acordo fechado. Cliente aceitou de imediato (\"Fechou, vou pagar aqui\") — ratificação informal mas suficiente dado o contexto de adesão espontânea."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou saída do SPC/Serasa em 5-6 dias úteis e reavaliação do cartão após pagamento. Informativo, sem estrutura persuasiva de bloco."
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Informou que o pagamento pode ser feito \"por aplicativo ou na loja\". Número 0800 não foi deixado."
+                }
+              }
+            },
+            {
+              "audio": 3,
+              "cliente": "Cliente 16",
+              "duracao": "~6",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "\"Fácil Resultado, representante do Condor\" — correto. Apresentou o motivo como \"fatura do Condor\" sem citar o cartão Z-on."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem do motivo do atraso."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "PONTO POSITIVO: manteve o prazo máximo de sexta-feira mesmo sob pressão da cliente (que pediu segunda e depois dia 22). Porém usou \"Pode ser?\" passivamente em múltiplos momentos ao oferecer as parcelas."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "R$1.527 → R$1.000 (à vista com desconto) → parcelamento 3x (R$384 + 2x R$350). Positivo: explorou à vista antes do parcelamento. Faltou: segunda proposta à vista com condição diferente antes do parcelamento; oferecer para hoje — aceitou sexta-feira sem progressão de prazo."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Apenas urgência do prazo de sexta-feira. Sem argumento criativo diferenciador."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual de desconto."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Acordo fechado com condições detalhadas: entrada R$384 + 2x R$350. Termos confirmados ao cliente antes do encerramento."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Informou saída do SPC após 1ª parcela e desbloqueio do cartão após quitação total. Informativo mas não estruturado em bloco persuasivo."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Sem 0800 ou portal informado."
+                }
+              }
+            },
+            {
+              "audio": 4,
+              "cliente": "Cliente 17",
+              "duracao": "~8",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "\"Fácil Resultado, representante do Condor\" — correto. Apresentou a ligação como \"fatura do Condor\" sem citar Z-on na abertura (Z-on aparece apenas ao apresentar os valores)."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Usou argumento de urgência (\"proposta única esta semana\"), manteve posição no prazo máximo de sexta-feira e ofereceu parcelamento como alternativa. Pontos positivos. Porém \"Que que o senhor acha?\" enfraquece a postura afirmativa esperada."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "R$738 → R$500 (à vista com desconto) → R$570 parcelado (R$149 + 3x R$140). Positivo: explorou à vista antes do parcelamento. Faltou: segunda proposta à vista com condição diferente antes do parcelamento; oferecer para hoje — aceitou sexta-feira como prazo inicial sem progressão."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "\"Praticamente metade do preço\" — formulação eficaz que traduz o desconto em impacto imediato para o cliente."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual de desconto."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Acordo fechado com condições claras: entrada R$149 + 3x R$140, sexta-feira. Termos recapitulados para o cliente antes do encerramento."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou saída do SPC e reavaliação do cartão. Básico, sem estrutura de bloco."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Mencionou gravação mas não deixou 0800."
+                }
+              }
+            },
+            {
+              "audio": 11,
+              "cliente": "Cliente 18",
+              "duracao": "~5",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "\"Fácil Resultado, representante do Condor\" — correto. Porém \"referente a uma fatura do Condor\" sem nomear o cartão Z-on."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "\"E que valor que o senhor conseguiria fazer esse pagamento?\" — definição de entregar o controle ao cliente. Agravante: negociou contra si mesmo (R$465 hoje → R$600 para sexta → voltou a R$465 para sexta), demonstrando ausência de estratégia de condução."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "R$846 → R$465 (hoje) — positivo: iniciou com oferta para hoje. Mas: propôs R$600 para sexta (preço SUBIU — erro) → voltou a R$465 para sexta. Sem segunda proposta à vista com desconto diferente; sem parcelamento como recurso final."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Usou a diferença de preço entre hoje e sexta como pressão de urgência — recurso válido, embora o retorno ao mesmo valor R$465 para sexta tenha anulado o argumento."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual."
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Acordo fechado, mas ratificação limitada: confirmou apenas valor (R$465) e data (sexta-feira), sem recapitular as condições do acordo ou buscar confirmação explícita do cliente."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Breve menção de saída do SPC/Serasa e desbloqueio do cartão. Não estruturado."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Mencionou gravação mas não deixou 0800."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "João",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 5,
+              "cliente": "Cliente 19",
+              "duracao": "~10",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "ATENÇÃO: Identificou-se como \"assessoria jurídica do Condor\" — denominação incorreta, não contém \"Fácil\". Mencionou \"Z-on Card\" corretamente. Abertura parcial: acertou o produto, errou o nome da empresa."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou nome completo \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "O cliente voluntariou o histórico (tentativa anterior frustrada, pagamento de taxa mínima, juros acumulados). João engajou ativamente: \"É que a taxa mínima vai ficando um saldo pendente muito alto.\" Não foi sondagem proativa, mas o contexto foi aproveitado."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "\"Que que o senhor me diz?\" e \"Esses valores ficam bom para o senhor?\" — perguntas passivas clássicas que colocam a decisão no cliente. Condução não atendida."
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Foi direto ao parcelamento máximo (entrada R$204 + 11x R$83) sem apresentar qualquer opção à vista com desconto. Não tentou fechar para hoje nem explorou prazo gradualmente. Parcelamento como primeira e única oferta — falha total na gradatividade."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Argumentos básicos de CPF e restrição. Sem elemento criativo diferenciador."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual. PONTO POSITIVO: detalhou exemplarmente o boleto — beneficiário (Zonta Adm.), formas de pagamento (app, banco, lotérica, Condor), procedimento de impressão."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "DESTAQUE: Melhor ratificação do lote — confirmou todas as condições (entrada R$204,73 + 11x R$83,75), detalhou o boleto, beneficiário e formas de pagamento. Fechamento exemplar."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou CPF liberado, cartão desbloqueado e alerta sobre quebra de acordo. Básico, não estruturado em bloco persuasivo."
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Detalhou formas de pagamento e local (Condor, bancos, lotérica). 0800 não informado explicitamente."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Crislayne",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 6,
+              "cliente": "Cliente 20",
+              "duracao": "~2",
+              "nota": "⚠️ LIGAÇÃO DE DISPUTA: Cliente afirmou já ter realizado negociação e pago a entrada de um acordo. O sistema não localizou o pagamento. A operadora solicitou o comprovante via WhatsApp para verificação. Critérios de negociação são N/A por ausência de negociação comercial.",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "\"Crislayne, da assessoria Fácil Resultado, representante do Condor\" — empresa correta. Porém disse \"teu cartão\" sem especificar \"Z-on\"."
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Confirmou apenas \"Franciele\" (primeiro nome). Nome completo não confirmado antes de tratar do débito."
+                },
+                "sondagem": {
+                  "status": "na",
+                  "obs": "N/A — Ligação de disputa de pagamento. A operadora investigou o comprovante, não o motivo de atraso."
+                },
+                "conduzir": {
+                  "status": "na",
+                  "obs": "N/A — Resolução de disputa, não negociação comercial."
+                },
+                "gradatividade": {
+                  "status": "na",
+                  "obs": "N/A — Sem negociação."
+                },
+                "criatividade": {
+                  "status": "na",
+                  "obs": "N/A."
+                },
+                "clareza": {
+                  "status": "na",
+                  "obs": "N/A."
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "N/A — Encerrada com solicitação de comprovante pelo WhatsApp para verificação."
+                },
+                "beneficios": {
+                  "status": "na",
+                  "obs": "N/A."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Solicitou envio do comprovante via WhatsApp — resposta adequada e ágil para o contexto de disputa."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Thaís",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 7,
+              "cliente": "Cliente 21",
+              "duracao": "~5",
+              "nota": "⚠️ OBSERVAÇÃO: Áudio 9 (também enviado) tem transcrição idêntica a este Áudio 7 — trata-se da mesma ligação. A avaliação abaixo é válida para ambos os registros.",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "\"Thaís, da Fácil Resultado, representante do supermercados Condor\" + \"referente à fatura do cartão Z-on Condor\". Abertura completa."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "DESTAQUE DO LOTE: \"Se aconteceu algum imprevisto, eu gostaria realmente de ajudar... A senhora pode me explicar ali o motivo do não pagamento?\" — sondagem direta e estruturada. Captou que a cliente aguardava recebimento até dia 20, o que orientou toda a negociação seguinte."
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "A sondagem deu base para uma proposta específica (R$80, dia 16) — positivo. Porém \"A senhora teria algum valor disponível para entrada?\" é pergunta passiva. Condução mista: bom início, fragilidade no fechamento."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Sondagem orientou a proposta — positivo. Mas não testou à vista com desconto antes do parcelamento; proposta iniciou para dia 16 sem tentar fechar para hoje primeiro."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos diferenciadores."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual."
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Acordo fechado, mas ratificação incompleta: mencionou o valor da entrada e a data sem confirmar explicitamente todas as parcelas nem buscar confirmação verbal da cliente. Condições não deixadas com clareza total."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Informou saída do SPC em 7 dias úteis e consequências da quebra do acordo ao encerrar. Informativo, não em bloco estruturado."
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Encerrou com \"ligação gravada\" mas não deixou 0800 nem portal."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Jhenifer",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 8,
+              "cliente": "Cliente 22",
+              "duracao": "~8",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "\"Jhenifer falando em nome da Fácil, representando o supermercados Condor\" + \"sobre o cartão Z-on do senhor\". Abertura completa."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem. Direto à \"campanha para quitação\"."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "\"O senhor acha que teria a possibilidade de pagamento?\" e \"Esse valor fica acessível?\" — perguntas passivas clássicas. Pior: posicionou a proposta de exceção como incerta (\"pode ser que o senhor não receba\") — fragilizou o argumento em vez de reforçá-lo."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "R$3.309 → R$2.482 (à vista com desconto) → exceção parcelada (R$150+11x R$120). Progressão presente. Faltou: segunda proposta à vista antes do parcelamento; prazo não explorado progressivamente (hoje → amanhã → esta semana)."
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "\"Proposta de exceção\" como argumento de oportunidade única — recurso válido. Enfraquecido por apresentar como incerta (\"pode não ser aprovada\")."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual."
+                },
+                "fechamento": {
+                  "status": "nao",
+                  "obs": "Acordo condicional — pendente de aprovação do Condor. Cliente ficou aguardando retorno. Não é um fechamento confirmado."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Breve menção de SPC ao final. Não estruturado."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou 0800 (0800 291 2213) e portal (facilquitar.com.br)."
+                }
+              }
+            },
+            {
+              "audio": 12,
+              "cliente": "Cliente 23",
+              "duracao": "~6",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "\"Jhenifer falando em nome da Fácil, representando o supermercados Condor\" + \"sobre o cartão Z-on do senhor\". Abertura completa."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "\"O senhor acha que esse valor não fica acessível ali para pagamento à vista?\" — pergunta passiva que convida o cliente a dizer não. Padrão de passividade mantido ao longo de toda a ligação."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "R$874 → R$481 (à vista com desconto) → parcelamento (R$100 + 6x R$91,52). Progressão presente: à vista antes do parcelamento — correto. Faltou: segunda proposta à vista antes do parcelamento; oferecer para hoje antes de aceitar quarta-feira."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual."
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Acordo fechado com condições confirmadas: entrada R$100 + 6x R$91,52, quarta-feira. Ratificação adequada antes do encerramento."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou saída do SPC em 5 dias e consequências da quebra do acordo. Informativo."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou 0800 (0800 291 2213) e portal (facilquitar.com.br)."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Clarice",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 10,
+              "cliente": "Cliente 24",
+              "duracao": "~3",
+              "nota": "",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "\"Clarice, da Fácil Resultado, a assessoria do Condor\" — empresa correta. Porém disse \"cartão do Condor\" sem mencionar \"Z-on\"."
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou \"[cliente]\". Sem CPF."
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Sem sondagem. O cliente mencionou que tentou acessar o app mas não encontrou o débito — Clarice apenas explicou o motivo, sem investigar o contexto do atraso."
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "\"Nesse valor, o senhor consegue estar realizando o pagamento hoje?\" (passiva) + aceitou imediatamente \"dia 15\" sem nenhuma tentativa de fechar para hoje ou amanhã. Zero resistência à demanda de prazo do cliente."
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "R$604 → R$404,76 (à vista com desconto). Um único tier sem segunda proposta. Prazo: aceitou dia 15 imediatamente sem oferecer para hoje — zero progressão de prazo. Não explorou parcelamento como alternativa ao resistir o cliente."
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem argumentos criativos."
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Valores em R$ sem percentual."
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Acordo fechado, mas ratificação mínima: confirmou valor e dia sem recapitular as condições formalmente nem buscar confirmação explícita do cliente."
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "CPF retirado de restrição em 5 dias, parada de cobranças e aviso sobre não atrasar para evitar quebra. Alguma estrutura, não abrangente."
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Deixou 0800 (0800 291 2213) e portal (facilquitar.com.br)."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "analise_geral": [
+        {
+          "key": "abertura",
+          "status": "parcial",
+          "obs": "Fácil Resultado geralmente presente. FALHAS RECORRENTES: Leonardo em 4 de 5 ligações não nomeou o Z-on na abertura (disse \"fatura do Condor\"); Clarice e Crislayne idem. EXCEÇÃO CRÍTICA: João usou \"assessoria jurídica do Condor\" — denominação incorreta sem \"Fácil\". DESTAQUES: Thaís e Jhenifer consistentes com abertura completa (Fácil + Z-on Condor)."
+        },
+        {
+          "key": "lgpd",
+          "status": "parcial",
+          "obs": "Todos os operadores confirmaram nome completo (⚠️ Parcialmente). Zero operadores solicitaram dígitos do CPF neste lote — mesma lacuna do Lote 1. EXCEÇÃO: Crislayne não confirmou nem o nome completo (apenas primeiro nome). A validação por CPF precisa ser padronizada urgentemente em toda a equipe."
+        },
+        {
+          "key": "sondagem",
+          "status": "nao",
+          "obs": "FALHA GERAL: apenas Thaís (Áudio 7) realizou sondagem estruturada e proativa — \"A senhora pode me explicar o motivo do não pagamento?\" — e usou a resposta para orientar a proposta. João captou contexto de forma passiva. Todos os demais foram direto à \"campanha de desconto\". A sondagem transforma uma oferta genérica em argumento personalizado."
+        },
+        {
+          "key": "conduzir",
+          "status": "nao",
+          "obs": "PADRÃO DOMINANTE DO LOTE: \"O senhor conseguiria?\", \"O senhor acha?\", \"Que que o senhor me diz?\", \"Que dia mais ou menos?\", \"Esse valor fica acessível?\" — o cliente ditava o ritmo em quase todas as ligações. EXCEÇÃO RELATIVA: Leonardo (Áudios 3 e 4) manteve prazo sob pressão do cliente. AÇÃO PRIORITÁRIA: afirmar → aguardar reação → tratar objeção. O operador propõe, não pergunta."
+        },
+        {
+          "key": "gradatividade",
+          "status": "parcial",
+          "obs": "A maioria apresentou à vista com desconto como primeira proposta — correto, pois a política já remove juros e multa. As falhas recorrentes: (1) não tentar segunda proposta à vista antes do parcelamento; (2) não iniciar com oferta para hoje e não progredir o prazo gradualmente. ERRO PONTUAL: Leonardo (Áudio 11) aumentou o preço para prazo mais longo — inversão de lógica. DESTAQUES: Leonardo (Áudios 3 e 4) e Jhenifer (Áudio 12) exploraram à vista antes do parcelamento. PIOR: João — direto ao parcelamento sem nenhuma opção à vista."
+        },
+        {
+          "key": "criatividade",
+          "status": "nao",
+          "obs": "ÚNICO DESTAQUE: Leonardo (Áudio 2) — contraste R$1.157 → R$1.700 (juros) → R$867. Recurso de ancoragem muito eficaz. Leonardo (Áudio 4) usou \"praticamente metade do preço\" com bom impacto. Os demais limitaram-se a \"campanha de desconto\" e \"retirada de juros\" — argumentação padronizada sem diferenciação. GAP generalizado."
+        },
+        {
+          "key": "clareza",
+          "status": "parcial",
+          "obs": "Nenhum operador informou percentual de desconto — todos apresentaram apenas o valor absoluto em R$. O percentual potencializa o impacto psicológico (ex.: \"56% de desconto, de R$874 por R$481\"). PONTO POSITIVO: João detalhou exemplarmente o boleto, beneficiário e formas de pagamento. Leonardo (Áudio 2) trouxe boa comparação de valores."
+        },
+        {
+          "key": "fechamento",
+          "status": "parcial",
+          "obs": "Alta taxa de conversão: 9 de 10 avaliáveis resultaram em acordo. Porém a qualidade da ratificação foi o ponto fraco: Thaís (Áudio 7), Clarice (Áudio 10) e Leonardo (Áudio 11) fecharam acordos sem ratificar claramente as condições. DESTAQUES de ratificação: João (Áudio 5) — recapitulou todas as condições e detalhou o boleto; Leonardo (Áudios 3 e 4) e Jhenifer (Áudio 12) — condições confirmadas antes do encerramento. Fechar sem ratificação aumenta o risco de quebra por falta de compreensão do cliente."
+        },
+        {
+          "key": "beneficios",
+          "status": "parcial",
+          "obs": "Todos os operadores mencionaram saída do SPC/CPF como benefício. Porém as apresentações foram listas informativas sem estrutura persuasiva: (1) benefício imediato de pagar agora, (2) custo concreto de não pagar (crescimento da dívida, CPF negativo, dificuldade de crédito), (3) urgência/prazo da oferta. A diferença está na ordem e no tom — não apenas no conteúdo."
+        },
+        {
+          "key": "canais",
+          "status": "parcial",
+          "obs": "INCONSISTÊNCIA: Jhenifer (Áudios 8 e 12) e Clarice (Áudio 10) deixaram 0800 e portal sistematicamente — MODELO A SEGUIR. Leonardo não deixou o 0800 em nenhuma das 5 ligações — falha crítica por volume. João detalhou formas de pagamento mas sem 0800 explícito. Thaís e Crislayne não informaram canais. AÇÃO: 0800 + portal obrigatório em 100% das ligações."
+        }
+      ]
+    }
+  ]
+}

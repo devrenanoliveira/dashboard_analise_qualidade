@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Qualidade — Assessoria Fácil</title>
+<script>try{if(localStorage.getItem('aqDarkMode')==='true')document.body.classList.add('dark')}catch(e){}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --brand-navy:#0F2461;--brand-navy-mid:#1B3C8C;
+  --brand-blue:#2563EB;--brand-blue-light:#3B82F6;
+  --brand-gold:#D97706;--brand-gold-light:#F59E0B;
+  --series-1:#2a78d6;--series-2:#008300;--series-3:#eda100;
+  --series-4:#e87ba4;--series-5:#1baf7a;--series-6:#eb6834;
+  --status-good:#0ca30c;--status-warning:#D97706;--status-muted:#898781;
+  --delta-pos:#006300;--delta-neg:#B91C1C;
+  --surface:#F1F5F9;--surface-card:#FFFFFF;--surface-chart:#fcfcfb;
+  --ink-primary:#0b0b0b;--ink-secondary:#52514e;--ink-muted:#898781;
+  --gridline:#e1e0d9;--baseline:#c3c2b7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--surface);color:var(--ink-primary);font-size:14px;min-height:100vh}
+.header{background:var(--brand-navy);color:#fff;padding:11px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color:#fff}
+.logo em{color:var(--brand-gold);font-style:normal}
+.header-sep{width:1px;height:38px;background:rgba(255,255,255,.25)}
+.header-title{font-size:.92rem;font-weight:600;opacity:.9}
+.header-right{display:flex;align-items:center;gap:12px}
+.header-update{font-size:.72rem;opacity:.65;text-align:right;line-height:1.5}
+.header-update strong{opacity:.9}
+#darkModeBtn{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.1rem;padding:4px 6px;border-radius:4px;transition:color .15s}
+#darkModeBtn:hover{color:#fff}
+.tab-nav{background:var(--brand-navy);border-top:1px solid rgba(255,255,255,.1);display:flex;overflow-x:auto;padding:0 20px;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{padding:10px 16px;border:none;background:none;color:rgba(255,255,255,.6);font-size:.77rem;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;letter-spacing:.01em}
+.tab-btn:hover{color:rgba(255,255,255,.9)}
+.tab-btn.active{color:#fff;border-bottom-color:var(--brand-gold)}
+.tab-panel{display:none;padding:24px 28px;max-width:1440px;margin:0 auto}
+.tab-panel.active{display:block}
+.sec-label{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brand-blue);margin-bottom:2px}
+.sec-title{font-size:1.4rem;font-weight:700;color:var(--brand-navy);line-height:1.15;margin-bottom:3px}
+.sec-subtitle{font-size:.74rem;color:var(--ink-muted);margin-bottom:20px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px}
+.kpi-card{background:var(--surface-card);border-radius:8px;padding:16px 18px;border:1px solid #E2E8F0}
+.kpi-card.navy{background:var(--brand-navy)}.kpi-card.blue{background:var(--brand-blue)}
+.kpi-card.gold{background:#FFFBEB;border-color:#FDE68A}.kpi-card.green{background:#ECFDF5;border-color:#A7F3D0}
+.kpi-card.red{background:#FEF2F2;border-color:#FECACA}
+.kpi-label{font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
+.kpi-card.navy .kpi-label,.kpi-card.blue .kpi-label{color:rgba(255,255,255,.65)}
+.kpi-value{font-size:1.8rem;font-weight:700;line-height:1;color:var(--brand-navy);margin-bottom:4px}
+.kpi-card.navy .kpi-value,.kpi-card.blue .kpi-value{color:#fff}
+.kpi-sub{font-size:.74rem;color:var(--ink-secondary)}
+.kpi-card.navy .kpi-sub,.kpi-card.blue .kpi-sub{color:rgba(255,255,255,.65)}
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:14px;margin-bottom:18px}
+.chart-card{background:var(--surface-card);border-radius:8px;border:1px solid #E2E8F0;padding:20px}
+.chart-card.wide{grid-column:1/-1}
+.chart-title{font-size:.71rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-secondary);margin-bottom:14px}
+.chart-wrap{position:relative}.chart-wrap.h260{height:260px}.chart-wrap.h300{height:300px}.chart-wrap.h340{height:340px}.chart-wrap.h220{height:220px}
+.table-card{background:var(--surface-card);border-radius:8px;border:1px solid #E2E8F0;overflow:hidden;margin-bottom:18px}
+.table-card-header{padding:14px 18px 10px;border-bottom:1px solid #E2E8F0}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+thead th{background:var(--brand-navy);color:#fff;padding:9px 14px;font-size:.72rem;font-weight:600;text-align:left;white-space:nowrap;letter-spacing:.02em}
+tbody tr:nth-child(even){background:#F8FAFC}
+tbody tr:hover{background:#EFF6FF}
+tbody td{padding:8px 14px;border-bottom:1px solid #F1F5F9;vertical-align:top}
+.badge-ok{color:#0a6b0a;background:#DCFCE7;padding:2px 8px;border-radius:12px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.badge-parcial{color:#92400E;background:#FEF3C7;padding:2px 8px;border-radius:12px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.badge-nao{color:#9C0006;background:#FFC7CE;padding:2px 8px;border-radius:12px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.badge-na{color:#595959;background:#EDEDED;padding:2px 8px;border-radius:12px;font-size:.72rem;white-space:nowrap}
+.filter-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filter-label{font-size:.74rem;color:var(--ink-secondary);font-weight:600;white-space:nowrap}
+.filter-btn{padding:5px 12px;border:1px solid #CBD5E1;border-radius:20px;background:#fff;font-size:.74rem;cursor:pointer;color:var(--ink-secondary);transition:all .15s}
+.filter-btn.active{background:var(--brand-navy);border-color:var(--brand-navy);color:#fff}
+.insight-panel{background:var(--surface-card);border-radius:8px;border:1px solid #E2E8F0;padding:18px;margin-bottom:18px}
+.insight-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-blue);margin-bottom:10px}
+.destaque-block{background:#EFF6FF;border-radius:8px;padding:16px 18px;border:1px solid #BFDBFE;margin-bottom:12px}
+.destaque-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-blue);margin-bottom:6px}
+.destaque-text{font-size:.82rem;line-height:1.65;color:var(--ink-secondary)}
+.padrao-block{background:#FFFBEB;border-radius:8px;padding:16px 18px;border:1px solid #FDE68A;border-left:4px solid var(--brand-gold);margin-bottom:12px}
+.padrao-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#92400E;margin-bottom:6px}
+.padrao-text{font-size:.82rem;line-height:1.65;color:var(--ink-secondary)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.expand-row{background:#F0F6FF!important;cursor:pointer}
+.expand-row:hover{background:#DBEAFE!important}
+.detail-row{display:none}
+.detail-row.open{display:table-row}
+.detail-cell{padding:0!important;background:#F8FAFC}
+.detail-inner{padding:12px 18px}
+.crit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.crit-item{background:#fff;border:1px solid #E2E8F0;border-radius:6px;padding:10px 12px}
+.crit-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.crit-name{font-size:.72rem;font-weight:700;color:var(--brand-navy)}
+.crit-obs{font-size:.72rem;color:var(--ink-secondary);line-height:1.5}
+.score-bar{height:4px;background:#E2E8F0;border-radius:2px;margin-top:6px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;background:var(--brand-blue)}
+.nota-box{background:#FFFBEB;border:1px solid #FDE68A;border-left:3px solid var(--brand-gold);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:.78rem;color:#92400E;line-height:1.5}
+.lote-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.67rem;font-weight:700;background:var(--brand-navy);color:#fff;margin-right:4px}
+.lote-tag.l2{background:var(--brand-blue)}
+.ranking-num{font-weight:800;color:var(--brand-navy);font-size:1rem}
+.ranking-num.gold{color:var(--brand-gold)}
+#loadingMsg{text-align:center;padding:60px;color:var(--ink-muted);font-size:1rem}
+#errorMsg{text-align:center;padding:60px;color:#B91C1C;display:none}
+body.dark{--surface:#0f172a;--surface-card:#1e293b;--surface-chart:#1e293b;--ink-primary:#f1f5f9;--ink-secondary:#94a3b8;--ink-muted:#64748b;--gridline:#334155;--baseline:#475569}
+body.dark .kpi-card{border-color:#334155}
+body.dark .kpi-value{color:#f1f5f9}
+body.dark .kpi-card.gold{background:#2d2008;border-color:#78450a}
+body.dark .kpi-card.green{background:#0f2d1a;border-color:#166534}
+body.dark .kpi-card.red{background:#2d0a0a;border-color:#7f1d1d}
+body.dark .chart-card{border-color:#334155}
+body.dark .table-card{border-color:#334155}
+body.dark thead th{background:#0f172a}
+body.dark tbody tr:nth-child(even){background:#182030}
+body.dark tbody tr:hover{background:#1e3a5f!important}
+body.dark tbody td{border-color:#334155;color:#f1f5f9}
+body.dark .filter-btn{background:#1e293b;color:#94a3b8;border-color:#334155}
+body.dark .filter-btn.active{background:#1e3a5f;color:#f1f5f9;border-color:var(--brand-blue)}
+body.dark .destaque-block{background:#1e293b;border-color:#334155}
+body.dark .padrao-block{background:#1e293b;border-color:#334155}
+body.dark .insight-panel{border-color:#334155}
+body.dark .sec-title{color:#f1f5f9}
+body.dark .crit-item{background:#1e293b;border-color:#334155}
+body.dark .nota-box{background:#2d2008;border-color:#78450a}
+body.dark .expand-row{background:#152540!important}
+body.dark .expand-row:hover{background:#1e3a5f!important}
+body.dark .detail-cell{background:#0f172a}
+body.dark .detail-inner{background:#0f172a}
+@media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr}.chart-grid{grid-template-columns:1fr}.tab-panel{padding:16px}}
+@media(max-width:480px){.header{padding:10px 16px}.header-sep,.header-title{display:none}.kpi-grid{grid-template-columns:1fr 1fr}.kpi-value{font-size:1.5rem}.tab-btn{padding:8px 10px;font-size:.7rem}}
+</style>
+</head>
+<body>
+<div id="loadingMsg">⏳ Carregando dados...</div>
+<div id="errorMsg">❌ Erro ao carregar dados. Abra via servidor local (não duplo-clique no arquivo).</div>
+
+<div id="app" style="display:none">
+<header class="header">
+  <div class="header-left">
+    <div class="logo">Fácil <em>Resultado</em></div>
+    <div class="header-sep"></div>
+    <div class="header-title">CRM de Qualidade de Atendimento</div>
+  </div>
+  <div class="header-right">
+    <button id="darkModeBtn" title="Modo escuro">🌙</button>
+    <div class="header-update">Atualizado: <strong id="updateDate">—</strong></div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="geral">📊 Painel Geral</button>
+  <button class="tab-btn" data-tab="operadores">👤 Operadores</button>
+  <button class="tab-btn" data-tab="criterios">📋 Critérios</button>
+  <button class="tab-btn" data-tab="evolucao">📈 Evolução</button>
+  <button class="tab-btn" data-tab="ligacoes">📞 Ligações</button>
+  <button class="tab-btn" data-tab="analise">🔍 Análise Geral</button>
+</nav>
+
+<!-- ═══ PAINEL GERAL ═══════════════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-geral">
+  <p class="sec-label">VISÃO GERAL</p>
+  <h1 class="sec-title">Painel de Qualidade</h1>
+  <p class="sec-subtitle" id="subtitleGeral">Cartão Z-ON Condor — dados consolidados de todos os lotes</p>
+  <div class="kpi-grid" id="kpiGeral"></div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Score médio por critério (todos os lotes)</div>
+      <div class="chart-wrap h300"><canvas id="chartCriterioGeral"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Distribuição de status — todas as avaliações</div>
+      <div class="chart-wrap h300"><canvas id="chartDistStatus"></canvas></div>
+    </div>
+  </div>
+  <div id="insightsGeral"></div>
+  <div class="table-card">
+    <div class="table-card-header">
+      <div class="chart-title" style="margin:0">🏆 Ranking de operadores humanos</div>
+    </div>
+    <div class="table-scroll"><table id="tableRanking">
+      <thead><tr><th>#</th><th>Operador</th><th>Lote(s)</th><th>Ligações</th><th>Fechamentos</th><th>Score Geral</th><th>Pior critério</th></tr></thead>
+      <tbody id="tbodyRanking"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ OPERADORES ═════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-operadores">
+  <p class="sec-label">POR OPERADOR</p>
+  <h1 class="sec-title">Perfil do Operador</h1>
+  <p class="sec-subtitle">Radar de competências e histórico de ligações</p>
+  <div class="filter-row">
+    <span class="filter-label">Operador:</span>
+    <div id="filterOpBtns"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Lote:</span>
+    <div id="filterLoteOpBtns"></div>
+  </div>
+  <div class="two-col" style="align-items:start">
+    <div class="chart-card">
+      <div class="chart-title" id="radarTitle">Radar de critérios</div>
+      <div class="chart-wrap h340"><canvas id="chartRadar"></canvas></div>
+    </div>
+    <div>
+      <div class="kpi-grid" style="grid-template-columns:1fr 1fr;margin-bottom:12px" id="kpiOp"></div>
+      <div id="opInsights"></div>
+    </div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><div class="chart-title" style="margin:0" id="opCallsTitle">Ligações do operador</div></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Áudio</th><th>Cliente</th><th>Duração</th><th>Score</th><th>Fechamento</th><th>Lote</th><th>▾</th></tr></thead>
+      <tbody id="tbodyOpCalls"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ CRITÉRIOS ══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-criterios">
+  <p class="sec-label">POR CRITÉRIO</p>
+  <h1 class="sec-title">Análise por Critério</h1>
+  <p class="sec-subtitle">Compare o desempenho de todos os operadores num critério específico</p>
+  <div class="filter-row">
+    <span class="filter-label">Critério:</span>
+    <div id="filterCritBtns"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Lote:</span>
+    <div id="filterLoteCritBtns"></div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card wide">
+      <div class="chart-title" id="critChartTitle">Score por operador</div>
+      <div class="chart-wrap h260"><canvas id="chartCritOp"></canvas></div>
+    </div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><div class="chart-title" style="margin:0" id="critTableTitle">Detalhe por operador</div></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Operador</th><th>Lote</th><th>Áudio</th><th>Avaliação</th><th>Observação</th></tr></thead>
+      <tbody id="tbodyCrit"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ EVOLUÇÃO ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-evolucao">
+  <p class="sec-label">TENDÊNCIA</p>
+  <h1 class="sec-title">Evolução entre Lotes</h1>
+  <p class="sec-subtitle">Como cada critério se comportou do Lote 1 para o Lote 2</p>
+  <div class="chart-card wide">
+    <div class="chart-title">Evolução do score médio por critério (% do máximo)</div>
+    <div class="chart-wrap h340"><canvas id="chartEvolucao"></canvas></div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><div class="chart-title" style="margin:0">Tabela comparativa Lote 1 × Lote 2</div></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Critério</th><th>Lote 1</th><th>Lote 2</th><th>Variação</th><th>Tendência</th></tr></thead>
+      <tbody id="tbodyEvolucao"></tbody>
+    </table></div>
+  </div>
+  <div id="evolInsights"></div>
+</div>
+
+<!-- ═══ LIGAÇÕES (CRM) ═════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-ligacoes">
+  <p class="sec-label">CRM DE LIGAÇÕES</p>
+  <h1 class="sec-title">Todas as Ligações</h1>
+  <p class="sec-subtitle">Clique em qualquer linha para expandir e ver os 10 critérios com observações</p>
+  <div class="filter-row">
+    <span class="filter-label">Lote:</span>
+    <div id="filterLoteCRM"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Operador:</span>
+    <div id="filterOpCRM"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Fechamento:</span>
+    <div id="filterFechCRM"></div>
+  </div>
+  <div style="margin-bottom:10px;font-size:.78rem;color:var(--ink-muted)">
+    Mostrando <strong id="crmCount">—</strong> ligações
+  </div>
+  <div class="table-card">
+    <div class="table-scroll"><table>
+      <thead><tr><th>Áudio</th><th>Operador</th><th>Cliente</th><th>Duração</th><th>Score</th><th>Fechamento</th><th>Lote</th></tr></thead>
+      <tbody id="tbodyCRM"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ ANÁLISE GERAL ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-analise">
+  <p class="sec-label">ANÁLISE CONSOLIDADA</p>
+  <h1 class="sec-title">Análise Geral</h1>
+  <p class="sec-subtitle">Avaliação consolidada dos 10 critérios por lote</p>
+  <div class="filter-row">
+    <span class="filter-label">Lote:</span>
+    <div id="filterLoteAnalise"></div>
+  </div>
+  <div class="table-card">
+    <div class="table-scroll"><table>
+      <thead><tr><th>Critério</th><th>Avaliação</th><th>Análise e Recomendações</th></tr></thead>
+      <tbody id="tbodyAnalise"></tbody>
+    </table></div>
+  </div>
+</div>
+</div><!-- #app -->
+
+<script>
+// ── helpers ──────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const SCORE_MAP = {ok:2, parcial:1, nao:0, na:null};
+const STATUS_LABEL = {ok:'✅ Atendido', parcial:'⚠️ Parcialmente', nao:'❌ Não atendido', na:'N/A'};
+const STATUS_CLASS = {ok:'badge-ok', parcial:'badge-parcial', nao:'badge-nao', na:'badge-na'};
+
+function scoreVal(status){ return SCORE_MAP[status] ?? null; }
+function pct(score, max){ return max ? Math.round((score/max)*100) : 0; }
+
+function callScore(criterios){
+  let s=0,n=0;
+  for(const k in criterios){
+    const v=scoreVal(criterios[k].status);
+    if(v!==null){s+=v;n++;}
+  }
+  return n ? Math.round((s/(n*2))*100) : 0;
+}
+
+function opScore(ligacoes){
+  let s=0,n=0;
+  ligacoes.forEach(l=>{ const r=callScore(l.criterios); s+=r;n++; });
+  return n?Math.round(s/n):0;
+}
+
+function critScore(ligacoes, crit){
+  let s=0,n=0;
+  ligacoes.forEach(l=>{
+    const v=scoreVal(l.criterios[crit]?.status);
+    if(v!==null){s+=v;n++;}
+  });
+  return n?Math.round((s/(n*2))*100):null;
+}
+
+function worstCrit(ligacoes, criterios){
+  let worst=null,wScore=999;
+  criterios.forEach(c=>{
+    const sc=critScore(ligacoes,c.key);
+    if(sc!==null&&sc<wScore){wScore=sc;worst=c.label;}
+  });
+  return worst;
+}
+
+function badge(status){
+  return `<span class="${STATUS_CLASS[status]||'badge-na'}">${STATUS_LABEL[status]||status}</span>`;
+}
+
+// ── Chart registry ────────────────────────────────────────────────────
+const charts={};
+function destroyChart(id){ if(charts[id]){charts[id].destroy();delete charts[id];} }
+
+function makeBarChart(id,labels,datasets,opts={}){
+  destroyChart(id);
+  const ctx=$(id).getContext('2d');
+  charts[id]=new Chart(ctx,{type:'bar',data:{labels,datasets},options:{
+    responsive:true,maintainAspectRatio:false,
+    indexAxis:opts.horizontal?'y':'x',
+    plugins:{legend:{display:datasets.length>1,position:'bottom',labels:{font:{size:11}}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label||''} ${ctx.raw}%`}}},
+    scales:{x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11}},max:opts.horizontal?100:undefined},
+            y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11}},max:opts.horizontal?undefined:100}}
+  }});
+}
+
+function makeRadarChart(id,labels,datasets){
+  destroyChart(id);
+  const ctx=$(id).getContext('2d');
+  charts[id]=new Chart(ctx,{type:'radar',data:{labels,datasets},options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
+    scales:{r:{min:0,max:100,ticks:{display:false,stepSize:25},
+      pointLabels:{font:{size:10.5}},
+      grid:{color:'rgba(0,0,0,.1)'},angleLines:{color:'rgba(0,0,0,.1)'}}}
+  }});
+}
+
+function makeLineChart(id,labels,datasets){
+  destroyChart(id);
+  const ctx=$(id).getContext('2d');
+  charts[id]=new Chart(ctx,{type:'line',data:{labels,datasets},options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
+    scales:{x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11}}},
+            y:{min:0,max:100,grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11},callback:v=>v+'%'}}}
+  }});
+}
+
+function makeDoughnut(id,labels,data,colors){
+  destroyChart(id);
+  const ctx=$(id).getContext('2d');
+  charts[id]=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:2,borderColor:'#fff'}]},options:{
+    responsive:true,maintainAspectRatio:false,cutout:'60%',
+    plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:12,padding:10}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw}`}}}
+  }});
+}
+
+// ── State ─────────────────────────────────────────────────────────────
+let DATA=null;
+let state={op:'all',loteOp:'all',crit:'abertura',loteCrit:'all',
+           loteEv:'all',loteAnalise:1,crmLote:'all',crmOp:'all',crmFech:'all'};
+
+// ── Init ──────────────────────────────────────────────────────────────
+async function init(){
+  try{
+    const r=await fetch('data/data.json?v='+Date.now());
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    DATA=await r.json();
+    $('loadingMsg').style.display='none';
+    $('app').style.display='block';
+    $('updateDate').textContent=DATA.meta.ultima_atualizacao||'—';
+    setupTabs();
+    setupDarkMode();
+    renderGeral();
+    setupOperadores();
+    setupCriterios();
+    renderEvolucao();
+    setupLigacoes();
+    setupAnalise();
+  }catch(e){
+    $('loadingMsg').style.display='none';
+    $('errorMsg').style.display='block';
+    $('errorMsg').textContent='❌ Erro: '+e.message+' — Abra via servidor local (python -m http.server)';
+  }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────
+function setupTabs(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      $('panel-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+function setupDarkMode(){
+  $('darkModeBtn').addEventListener('click',()=>{
+    document.body.classList.toggle('dark');
+    try{localStorage.setItem('aqDarkMode',document.body.classList.contains('dark'));}catch(e){}
+    // re-render charts after mode change
+    setTimeout(()=>{
+      renderGeral();
+      renderOperadores();
+      renderCriterios();
+      renderEvolucao();
+      renderLigacoes();
+    },50);
+  });
+}
+
+// ── helpers: get all calls across lotes filtered ──────────────────────
+function getAllCalls(loteFilter='all'){
+  const calls=[];
+  DATA.lotes.forEach(lote=>{
+    if(loteFilter!=='all'&&lote.id!==+loteFilter)return;
+    lote.operadores.forEach(op=>{
+      op.ligacoes.forEach(lig=>{
+        calls.push({...lig,operador:op.nome,isVirtual:op.isVirtual,loteId:lote.id,loteLabel:lote.label});
+      });
+    });
+  });
+  return calls;
+}
+
+function getOpCalls(opNome,loteFilter='all'){
+  return getAllCalls(loteFilter).filter(c=>c.operador===opNome);
+}
+
+function getAllOps(loteFilter='all'){
+  const seen=new Set(),ops=[];
+  DATA.lotes.forEach(lote=>{
+    if(loteFilter!=='all'&&lote.id!==+loteFilter)return;
+    lote.operadores.forEach(op=>{
+      if(!seen.has(op.nome)){seen.add(op.nome);ops.push({nome:op.nome,isVirtual:op.isVirtual});}
+    });
+  });
+  return ops;
+}
+
+// ── PAINEL GERAL ──────────────────────────────────────────────────────
+function renderGeral(){
+  const allCalls=getAllCalls();
+  const humanCalls=allCalls.filter(c=>!c.isVirtual);
+  const fechados=humanCalls.filter(c=>c.criterios.fechamento?.status==='ok').length;
+  const avaliáveis=humanCalls.filter(c=>c.criterios.fechamento?.status!=='na').length;
+  const avgScore=Math.round(humanCalls.reduce((a,c)=>a+callScore(c.criterios),0)/humanCalls.length);
+
+  // Unique human ops
+  const humanOps=new Set(humanCalls.map(c=>c.operador));
+  
+  $('kpiGeral').innerHTML=`
+    <div class="kpi-card navy"><div class="kpi-label">Total de Lotes</div><div class="kpi-value">${DATA.lotes.length}</div><div class="kpi-sub">${DATA.lotes.map(l=>l.label).join(' · ')}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total de Áudios</div><div class="kpi-value">${allCalls.length}</div><div class="kpi-sub">${humanCalls.length} ligações humanas</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Taxa de Fechamento</div><div class="kpi-value">${avaliáveis?Math.round((fechados/avaliáveis)*100):0}%</div><div class="kpi-sub">${fechados} acordos de ${avaliáveis} avaliáveis</div></div>
+    <div class="kpi-card blue"><div class="kpi-label">Score Médio Geral</div><div class="kpi-value">${avgScore}%</div><div class="kpi-sub">Média das ligações humanas</div></div>
+    <div class="kpi-card"><div class="kpi-label">Operadores</div><div class="kpi-value">${humanOps.size}</div><div class="kpi-sub">operadores humanos avaliados</div></div>
+  `;
+
+  // Chart: score médio por critério
+  const crits=DATA.meta.criterios;
+  const critLabels=crits.map(c=>c.label.replace(/^\d+\.\s*/,''));
+  const critScores=crits.map(c=>critScore(humanCalls,c.key)??0);
+  const colors=critScores.map(s=>s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
+  makeBarChart('chartCriterioGeral',critLabels,[{label:'Score %',data:critScores,backgroundColor:colors,borderRadius:4}],{horizontal:true});
+
+  // Chart: distribuição status
+  let ok=0,parcial=0,nao=0,na=0;
+  humanCalls.forEach(c=>{crits.forEach(cr=>{const s=c.criterios[cr.key]?.status;if(s==='ok')ok++;else if(s==='parcial')parcial++;else if(s==='nao')nao++;else na++;});});
+  makeDoughnut('chartDistStatus',['✅ Atendido','⚠️ Parcialmente','❌ Não atendido','N/A'],[ok,parcial,nao,na],
+    ['#22c55e','#eab308','#ef4444','#d1d5db']);
+
+  // Insights
+  const sortedCrits=[...crits].map(c=>({...c,sc:critScore(humanCalls,c.key)??0})).sort((a,b)=>a.sc-b.sc);
+  const worst3=sortedCrits.slice(0,3),best3=sortedCrits.slice(-3).reverse();
+  $('insightsGeral').innerHTML=`
+    <div class="two-col">
+      <div class="padrao-block">
+        <div class="padrao-title">⚠️ Critérios que precisam de mais atenção</div>
+        ${worst3.map(c=>`<div class="padrao-text"><strong>${c.label}</strong> — score médio: <strong>${c.sc}%</strong></div>`).join('')}
+      </div>
+      <div class="destaque-block">
+        <div class="destaque-title">✅ Critérios com melhor desempenho</div>
+        ${best3.map(c=>`<div class="destaque-text"><strong>${c.label}</strong> — score médio: <strong>${c.sc}%</strong></div>`).join('')}
+      </div>
+    </div>`;
+
+  // Ranking
+  const opMap={};
+  humanCalls.forEach(c=>{
+    if(!opMap[c.operador])opMap[c.operador]={nome:c.operador,calls:[],lotes:new Set()};
+    opMap[c.operador].calls.push(c);
+    opMap[c.operador].lotes.add('L'+c.loteId);
+  });
+  const ranked=Object.values(opMap).map(op=>{
+    const sc=Math.round(op.calls.reduce((a,c)=>a+callScore(c.criterios),0)/op.calls.length);
+    const fech=op.calls.filter(c=>c.criterios.fechamento?.status==='ok').length;
+    const wc=worstCrit(op.calls,crits);
+    return{...op,sc,fech,wc};
+  }).sort((a,b)=>b.sc-a.sc);
+
+  $('tbodyRanking').innerHTML=ranked.map((op,i)=>`<tr>
+    <td><span class="ranking-num${i===0?' gold':''}">${i+1}º</span></td>
+    <td><strong>${op.nome}</strong></td>
+    <td>${[...op.lotes].map(l=>`<span class="lote-tag${l==='L2'?' l2':''}">${l}</span>`).join('')}</td>
+    <td>${op.calls.length}</td>
+    <td>${op.fech}</td>
+    <td><span style="font-weight:700;color:${op.sc>=70?'#15803D':op.sc>=40?'#92400E':'#9C0006'}">${op.sc}%</span></td>
+    <td style="font-size:.72rem;color:var(--ink-muted)">${op.wc||'—'}</td>
+  </tr>`).join('');
+}
+
+// ── OPERADORES ────────────────────────────────────────────────────────
+function setupOperadores(){
+  const allOps=getAllOps();
+  const lotes=DATA.lotes;
+  
+  // Op filter buttons
+  const opDiv=$('filterOpBtns');
+  opDiv.innerHTML='<button class="filter-btn active" data-op="all">Todos</button>';
+  allOps.filter(o=>!o.isVirtual).forEach(o=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.op=o.nome;b.textContent=o.nome;
+    b.addEventListener('click',()=>{
+      opDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.op=o.nome;renderOperadores();
+    });
+    opDiv.appendChild(b);
+  });
+  opDiv.querySelector('[data-op="all"]').addEventListener('click',e=>{
+    opDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.op='all';renderOperadores();
+  });
+
+  // Lote filter
+  const lDiv=$('filterLoteOpBtns');
+  lDiv.innerHTML='<button class="filter-btn active" data-lot="all">Todos os lotes</button>';
+  lotes.forEach(l=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.lot=l.id;b.textContent=l.label;
+    b.addEventListener('click',()=>{
+      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.loteOp=l.id;renderOperadores();
+    });
+    lDiv.appendChild(b);
+  });
+  lDiv.querySelector('[data-lot="all"]').addEventListener('click',e=>{
+    lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.loteOp='all';renderOperadores();
+  });
+
+  renderOperadores();
+}
+
+function renderOperadores(){
+  const crits=DATA.meta.criterios;
+  const loteFilter=state.loteOp;
+  const opFilter=state.op;
+  
+  let calls=opFilter==='all'?getAllCalls(loteFilter).filter(c=>!c.isVirtual):getOpCalls(opFilter,loteFilter);
+  
+  // Radar chart
+  const radarLabels=crits.map(c=>c.label.replace(/^\d+\.\s*/,''));
+  const SERIES=['#2a78d6','#008300','#eda100','#e87ba4','#1baf7a','#eb6834'];
+  
+  let radarDatasets;
+  if(opFilter!=='all'){
+    const scores=crits.map(c=>critScore(calls,c.key)??0);
+    radarDatasets=[{label:opFilter,data:scores,borderColor:SERIES[0],backgroundColor:SERIES[0]+'22',pointBackgroundColor:SERIES[0],borderWidth:2}];
+    $('radarTitle').textContent='Radar de critérios — '+opFilter;
+  } else {
+    // Multiple operators
+    const ops=getAllOps(loteFilter).filter(o=>!o.isVirtual);
+    radarDatasets=ops.slice(0,6).map((op,i)=>{
+      const opCalls=getOpCalls(op.nome,loteFilter);
+      return{label:op.nome,data:crits.map(c=>critScore(opCalls,c.key)??0),
+        borderColor:SERIES[i%6],backgroundColor:SERIES[i%6]+'18',
+        pointBackgroundColor:SERIES[i%6],borderWidth:2};
+    });
+    $('radarTitle').textContent='Radar comparativo — todos os operadores';
+  }
+  makeRadarChart('chartRadar',radarLabels,radarDatasets);
+  
+  // KPI cards
+  const avgSc=calls.length?Math.round(calls.reduce((a,c)=>a+callScore(c.criterios),0)/calls.length):0;
+  const fech=calls.filter(c=>c.criterios.fechamento?.status==='ok').length;
+  const avFech=calls.filter(c=>c.criterios.fechamento?.status!=='na').length;
+  const wc=worstCrit(calls,crits);
+  $('kpiOp').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">Ligações</div><div class="kpi-value">${calls.length}</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Score médio</div><div class="kpi-value">${avgSc}%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Fechamentos</div><div class="kpi-value">${fech}/${avFech}</div></div>
+    <div class="kpi-card gold"><div class="kpi-label">Taxa feche</div><div class="kpi-value">${avFech?Math.round((fech/avFech)*100):0}%</div></div>
+  `;
+  
+  // Insights
+  if(wc){
+    const sortedC=[...crits].map(c=>({...c,sc:critScore(calls,c.key)})).filter(c=>c.sc!==null).sort((a,b)=>b.sc-a.sc);
+    const best=sortedC[0],worst=sortedC[sortedC.length-1];
+    $('opInsights').innerHTML=`
+      <div class="destaque-block"><div class="destaque-title">💪 Melhor critério</div><div class="destaque-text"><strong>${best?.label||'—'}</strong> (${best?.sc||0}%)</div></div>
+      <div class="padrao-block"><div class="padrao-title">⚠️ Critério a melhorar</div><div class="padrao-text"><strong>${worst?.label||'—'}</strong> (${worst?.sc||0}%)</div></div>
+    `;
+  } else { $('opInsights').innerHTML=''; }
+  
+  // Calls table
+  const sorted=[...calls].sort((a,b)=>a.audio-b.audio);
+  $('opCallsTitle').textContent=`Ligações${opFilter!=='all'?' de '+opFilter:''} (${sorted.length})`;
+  $('tbodyOpCalls').innerHTML=sorted.map((c,idx)=>{
+    const sc=callScore(c.criterios);
+    const fechStatus=c.criterios.fechamento?.status||'na';
+    const id='op_'+idx;
+    return`<tr class="expand-row" onclick="toggleDetail('${id}')">
+      <td>Áudio ${c.audio}</td>
+      <td>${c.operador}</td>
+      <td>${c.duracao} min</td>
+      <td style="font-weight:700;color:${sc>=70?'#15803D':sc>=40?'#92400E':'#9C0006'}">${sc}%</td>
+      <td>${badge(fechStatus)}</td>
+      <td><span class="lote-tag${c.loteId===2?' l2':''}">L${c.loteId}</span></td>
+      <td style="color:var(--brand-blue);font-weight:700">▸</td>
+    </tr>
+    <tr class="detail-row" id="${id}"><td class="detail-cell" colspan="7">${buildDetailCell(c)}</td></tr>`;
+  }).join('');
+}
+
+// ── CRITÉRIOS ─────────────────────────────────────────────────────────
+function setupCriterios(){
+  const crits=DATA.meta.criterios;
+  const cDiv=$('filterCritBtns');
+  crits.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='filter-btn'+(i===0?' active':'');
+    b.dataset.crit=c.key;b.textContent=c.label;
+    b.addEventListener('click',()=>{
+      cDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.crit=c.key;renderCriterios();
+    });
+    cDiv.appendChild(b);
+  });
+
+  const lDiv=$('filterLoteCritBtns');
+  lDiv.innerHTML='<button class="filter-btn active" data-lot="all">Todos</button>';
+  DATA.lotes.forEach(l=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.lot=l.id;b.textContent=l.label;
+    b.addEventListener('click',()=>{
+      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.loteCrit=l.id;renderCriterios();
+    });
+    lDiv.appendChild(b);
+  });
+  lDiv.querySelector('[data-lot="all"]').addEventListener('click',e=>{
+    lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.loteCrit='all';renderCriterios();
+  });
+
+  renderCriterios();
+}
+
+function renderCriterios(){
+  const crit=state.crit;
+  const loteFilter=state.loteCrit;
+  const calls=getAllCalls(loteFilter).filter(c=>!c.isVirtual);
+  const critLabel=DATA.meta.criterios.find(c=>c.key===crit)?.label||crit;
+
+  $('critChartTitle').textContent=critLabel+' — score por operador';
+  $('critTableTitle').textContent=critLabel+' — detalhe por operador';
+
+  // Group by operator
+  const opMap={};
+  calls.forEach(c=>{
+    if(!opMap[c.operador])opMap[c.operador]=[];
+    opMap[c.operador].push(c);
+  });
+  const opNames=Object.keys(opMap);
+  const opScores=opNames.map(n=>critScore(opMap[n],crit)??0);
+  const colors=opScores.map(s=>s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
+  makeBarChart('chartCritOp',opNames,[{label:critLabel,data:opScores,backgroundColor:colors,borderRadius:4}]);
+
+  // Detail table
+  const rows=[];
+  calls.forEach(c=>{
+    const d=c.criterios[crit];
+    if(!d)return;
+    rows.push(`<tr>
+      <td><strong>${c.operador}</strong></td>
+      <td><span class="lote-tag${c.loteId===2?' l2':''}">L${c.loteId}</span></td>
+      <td>Áudio ${c.audio}</td>
+      <td>${badge(d.status)}</td>
+      <td style="font-size:.78rem;color:var(--ink-secondary);line-height:1.5">${d.obs||'—'}</td>
+    </tr>`);
+  });
+  $('tbodyCrit').innerHTML=rows.join('');
+}
+
+// ── EVOLUÇÃO ──────────────────────────────────────────────────────────
+function renderEvolucao(){
+  const crits=DATA.meta.criterios;
+  const lotes=DATA.lotes;
+  const SERIES=['#2a78d6','#008300','#eda100','#e87ba4','#1baf7a','#eb6834','#2a78d6','#008300','#eda100','#e87ba4'];
+  
+  // Score per lote per criteria (human only)
+  const loteLabels=lotes.map(l=>l.label);
+  const datasets=crits.map((c,i)=>{
+    const data=lotes.map(l=>{
+      const calls=l.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
+      return critScore(calls,c.key)??0;
+    });
+    return{label:c.label.replace(/^\d+\.\s*/,''),data,borderColor:SERIES[i%10],backgroundColor:SERIES[i%10]+'22',
+      tension:.3,borderWidth:2,pointRadius:5,pointHoverRadius:7};
+  });
+  makeLineChart('chartEvolucao',loteLabels,datasets);
+
+  // Table
+  if(lotes.length>=2){
+    const l1Calls=lotes[0].operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
+    const l2Calls=lotes[1].operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
+    $('tbodyEvolucao').innerHTML=crits.map(c=>{
+      const s1=critScore(l1Calls,c.key)??0;
+      const s2=critScore(l2Calls,c.key)??0;
+      const delta=s2-s1;
+      const arrow=delta>0?'▲':delta<0?'▼':'→';
+      const clr=delta>5?'#15803D':delta<-5?'#9C0006':delta===0?'var(--ink-muted)':'#92400E';
+      return`<tr>
+        <td><strong>${c.label}</strong></td>
+        <td style="text-align:center;font-weight:700">${s1}%</td>
+        <td style="text-align:center;font-weight:700">${s2}%</td>
+        <td style="text-align:center;font-weight:700;color:${clr}">${delta>0?'+':''}${delta}%</td>
+        <td style="text-align:center;font-size:1.2rem;color:${clr}">${arrow}</td>
+      </tr>`;
+    }).join('');
+    
+    // Insights
+    const sorted=crits.map(c=>{
+      const s1=critScore(l1Calls,c.key)??0,s2=critScore(l2Calls,c.key)??0;
+      return{...c,delta:s2-s1,s2};
+    }).sort((a,b)=>b.delta-a.delta);
+    const improved=sorted.filter(c=>c.delta>0).slice(0,2);
+    const declined=sorted.filter(c=>c.delta<0).slice(-2).reverse();
+    $('evolInsights').innerHTML=`<div class="two-col">
+      <div class="destaque-block"><div class="destaque-title">📈 Critérios que mais evoluíram</div>
+        ${improved.length?improved.map(c=>`<div class="destaque-text"><strong>${c.label}</strong>: +${c.delta}%</div>`).join(''):'<div class="destaque-text">Nenhuma melhoria significativa</div>'}
+      </div>
+      <div class="padrao-block"><div class="padrao-title">📉 Critérios que regrediram</div>
+        ${declined.length?declined.map(c=>`<div class="padrao-text"><strong>${c.label}</strong>: ${c.delta}%</div>`).join(''):'<div class="padrao-text">Nenhuma regressão identificada</div>'}
+      </div>
+    </div>`;
+  }
+}
+
+// ── LIGAÇÕES (CRM) ────────────────────────────────────────────────────
+function setupLigacoes(){
+  const lotes=DATA.lotes;
+  const allOps=getAllOps().filter(o=>!o.isVirtual);
+  
+  function mkBtn(container,text,dataKey,dataVal,filterKey,initial){
+    const b=document.createElement('button');
+    b.className='filter-btn'+(initial?' active':'');
+    b.dataset[dataKey]=dataVal;b.textContent=text;
+    b.addEventListener('click',()=>{
+      $(container).querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state[filterKey]=dataVal;renderLigacoes();
+    });
+    $(container).appendChild(b);
+  }
+  
+  mkBtn('filterLoteCRM','Todos','lot','all','crmLote',true);
+  lotes.forEach(l=>mkBtn('filterLoteCRM',l.label,'lot',l.id,'crmLote'));
+  
+  mkBtn('filterOpCRM','Todos','op','all','crmOp',true);
+  allOps.forEach(o=>mkBtn('filterOpCRM',o.nome,'op',o.nome,'crmOp'));
+  
+  $('filterFechCRM').innerHTML='';
+  [{v:'all',t:'Todos'},{v:'ok',t:'✅ Fechado'},{v:'parcial',t:'⚠️ Parcial'},{v:'nao',t:'❌ Não fechado'},{v:'na',t:'N/A'}].forEach((it,i)=>{
+    const b=document.createElement('button');
+    b.className='filter-btn'+(i===0?' active':'');
+    b.dataset.fech=it.v;b.textContent=it.t;
+    b.addEventListener('click',()=>{
+      $('filterFechCRM').querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.crmFech=it.v;renderLigacoes();
+    });
+    $('filterFechCRM').appendChild(b);
+  });
+  
+  renderLigacoes();
+}
+
+function renderLigacoes(){
+  let calls=getAllCalls(state.crmLote).filter(c=>!c.isVirtual);
+  if(state.crmOp!=='all')calls=calls.filter(c=>c.operador===state.crmOp);
+  if(state.crmFech!=='all')calls=calls.filter(c=>c.criterios.fechamento?.status===state.crmFech);
+  calls.sort((a,b)=>a.loteId-b.loteId||a.audio-b.audio);
+  $('crmCount').textContent=calls.length;
+  $('tbodyCRM').innerHTML=calls.map((c,idx)=>{
+    const sc=callScore(c.criterios);
+    const fechStatus=c.criterios.fechamento?.status||'na';
+    const id='crm_'+idx;
+    const notaHtml=c.nota?`<div class="nota-box">${c.nota}</div>`:'';
+    return`<tr class="expand-row" onclick="toggleDetail('${id}')">
+      <td>Áudio ${c.audio}</td>
+      <td><strong>${c.operador}</strong></td>
+      <td style="font-size:.78rem">${c.cliente}</td>
+      <td>${c.duracao} min</td>
+      <td style="font-weight:700;color:${sc>=70?'#15803D':sc>=40?'#92400E':'#9C0006'}">${sc}%</td>
+      <td>${badge(fechStatus)}</td>
+      <td><span class="lote-tag${c.loteId===2?' l2':''}">L${c.loteId}</span></td>
+    </tr>
+    <tr class="detail-row" id="${id}"><td class="detail-cell" colspan="7">${buildDetailCell(c,notaHtml)}</td></tr>`;
+  }).join('');
+}
+
+// ── ANÁLISE GERAL ─────────────────────────────────────────────────────
+function setupAnalise(){
+  const lDiv=$('filterLoteAnalise');
+  DATA.lotes.forEach((l,i)=>{
+    const b=document.createElement('button');
+    b.className='filter-btn'+(i===0?' active':'');
+    b.dataset.la=l.id;b.textContent=l.label;
+    b.addEventListener('click',()=>{
+      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.loteAnalise=l.id;renderAnalise();
+    });
+    lDiv.appendChild(b);
+  });
+  renderAnalise();
+}
+
+function renderAnalise(){
+  const lote=DATA.lotes.find(l=>l.id===state.loteAnalise);
+  if(!lote)return;
+  const crits=DATA.meta.criterios;
+  $('tbodyAnalise').innerHTML=crits.map((c,i)=>{
+    const d=lote.analise_geral.find?lote.analise_geral.find(a=>a.key===c.key):lote.analise_geral[c.key];
+    if(!d)return'';
+    return`<tr style="${i%2===1?'background:#F8FAFC':''}">
+      <td style="font-weight:700;white-space:nowrap;vertical-align:top;padding-top:10px">${c.label}</td>
+      <td style="vertical-align:top;padding-top:10px">${badge(d.status)}</td>
+      <td style="font-size:.78rem;color:var(--ink-secondary);line-height:1.6">${d.obs}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Shared detail cell builder ─────────────────────────────────────────
+function buildDetailCell(c, extraHtml=''){
+  const crits=DATA.meta.criterios;
+  const sc=callScore(c.criterios);
+  return`<div class="detail-inner">
+    <div style="margin-bottom:8px;font-size:.8rem;font-weight:700;color:var(--brand-navy)">${c.operador} — Áudio ${c.audio} — ${c.cliente} (${c.duracao} min) — Score: ${sc}%</div>
+    ${extraHtml}
+    <div class="crit-grid">
+      ${crits.map(cr=>{
+        const d=c.criterios[cr.key];if(!d)return'';
+        return`<div class="crit-item">
+          <div class="crit-item-header">
+            <span class="crit-name">${cr.label}</span>
+            ${badge(d.status)}
+          </div>
+          <div class="crit-obs">${d.obs||'—'}</div>
+          <div class="score-bar"><div class="score-fill" style="width:${d.status==='ok'?100:d.status==='parcial'?50:d.status==='nao'?0:0}%;background:${d.status==='ok'?'#22c55e':d.status==='parcial'?'#eab308':'#ef4444'}"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+function toggleDetail(id){
+  const row=$(id);
+  if(!row)return;
+  const isOpen=row.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.detail-row.open').forEach(r=>r.classList.remove('open'));
+  if(!isOpen)row.classList.add('open');
+}
+
+// ── Start ─────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
