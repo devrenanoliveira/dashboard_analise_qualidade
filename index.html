@@ -32,6 +32,12 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .header-update strong{opacity:.9}
 #darkModeBtn{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.1rem;padding:4px 6px;border-radius:4px;transition:color .15s}
 #darkModeBtn:hover{color:#fff}
+.sticky-header{position:sticky;top:0;z-index:200}
+.assessoria-nav{background:var(--brand-navy-mid);padding:5px 20px;display:flex;gap:4px;border-top:1px solid rgba(255,255,255,.12)}
+.assessoria-btn{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:.78rem;font-weight:600;padding:4px 16px;border-radius:20px;transition:all .15s;letter-spacing:.01em}
+.assessoria-btn.active{background:rgba(255,255,255,.18);color:#fff}
+.assessoria-btn:disabled{opacity:.35;cursor:not-allowed}
+.assessoria-btn:not(:disabled):hover{color:#fff;background:rgba(255,255,255,.1)}
 .tab-nav{background:var(--brand-navy);border-top:1px solid rgba(255,255,255,.1);display:flex;overflow-x:auto;padding:0 20px;scrollbar-width:none}
 .tab-nav::-webkit-scrollbar{display:none}
 .tab-btn{padding:10px 16px;border:none;background:none;color:rgba(255,255,255,.6);font-size:.77rem;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;letter-spacing:.01em}
@@ -137,9 +143,10 @@ body.dark .detail-inner{background:#0f172a}
 <div id="errorMsg">❌ Erro ao carregar dados. Abra via servidor local (não duplo-clique no arquivo).</div>
 
 <div id="app" style="display:none">
+<div class="sticky-header">
 <header class="header">
   <div class="header-left">
-    <div class="logo">Fácil <em>Resultado</em></div>
+    <div class="logo">Z-ON <em>Card</em></div>
     <div class="header-sep"></div>
     <div class="header-title">CRM de Qualidade de Atendimento</div>
   </div>
@@ -149,6 +156,12 @@ body.dark .detail-inner{background:#0f172a}
   </div>
 </header>
 
+<div class="assessoria-nav">
+  <button class="assessoria-btn active" data-assessoria="facil">Fácil</button>
+  <button class="assessoria-btn" disabled title="Em breve">Decisão</button>
+  <button class="assessoria-btn" disabled title="Em breve">PG+</button>
+</div>
+
 <nav class="tab-nav">
   <button class="tab-btn active" data-tab="geral">📊 Painel Geral</button>
   <button class="tab-btn" data-tab="operadores">👤 Operadores</button>
@@ -157,6 +170,7 @@ body.dark .detail-inner{background:#0f172a}
   <button class="tab-btn" data-tab="ligacoes">📞 Ligações</button>
   <button class="tab-btn" data-tab="analise">🔍 Análise Geral</button>
 </nav>
+</div><!-- .sticky-header -->
 
 <!-- ═══ PAINEL GERAL ═══════════════════════════════════════════════ -->
 <div class="tab-panel active" id="panel-geral">
@@ -497,32 +511,44 @@ function getAllOps(loteFilter='all'){
 function renderGeral(){
   const allCalls=getAllCalls();
   const humanCalls=allCalls.filter(c=>!c.isVirtual);
-  const fechados=humanCalls.filter(c=>c.criterios.fechamento?.status==='ok').length;
-  const avaliáveis=humanCalls.filter(c=>c.criterios.fechamento?.status!=='na').length;
+  const crits=DATA.meta.criterios;
   const avgScore=Math.round(humanCalls.reduce((a,c)=>a+callScore(c.criterios),0)/humanCalls.length);
+
+  // Contar status em todas as avaliações (excluindo na)
+  let totalOk=0,totalParcial=0,totalNao=0,totalEval=0;
+  humanCalls.forEach(c=>{
+    crits.forEach(cr=>{
+      const s=c.criterios[cr.key]?.status;
+      if(s==='ok'){totalOk++;totalEval++;}
+      else if(s==='parcial'){totalParcial++;totalEval++;}
+      else if(s==='nao'){totalNao++;totalEval++;}
+    });
+  });
+  const pctOk=totalEval?Math.round((totalOk/totalEval)*100):0;
+  const pctParcial=totalEval?Math.round((totalParcial/totalEval)*100):0;
 
   // Unique human ops
   const humanOps=new Set(humanCalls.map(c=>c.operador));
-  
+
   $('kpiGeral').innerHTML=`
-    <div class="kpi-card navy"><div class="kpi-label">Total de Lotes</div><div class="kpi-value">${DATA.lotes.length}</div><div class="kpi-sub">${DATA.lotes.map(l=>l.label).join(' · ')}</div></div>
-    <div class="kpi-card"><div class="kpi-label">Total de Áudios</div><div class="kpi-value">${allCalls.length}</div><div class="kpi-sub">${humanCalls.length} ligações humanas</div></div>
-    <div class="kpi-card green"><div class="kpi-label">Taxa de Fechamento</div><div class="kpi-value">${avaliáveis?Math.round((fechados/avaliáveis)*100):0}%</div><div class="kpi-sub">${fechados} acordos de ${avaliáveis} avaliáveis</div></div>
-    <div class="kpi-card blue"><div class="kpi-label">Score Médio Geral</div><div class="kpi-value">${avgScore}%</div><div class="kpi-sub">Média das ligações humanas</div></div>
-    <div class="kpi-card"><div class="kpi-label">Operadores</div><div class="kpi-value">${humanOps.size}</div><div class="kpi-sub">operadores humanos avaliados</div></div>
+    <div class="kpi-card navy"><div class="kpi-label">Lotes Analisados</div><div class="kpi-value">${DATA.lotes.length}</div><div class="kpi-sub">${DATA.lotes.map(l=>l.label).join(' · ')}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total de Áudios</div><div class="kpi-value">${humanCalls.length}</div><div class="kpi-sub">ligações humanas avaliadas</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Itens Atendidos</div><div class="kpi-value">${pctOk}%</div><div class="kpi-sub">${totalOk} de ${totalEval} avaliações com ✅ ok</div></div>
+    <div class="kpi-card gold"><div class="kpi-label">Itens Parcialmente Atendidos</div><div class="kpi-value">${pctParcial}%</div><div class="kpi-sub">${totalParcial} de ${totalEval} avaliações com ⚠️ parcial</div></div>
+    <div class="kpi-card blue"><div class="kpi-label">Score Médio Geral</div><div class="kpi-value">${avgScore}%</div><div class="kpi-sub">ok=2pts · parcial=1pt · não=0 · na excluído</div></div>
+    <div class="kpi-card"><div class="kpi-label">Operadores Avaliados</div><div class="kpi-value">${humanOps.size}</div><div class="kpi-sub">operadores humanos únicos</div></div>
   `;
 
   // Chart: score médio por critério
-  const crits=DATA.meta.criterios;
   const critLabels=crits.map(c=>c.label.replace(/^\d+\.\s*/,''));
   const critScores=crits.map(c=>critScore(humanCalls,c.key)??0);
   const colors=critScores.map(s=>s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
   makeBarChart('chartCriterioGeral',critLabels,[{label:'Score %',data:critScores,backgroundColor:colors,borderRadius:4}],{horizontal:true});
 
-  // Chart: distribuição status
-  let ok=0,parcial=0,nao=0,na=0;
-  humanCalls.forEach(c=>{crits.forEach(cr=>{const s=c.criterios[cr.key]?.status;if(s==='ok')ok++;else if(s==='parcial')parcial++;else if(s==='nao')nao++;else na++;});});
-  makeDoughnut('chartDistStatus',['✅ Atendido','⚠️ Parcialmente','❌ Não atendido','N/A'],[ok,parcial,nao,na],
+  // Chart: distribuição status (reaproveitando totais já calculados)
+  let na=0;
+  humanCalls.forEach(c=>{crits.forEach(cr=>{const s=c.criterios[cr.key]?.status;if(s==='na')na++;});});
+  makeDoughnut('chartDistStatus',['✅ Atendido','⚠️ Parcialmente','❌ Não atendido','N/A'],[totalOk,totalParcial,totalNao,na],
     ['#22c55e','#eab308','#ef4444','#d1d5db']);
 
   // Insights
