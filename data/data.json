@@ -1389,6 +1389,1120 @@
           "obs": "INCONSISTÊNCIA: Jhenifer (Áudios 8 e 12) e Clarice (Áudio 10) deixaram 0800 e portal sistematicamente — MODELO A SEGUIR. Leonardo não deixou o 0800 em nenhuma das 5 ligações — falha crítica por volume. João detalhou formas de pagamento mas sem 0800 explícito. Thaís e Crislayne não informaram canais. AÇÃO: 0800 + portal obrigatório em 100% das ligações."
         }
       ]
+    },
+    {
+      "id": 3,
+      "periodo": "2026-08",
+      "label": "Lote 3 — Ago/2026",
+      "total_audios": 21,
+      "operadores": [
+        {
+          "nome": "Jenifer",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 1,
+              "cliente": "Cliente 25",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificou-se, mencionou Fácil Resultado e Condor, mas não informou sobre gravação"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Confirmou apenas o nome do cliente; não solicitou dígitos do CPF"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Perguntou sobre previsão de pagamento de forma superficial, sem aprofundar situação"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Fez propostas, mas cedeu imediatamente ao pedido de retorno em 1 hora sem manter pressão"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Passou diretamente do à vista para parcelamento sem tentar segunda proposta à vista"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Ofereceu parcelamento como alternativa ao recusar o à vista"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores à vista e parcelados apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Não houve fechamento — cliente pediu retorno em 1 hora"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios do pagamento nem consequências do não pagamento"
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não informou nenhum canal de contato (0800, WhatsApp ou portal)"
+                }
+              }
+            },
+            {
+              "audio": 2,
+              "cliente": "Cliente 26",
+              "duracao": "~7",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação completa, mas gravação não mencionada"
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Solicitou CPF completo da titular (não apenas dígitos); parcial por realizar verificação, porém no formato incorreto"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Demonstrou empatia pela situação da cliente, mas sondagem pouco estruturada"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Deixou a cliente conduzir em vários momentos; foi a pedido dela que foram às simulações de parcelamento"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Passou diretamente para parcelamento a pedido da cliente, sem apresentar opção à vista antes"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Simulou diferentes configurações de parcelamento adaptando a situação da cliente"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores, datas e formas de pagamento explicados com clareza"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Confirmou os termos quando questionada pela cliente, mas sem ratificação proativa ao fechar"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios do pagamento ou consequências de não pagar"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800, WhatsApp e portal facilquitar.com.br"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Thaís",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 3,
+              "cliente": "Cliente 27",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação confusa no início; gravação mencionada apenas no encerramento"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Sem confirmação de identidade"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Perguntou em quantas vezes a cliente queria parcelar, mas sem sondar situação financeira real"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Tentou alternativas mas perdeu protagonismo quando cliente recusou todas as propostas"
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Ofereceu à vista, depois parcelamento, e depois voltou para à vista por exceção — sequência parcialmente invertida"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Tentou exceção de à vista com desconto maior (R$1.668) quando parcelamento foi recusado"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores apresentados com clareza em cada proposta"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — cliente recusou todas as propostas"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou que descontos não seriam renovados e que nome permanece em restrição com juros crescentes"
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não informou 0800 ou outros canais de contato"
+                }
+              }
+            },
+            {
+              "audio": 14,
+              "cliente": "Cliente 28",
+              "duracao": "~6",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação incompleta no início (cliente interrompeu); gravação mencionada somente no encerramento"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Sem confirmação de identidade (cliente estava dirigindo)"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Ouviu ativamente toda a reclamação do cliente e buscou entender o problema com o acordo anterior"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Manteve postura profissional com cliente agitado e redirecionou para a solução prática (envio do boleto)"
+                },
+                "gradatividade": {
+                  "status": "na",
+                  "obs": "Cliente queria pagar o valor integral; sem resistência a ser trabalhada"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Identificou o problema do acordo anterior e ofereceu solução prática enviando o boleto por e-mail e WhatsApp"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor total (R$113,92), código de barras e formas de envio comunicados com clareza"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Resolveu a demanda do cliente, mas sem ratificação formal do acordo e prazo"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios ou consequências explicitamente"
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Mencionou retorno via WhatsApp para dúvidas, mas não passou o 0800 (cliente estava dirigindo e não podia anotar)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Leonardo",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 4,
+              "cliente": "Cliente 29",
+              "duracao": "~6",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação mencionada somente no encerramento"
+                },
+                "lgpd": {
+                  "status": "ok",
+                  "obs": "Solicitou os três primeiros dígitos do CPF — procedimento correto"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Identificou o motivo da quebra do acordo (cliente com medo de pagar data vencida) e propôs solução direcionada"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Conduziu bem a renegociação: explicou o processo, manteve controle e fez a quebra antes de novo acordo"
+                },
+                "gradatividade": {
+                  "status": "na",
+                  "obs": "Renegociação de acordo anterior quebrado; sequência à vista/parcelamento não aplicável nesse contexto"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Renegociação padrão de acordo quebrado, sem abordagens diferenciadas"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores e datas explicados com clareza (entrada R$208 + 5x R$201, todo dia 6)"
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Fez recapitulação clara dos termos: entrada, parcelas, data e forma de pagamento"
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou retirada da restrição e possibilidade de novo cartão, mas sem destacar consequências de nova quebra"
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Explicou formas de pagamento (WhatsApp, app bancário, Condor, lotérica), mas não informou o 0800"
+                }
+              }
+            },
+            {
+              "audio": 11,
+              "cliente": "Cliente 30",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação não mencionada"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade solicitada"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Identificou que cliente estava sem trabalho e sem serviço, mas sem aprofundar a situação"
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Totalmente passivo: 'se a senhora não puder também, a gente entende' — abdicou completamente do protagonismo"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Passou diretamente de à vista para parcelamento sem tentar segunda proposta à vista ou pressionar mais"
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Sem nenhuma tentativa criativa; aceitou passivamente que cliente esperaria um mês"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores à vista (R$570) e parcelado (6x: entrada R$112 + 5x R$108) apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — cliente sem condições de pagamento"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou consequências do não pagamento ou benefícios de quitar"
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Ofereceu o 0800 mas cliente não quis anotar; não forçou ou reforçou o canal"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Júlia",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 5,
+              "cliente": "Cliente 31",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação não mencionada"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Sem confirmação de identidade"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Identificou que cliente recebeu proposta diferente por WhatsApp, mas não aprofundou a situação financeira"
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Perdeu totalmente o controle da negociação — cliente ditou as condições e a operadora apenas concordou e agendou retorno"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Não seguiu a sequência; apresentou um valor à vista e quando cliente disse que não podia pagar hoje, agendou retorno sem explorar alternativas"
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Limitou-se a agendar retorno para dia 15 sem explorar parcelamento ou outras alternativas"
+                },
+                "clareza": {
+                  "status": "parcial",
+                  "obs": "Mencionou 'R$800 e poucos reais' sem precisar o valor exato da proposta"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — retorno agendado para dia 15"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Sem menção a benefícios ou consequências"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou o número do 0800 291 2213"
+                }
+              }
+            },
+            {
+              "audio": 19,
+              "cliente": "Cliente 32",
+              "duracao": "~6",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação mencionada somente no final da ligação"
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Ouviu atentamente a situação complexa (boleto anterior zerado, cronograma de entrega de material)"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Tentou fechar para dia 7, mas cedeu à narrativa do cliente e ficou sem retorno claro sobre o acordo"
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Apresentou à vista (R$697) e cliente aceitou tentar para dia 7; parcelamento não foi necessário"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Gerenciou situação complexa com boleto anterior zerado e propôs acompanhamento via WhatsApp"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor (R$697) e prazo (dia 7) apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Confirmou 'R$697 para o dia 7', mas sem ratificação completa e formal dos termos"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios do pagamento ou consequências de não pagar"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213 e ofereceu suporte via WhatsApp"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Crislayne",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 6,
+              "cliente": "Cliente 33",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificação completa, produto e gravação informados no início da ligação"
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF — verificação válida, porém no formato não padrão"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Foi direta à proposta sem sondar previamente a situação do cliente"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Manteve protagonismo, usou histórico de três quebras de acordo para criar urgência e limitou prazo com firmeza"
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Apresentou à vista (R$288) e cliente aceitou; não foi necessário avançar para parcelamento"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Utilizou histórico de quebras de acordo do cliente para reforçar credibilidade e urgência"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor e prazo de pagamento apresentados com clareza; reforçou o acordo ao final"
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Ratificou o acordo de forma explícita: 'ficou ali o valor de R$288 para pagamento de quitação até o dia 06/08'"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Destacou consequências dos juros diários, menor desconto com o tempo e histórico de quebras do cliente"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213 e WhatsApp"
+                }
+              }
+            },
+            {
+              "audio": 7,
+              "cliente": "Cliente 34",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificação completa, gravação informada no início"
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Apresentou valores antes de sondar a situação atual da cliente; sondagem veio após a proposta"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Aceitou a previsão de dia 10 sem pressionar por alternativa mais próxima ou pagamento parcial"
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Apresentou à vista (R$910,88) e mencionou parcelamento; cliente declarou impossibilidade — sem espaço para negociação"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Abordagem padrão; perguntou se havia algum valor disponível antes do dia 10, mas sem alternativas criativas"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor original, juros e desconto para quitação apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — cliente sem condições de pagamento no momento"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou retirada do nome da restrição após pagamento e que cobrança e juros continuam enquanto em aberto"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Mencionou 0800 (cliente já tinha o número)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Mikaelly",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 8,
+              "cliente": "Cliente 35",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificou-se, mencionou empresa, Condor e informou sobre a gravação"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade realizada (sem CPF, data de nascimento ou outro dado)"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Identificou que cliente precisava de parcelamento e estava sem trabalho, mas sem explorar mais a situação"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Tentou ajustar datas, mas perdeu controle quando não conseguiu acomodar o vencimento desejado pela cliente (dia 17)"
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Perguntou 'à vista ou parcelamento?'; cliente escolheu parcelado sem tentativa de persuadir à vista primeiro"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Sugeriu que cliente entrasse em contato próximo ao dia 17, mas sem fechar acordo"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores do parcelamento apresentados com clareza (entrada R$268,36 + 11x R$155,46)"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — sistema não permitia vencimento no dia solicitado pela cliente"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios do pagamento nem consequências de não pagar"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213 e WhatsApp"
+                }
+              }
+            },
+            {
+              "audio": 15,
+              "cliente": "Cliente 36",
+              "duracao": "~5",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificação completa e gravação informada no início"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade solicitada (sem CPF, data de nascimento ou outro dado)"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Identificou que cliente preferia pagar no dia 15, mas sondagem superficial sobre a situação financeira"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Ofereceu alternativa entre dia 7 e dia 10, mantendo prazo razoável e protagonismo"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Foi diretamente para parcelamento sem apresentar opção à vista antes"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Ajustou a data de vencimento da entrada para acomodar melhor a situação do cliente"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores do parcelamento, datas e formas de pagamento explicados com clareza"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Resumiu os termos durante a ligação, mas sem ratificação formal ao encerrar"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou saída do CPF da restrição após pagamento e consequências de não pagar (desconto perdido, CPF volta à restrição)"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213 e WhatsApp"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Geisa",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 9,
+              "cliente": "Cliente 37",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Disse 'Fácil Soluções' ao invés de 'Fácil Resultado'; gravação informada corretamente"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Solicitou nome completo para confirmação — não é o procedimento padrão (CPF dígitos)"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Identificou insatisfação da cliente com aumento de valor e explicou o contexto, mas sondagem inicial ausente"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Manteve controle com cliente irritada, explicou a diferença entre valor com e sem desconto e fechou prazo"
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Ofereceu à vista com desconto (R$730) e cliente aceitou; sem necessidade de avançar para parcelamento"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Gerenciou bem situação de cliente insatisfeita com mudança de valor, oferecendo desconto personalizado"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor e condições de pagamento apresentados claramente"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Confirmou 'Fica combinado' duas vezes, mas sem recapitulação formal de valor e prazo ao encerrar"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Destacou que ultrapassar a data gera mais juros, encargos e ligações de cobrança"
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Mencionou que cliente pode retornar o contato e comparecer ao Condor, mas sem informar o número do 0800"
+                }
+              }
+            },
+            {
+              "audio": 20,
+              "cliente": "Cliente 38",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Disse 'Fácil Soluções' ao invés de 'Fácil Resultado'; gravação não mencionada"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Solicitou nome completo para confirmação — não é o procedimento padrão (CPF dígitos)"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Ouviu atentamente a situação da cliente (cirurgia, licença INSS, sem renda) e adaptou a abordagem"
+                },
+                "conduzir": {
+                  "status": "parcial",
+                  "obs": "Apresentou proposta mas aceitou prontamente a sugestão da cliente de aguardar segunda-feira sem explorar alternativas"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Apresentou apenas parcelamento (12x) sem mencionar à vista em nenhum momento"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Sugeriu retomar contato quando INSS pagar; sem alternativas mais criativas para o momento"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores apresentados com clareza (R$2.700 com desconto, entrada R$280 + 11x R$220)"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — cliente aguardando pagamento do INSS"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios do pagamento ou consequências de não pagar"
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não informou 0800 ou outros canais; mencionou apenas que as ligações continuariam"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "João",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 10,
+              "cliente": "Cliente 39",
+              "duracao": "~5",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificação completa e gravação informada no início da ligação"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Confirmou apenas o sobrenome ('De [cliente]'); não solicitou dígitos do CPF"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Perguntou sobre preferência à vista/parcelado; sondagem direta mas sem maior profundidade"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Conduziu de forma firme: apresentou à vista, insistiu com prazo até sexta, então migrou para parcelamento"
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Seguiu a sequência: à vista hoje → à vista até dia 7 → parcelamento (entrada + 4x)"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Verificou se o mesmo valor à vista funcionaria para dia 7 antes de partir para parcelamento"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores, datas, beneficiário do boleto e formas de pagamento explicados com clareza"
+                },
+                "fechamento": {
+                  "status": "ok",
+                  "obs": "Ratificação completa e explícita: 'nós fechamos o acordo com uma entrada de R$74,06 para pagamento até o dia 7 e mais quatro parcelas com vencimento todo dia 6 no valor de R$58,35'"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou saída de restrição em 5 dias úteis após pagamento e consequências de quebra"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213"
+                }
+              }
+            },
+            {
+              "audio": 17,
+              "cliente": "Cliente 40",
+              "duracao": "~4",
+              "criterios": {
+                "abertura": {
+                  "status": "ok",
+                  "obs": "Identificação completa e gravação informada no início"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Confirmou apenas o nome completo do cliente; não solicitou dígitos do CPF"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Perguntou sobre disponibilidade à vista ou parcelado, mas sondagem básica e sem maior profundidade"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Apresentou opções, explicou limitações do sistema, deixou o 0800 e site para retorno"
+                },
+                "gradatividade": {
+                  "status": "parcial",
+                  "obs": "Simulou parcelamento primeiro (cliente pediu), depois apresentou à vista — sequência invertida por condução do cliente"
+                },
+                "criatividade": {
+                  "status": "parcial",
+                  "obs": "Verificou prazo máximo disponível (amanhã) e informou site e 0800 para que cliente retornasse"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores parcelado (R$220,05 + 11x R$91,23) e à vista (R$880,77 / R$882,36) apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — cliente disse que verificaria a possibilidade de pagar à vista"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou que pagar mais cedo resulta em menos juros e na retirada do CPF da restrição"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213 e facilquitar.com.br"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Suzana",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 12,
+              "cliente": "Cliente 41",
+              "duracao": "~5",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação não mencionada"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade solicitada"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Identificou a proposta anterior da cliente e usou isso como referência para negociar o valor atual"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Negociou ativamente: reduziu valor progressivamente de R$422 para R$309 e depois para R$302 até encontrar aceitação"
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Negociação focada em à vista com reduções progressivas; cliente aceitou o formato desde o início"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Escalou descontos de forma criativa até encontrar o valor aceitável para o cliente"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores negociados e prazo de pagamento apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Formalizou o acordo, mas sem recapitulação explícita de valor e prazo ao encerrar"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou quitação total da dívida, saída do nome de restrição em 5 dias úteis e encerramento das ligações"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Clarisse",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 13,
+              "cliente": "Cliente 42",
+              "duracao": "~3",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação não mencionada"
+                },
+                "lgpd": {
+                  "status": "parcial",
+                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF"
+                },
+                "sondagem": {
+                  "status": "parcial",
+                  "obs": "Apresentou contexto da dívida (pagamento anterior, saldo atual) e verificou disponibilidade de pagamento"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Manteve controle: apresentou o valor, insistiu no prazo, aceitou sexta com firmeza e condicionou a data"
+                },
+                "gradatividade": {
+                  "status": "na",
+                  "obs": "Valor irrisório (R$23,44); apenas à vista aplicável"
+                },
+                "criatividade": {
+                  "status": "na",
+                  "obs": "Valor muito baixo; sem necessidade de criatividade"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor (R$23,44) e data de pagamento (sexta, dia 7) comunicados claramente"
+                },
+                "fechamento": {
+                  "status": "parcial",
+                  "obs": "Confirmou o boleto gerado para dia 7, mas sem ratificação formal dos termos ao encerrar"
+                },
+                "beneficios": {
+                  "status": "parcial",
+                  "obs": "Mencionou brevemente que a dívida seria quitada, sem explorar retirada da restrição ou outros benefícios"
+                },
+                "canais": {
+                  "status": "parcial",
+                  "obs": "Mencionou envio por WhatsApp, mas não passou o número do 0800"
+                }
+              }
+            },
+            {
+              "audio": 21,
+              "cliente": "Cliente 43",
+              "duracao": "~3",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Identificação adequada; gravação mencionada somente no encerramento"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade solicitada"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Buscou entender a situação, pediu contraproposta e explorou previsão de pagamento com base em contato anterior"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Manteve o diálogo com firmeza, insistiu com alternativas (contraproposta, exceção, dia 10) antes de encerrar"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Apresentou apenas parcelamento (R$370 + 11x R$340) sem oferecer à vista antes"
+                },
+                "criatividade": {
+                  "status": "ok",
+                  "obs": "Pediu contraproposta à cliente e ofereceu escalada para exceção financeira com mais parcelas"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores do parcelamento apresentados com clareza"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento — cliente sem condições de pagamento no momento"
+                },
+                "beneficios": {
+                  "status": "ok",
+                  "obs": "Mencionou que CPF permanece em restrição e que juros e ligações continuam enquanto dívida aberta"
+                },
+                "canais": {
+                  "status": "ok",
+                  "obs": "Informou 0800 291 2213"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "nome": "Mateus",
+          "isVirtual": false,
+          "ligacoes": [
+            {
+              "audio": 16,
+              "cliente": "Cliente 44",
+              "duracao": "~3",
+              "criterios": {
+                "abertura": {
+                  "status": "parcial",
+                  "obs": "Disse apenas 'assessoria Fácil' (sem 'Resultado') e não mencionou a gravação"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade solicitada"
+                },
+                "sondagem": {
+                  "status": "nao",
+                  "obs": "Apresentou a proposta diretamente sem qualquer sondagem prévia"
+                },
+                "conduzir": {
+                  "status": "ok",
+                  "obs": "Cliente receptiva; Mateus conduziu e confirmou o acordo sem dificuldades"
+                },
+                "gradatividade": {
+                  "status": "ok",
+                  "obs": "Proposta à vista apresentada e aceita imediatamente pela cliente"
+                },
+                "criatividade": {
+                  "status": "na",
+                  "obs": "Sem necessidade — cliente aceitou a primeira e única proposta"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valor de quitação (R$256,93) comunicado claramente"
+                },
+                "fechamento": {
+                  "status": "nao",
+                  "obs": "Sem ratificação — apenas disse que formalizaria e enviaria o boleto, sem confirmar valor, prazo ou termos"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Não mencionou benefícios do pagamento ou consequências de não pagar"
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não informou nenhum canal de contato (0800 ou WhatsApp)"
+                }
+              }
+            },
+            {
+              "audio": 18,
+              "cliente": "Cliente 45",
+              "duracao": "~3",
+              "criterios": {
+                "abertura": {
+                  "status": "nao",
+                  "obs": "Identificou-se apenas como 'do Condor', sem mencionar Fácil Resultado; sem menção à gravação"
+                },
+                "lgpd": {
+                  "status": "nao",
+                  "obs": "Nenhuma confirmação de identidade solicitada"
+                },
+                "sondagem": {
+                  "status": "ok",
+                  "obs": "Perguntou o que aconteceu e ouviu a explicação completa do cliente (trabalha no Condor, problemas de pagamento)"
+                },
+                "conduzir": {
+                  "status": "nao",
+                  "obs": "Completamente passivo — aceitou o prazo e as condições definidos pelo cliente sem qualquer negociação"
+                },
+                "gradatividade": {
+                  "status": "nao",
+                  "obs": "Apresentou apenas parcelamento sem oferecer à vista; foi passivo durante toda a ligação"
+                },
+                "criatividade": {
+                  "status": "nao",
+                  "obs": "Nenhuma tentativa de manter a negociação; aceitou completamente o relato do cliente"
+                },
+                "clareza": {
+                  "status": "ok",
+                  "obs": "Valores do parcelamento mencionados (entrada R$400 + 11x R$163)"
+                },
+                "fechamento": {
+                  "status": "na",
+                  "obs": "Sem fechamento"
+                },
+                "beneficios": {
+                  "status": "nao",
+                  "obs": "Mencionou apenas que juros continuarão correndo, sem elaborar benefícios ou consequências"
+                },
+                "canais": {
+                  "status": "nao",
+                  "obs": "Não informou nenhum canal de contato"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "analise_geral": [
+        {
+          "key": "abertura",
+          "status": "parcial",
+          "obs": "A maioria dos operadores se identificou corretamente, mas poucos informaram sobre a gravação no início da ligação — a maior parte o fez apenas no encerramento ou não informou. DESTAQUES: Crislayne (Áudios 6 e 7), Mikaelly (Áudios 8 e 15) e João (Áudios 10 e 17) fizeram aberturas completas. FALHA CRÍTICA: Mateus (Áudio 18) se identificou apenas como 'do Condor', sem mencionar a assessoria. Geisa (Áudios 9 e 20) utilizou 'Fácil Soluções' em vez de 'Fácil Resultado'. AÇÃO: reforçar o script padrão de abertura com menção à gravação obrigatória no início da ligação."
+        },
+        {
+          "key": "lgpd",
+          "status": "nao",
+          "obs": "FALHA CRÍTICA E GENERALIZADA: apenas Leonardo (Áudio 4) realizou o procedimento correto, solicitando os três primeiros dígitos do CPF. Crislayne (Áudios 6 e 7) e Clarisse (Áudio 13) utilizaram data de nascimento — verificação válida, porém fora do padrão. Jenifer (Áudio 2) solicitou CPF completo, formato incorreto. Todos os demais (12 de 21 ligações) não realizaram nenhuma confirmação de identidade. AÇÃO IMEDIATA: treinar e cobrar a confirmação via CPF em 100% das ligações — ponto de compliance não negociável."
+        },
+        {
+          "key": "sondagem",
+          "status": "parcial",
+          "obs": "Melhora em relação aos lotes anteriores: vários operadores ouviram e identificaram a situação do cliente (Leonardo, Suzana, Thaís no Áudio 14, Geisa no Áudio 20, Júlia no Áudio 19, Clarisse no Áudio 21). Contudo, a sondagem ainda é reativa — ocorre quando o cliente traz a situação espontaneamente, não como etapa proativa do roteiro. AÇÃO: estruturar 2 perguntas de sondagem obrigatórias antes da proposta: motivo do atraso + capacidade de pagamento no momento."
+        },
+        {
+          "key": "conduzir",
+          "status": "parcial",
+          "obs": "Resultado misto. DESTAQUES: Crislayne (Áudio 6), João (Áudio 10), Geisa (Áudio 9), Thaís (Áudio 14) e Clarisse (Áudio 21) mantiveram protagonismo e conduziram com firmeza. FALHAS GRAVES: Leonardo (Áudio 11) — 'se a senhora não puder também, a gente entende'; Mateus (Áudio 18) — aceitou integralmente as condições definidas pelo cliente; Júlia (Áudio 5) — cliente ditou todas as condições. A condução passiva é o principal vetor de perda de acordo evitável. AÇÃO: treinar a estrutura proposta afirmativa → objeção → contra-argumento → nova proposta."
+        },
+        {
+          "key": "gradatividade",
+          "status": "parcial",
+          "obs": "Resultados heterogêneos. BONS EXEMPLOS: João (Áudio 10) seguiu a sequência correta à vista hoje → à vista prazo → parcelamento; Suzana (Áudio 12) negociou à vista com reduções progressivas até fechar. FALHAS RECORRENTES: Júlia (Áudios 5), Leonardo (Áudio 11), Mikaelly (Áudio 15), Geisa (Áudio 20) e Clarisse (Áudio 21) foram direto para parcelamento sem tentar à vista. Mikaelly (Áudio 8) e Jenifer apresentaram proposta à vista e, ao receber resistência, pularam para parcelamento sem tentar segunda proposta à vista. AÇÃO: reforçar que a passagem para parcelamento só deve ocorrer após pelo menos duas tentativas de à vista."
+        },
+        {
+          "key": "criatividade",
+          "status": "parcial",
+          "obs": "Evolução em relação a lotes anteriores. DESTAQUES: Crislayne (Áudio 6) usou histórico de três quebras para criar urgência; Suzana (Áudio 12) escalou descontos progressivamente; Geisa (Áudio 9) gerenciou situação de cliente insatisfeita com mudança de valor; Clarisse (Áudio 21) pediu contraproposta e escalou para exceção financeira. FALHAS: Leonardo (Áudio 11), Mateus (Áudio 18) e Júlia (Áudio 5) não tentaram nenhum recurso criativo. AÇÃO: criar banco de argumentos criativos por situação (cliente irritado, sem dinheiro, aguardando pagamento, acordo anterior quebrado)."
+        },
+        {
+          "key": "clareza",
+          "status": "ok",
+          "obs": "Ponto forte do lote: a grande maioria dos operadores apresentou valores, datas e condições com clareza. FALHA PONTUAL: Júlia (Áudio 5) mencionou 'R$800 e poucos reais' sem precisar o valor. GAP ESTRUTURAL PERSISTENTE: nenhum operador apresentou o percentual de desconto junto ao valor absoluto (ex.: '70% de desconto — de R$2.000 por R$600'). O percentual amplifica o impacto da proposta e deve fazer parte do script padrão."
+        },
+        {
+          "key": "fechamento",
+          "status": "parcial",
+          "obs": "Três acordos fechados no lote: Crislayne (Áudio 6), João (Áudio 10) e Suzana (Áudio 12). Destes, apenas João fez ratificação completa e explícita recapitulando todos os termos. Crislayne ratificou o valor e prazo de forma explícita. Suzana formalizou o acordo sem recapitulação estruturada. A maioria das ligações sem acordo encerrou sem nem tentar ratificação, por ausência de fechamento em si. AÇÃO: mesmo quando não há acordo, criar o hábito de confirmar o próximo passo: data de retorno do cliente, canal de envio do boleto e prazo de validade da proposta."
+        },
+        {
+          "key": "beneficios",
+          "status": "parcial",
+          "obs": "Resultado misto. BONS EXEMPLOS: Crislayne (Áudio 6), Thaís (Áudio 3), Geisa (Áudio 9), João (Áudios 10 e 17), Suzana (Áudio 12) e Mikaelly (Áudio 15) mencionaram benefícios relevantes (saída da restrição, fim das ligações, perda do desconto com o tempo). FALHAS: Jenifer (Áudios 1 e 2), Júlia (Áudios 5 e 19), Mikaelly (Áudio 8), Leonardo (Áudio 11), Mateus (Áudios 16 e 18) e Geisa (Áudio 20) não utilizaram o argumento de benefícios/consequências. AÇÃO: incorporar no roteiro a estrutura 'pagando hoje você [benefício] — não pagando, [consequência]'."
+        },
+        {
+          "key": "canais",
+          "status": "parcial",
+          "obs": "Melhora expressiva em relação a lotes anteriores. A maioria informou o 0800 291 2213. FALHAS: Jenifer (Áudio 1), Thaís (Áudio 3), Mateus (Áudios 16 e 18) e Geisa (Áudio 20) não informaram nenhum canal. Geisa (Áudio 9) e Leonardo (Áudio 4) informaram canais parcialmente. DESTAQUE: Jenifer (Áudio 2) e João (Áudio 17) informaram também o site facilquitar.com.br. AÇÃO: padronizar o encerramento com 0800 + WhatsApp em 100% das ligações, independentemente do resultado da negociação."
+        }
+      ]
     }
-  ]
+  ],
+  "ultima_atualizacao": "07/08/2026 15:04 (BRT)"
 }
