@@ -218,6 +218,10 @@ body.dark .detail-inner{background:#0f172a}
     <div id="filterOpBtns"></div>
   </div>
   <div class="filter-row">
+    <span class="filter-label">Mês:</span>
+    <div id="filterMesOpBtns"></div>
+  </div>
+  <div class="filter-row">
     <span class="filter-label">Lote:</span>
     <div id="filterLoteOpBtns"></div>
   </div>
@@ -250,6 +254,10 @@ body.dark .detail-inner{background:#0f172a}
     <div id="filterCritBtns"></div>
   </div>
   <div class="filter-row">
+    <span class="filter-label">Mês:</span>
+    <div id="filterMesCritBtns"></div>
+  </div>
+  <div class="filter-row">
     <span class="filter-label">Lote:</span>
     <div id="filterLoteCritBtns"></div>
   </div>
@@ -272,15 +280,27 @@ body.dark .detail-inner{background:#0f172a}
 <div class="tab-panel" id="panel-evolucao">
   <p class="sec-label">TENDÊNCIA</p>
   <h1 class="sec-title">Evolução entre Lotes</h1>
-  <p class="sec-subtitle">Como cada critério se comportou do Lote 1 para o Lote 2</p>
+  <p class="sec-subtitle">Como cada critério (ou o score geral) evoluiu ao longo dos lotes</p>
+  <div class="filter-row">
+    <span class="filter-label">Visualização:</span>
+    <div id="evolModeBtns"></div>
+  </div>
   <div class="chart-card wide">
-    <div class="chart-title">Evolução do score médio por critério (% do máximo)</div>
+    <div class="chart-title" id="evolChartTitle">Evolução do score médio por critério (% do máximo)</div>
     <div class="chart-wrap h340"><canvas id="chartEvolucao"></canvas></div>
   </div>
+  <div class="filter-row">
+    <span class="filter-label">Comparar (De):</span>
+    <div id="evolLoteABtns"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Comparar (Para):</span>
+    <div id="evolLoteBBtns"></div>
+  </div>
   <div class="table-card">
-    <div class="table-card-header"><div class="chart-title" style="margin:0">Tabela comparativa Lote 1 × Lote 2</div></div>
+    <div class="table-card-header"><div class="chart-title" style="margin:0" id="evolTableTitle">Tabela comparativa</div></div>
     <div class="table-scroll"><table>
-      <thead><tr><th>Critério</th><th>Lote 1</th><th>Lote 2</th><th>Variação</th><th>Tendência</th></tr></thead>
+      <thead><tr><th>Critério</th><th id="evolColA">Lote A</th><th id="evolColB">Lote B</th><th>Variação</th><th>Tendência</th></tr></thead>
       <tbody id="tbodyEvolucao"></tbody>
     </table></div>
   </div>
@@ -320,6 +340,10 @@ body.dark .detail-inner{background:#0f172a}
   <p class="sec-label">ANÁLISE CONSOLIDADA</p>
   <h1 class="sec-title">Análise Geral</h1>
   <p class="sec-subtitle">Avaliação consolidada dos 10 critérios por lote</p>
+  <div class="filter-row">
+    <span class="filter-label">Mês:</span>
+    <div id="filterMesAnaliseBtns"></div>
+  </div>
   <div class="filter-row">
     <span class="filter-label">Lote:</span>
     <div id="filterLoteAnalise"></div>
@@ -432,9 +456,29 @@ function makeDoughnut(id,labels,data,colors){
 
 // ── State ─────────────────────────────────────────────────────────────
 let DATA=null;
-let state={op:'all',loteOp:'all',crit:'abertura',loteCrit:'all',
-           loteEv:'all',loteAnalise:1,crmLote:'all',crmOp:'all',crmFech:'all',
-           geralMes:'all',geralLote:'all'};
+let state={op:'all',loteOp:'all',mesOp:'all',crit:'abertura',loteCrit:'all',mesCrit:'all',
+           loteEv:'all',loteAnalise:1,mesAnalise:'all',crmLote:'all',crmOp:'all',crmFech:'all',
+           geralMes:'all',geralLote:'all',evolA:null,evolB:null,evolMode:'criterio'};
+
+// ── Mês helpers (reused across tabs) ───────────────────────────────────
+function getMesesList(){ return [...new Set(DATA.lotes.map(l=>l.periodo))].sort(); }
+function mesLabel(mes){ return DATA.lotes.find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes; }
+function buildLoteButtons(lDiv, lotes, onSelect, allLabel='Todos'){
+  lDiv.innerHTML=`<button class="filter-btn active" data-lot="all">${allLabel}</button>`;
+  lotes.forEach(l=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.lot=l.id;b.textContent=l.label;
+    b.addEventListener('click',()=>{
+      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');onSelect(l.id);
+    });
+    lDiv.appendChild(b);
+  });
+  lDiv.querySelector('[data-lot="all"]').addEventListener('click',e=>{
+    lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');onSelect('all');
+  });
+}
 
 // ── KPI card color helpers ─────────────────────────────────────────────
 function kpiColorOk(pct){
@@ -469,7 +513,7 @@ async function init(){
     setupGeralFiltros();
     setupOperadores();
     setupCriterios();
-    renderEvolucao();
+    setupEvolucao();
     setupLigacoes();
     setupAnalise();
   }catch(e){
@@ -711,22 +755,30 @@ function setupOperadores(){
     e.target.classList.add('active');state.op='all';renderOperadores();
   });
 
-  // Lote filter
-  const lDiv=$('filterLoteOpBtns');
-  lDiv.innerHTML='<button class="filter-btn active" data-lot="all">Todos os lotes</button>';
-  lotes.forEach(l=>{
+  // Mês filter (filtra quais lotes aparecem no filtro de Lote abaixo)
+  const mesDiv=$('filterMesOpBtns');
+  const meses=getMesesList();
+  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
+  meses.forEach(mes=>{
     const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.lot=l.id;b.textContent=l.label;
+    b.className='filter-btn';b.dataset.mes=mes;b.textContent=mesLabel(mes);
     b.addEventListener('click',()=>{
-      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.loteOp=l.id;renderOperadores();
+      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.mesOp=mes;state.loteOp='all';
+      buildLoteButtons($('filterLoteOpBtns'),lotes.filter(l=>l.periodo===mes),id=>{state.loteOp=id;renderOperadores();},'Todos do mês');
+      renderOperadores();
     });
-    lDiv.appendChild(b);
+    mesDiv.appendChild(b);
   });
-  lDiv.querySelector('[data-lot="all"]').addEventListener('click',e=>{
-    lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.loteOp='all';renderOperadores();
+  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
+    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.mesOp='all';state.loteOp='all';
+    buildLoteButtons($('filterLoteOpBtns'),lotes,id=>{state.loteOp=id;renderOperadores();},'Todos os lotes');
+    renderOperadores();
   });
+
+  // Lote filter (estado inicial: todos os lotes)
+  buildLoteButtons($('filterLoteOpBtns'),lotes,id=>{state.loteOp=id;renderOperadores();},'Todos os lotes');
 
   renderOperadores();
 }
@@ -817,21 +869,32 @@ function setupCriterios(){
     cDiv.appendChild(b);
   });
 
-  const lDiv=$('filterLoteCritBtns');
-  lDiv.innerHTML='<button class="filter-btn active" data-lot="all">Todos</button>';
-  DATA.lotes.forEach(l=>{
+  const lotes=DATA.lotes;
+
+  // Mês filter (filtra quais lotes aparecem no filtro de Lote abaixo)
+  const mesDiv=$('filterMesCritBtns');
+  const meses=getMesesList();
+  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
+  meses.forEach(mes=>{
     const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.lot=l.id;b.textContent=l.label;
+    b.className='filter-btn';b.dataset.mes=mes;b.textContent=mesLabel(mes);
     b.addEventListener('click',()=>{
-      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.loteCrit=l.id;renderCriterios();
+      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.mesCrit=mes;state.loteCrit='all';
+      buildLoteButtons($('filterLoteCritBtns'),lotes.filter(l=>l.periodo===mes),id=>{state.loteCrit=id;renderCriterios();},'Todos do mês');
+      renderCriterios();
     });
-    lDiv.appendChild(b);
+    mesDiv.appendChild(b);
   });
-  lDiv.querySelector('[data-lot="all"]').addEventListener('click',e=>{
-    lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.loteCrit='all';renderCriterios();
+  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
+    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.mesCrit='all';state.loteCrit='all';
+    buildLoteButtons($('filterLoteCritBtns'),lotes,id=>{state.loteCrit=id;renderCriterios();},'Todos');
+    renderCriterios();
   });
+
+  const lDiv=$('filterLoteCritBtns');
+  buildLoteButtons(lDiv,lotes,id=>{state.loteCrit=id;renderCriterios();},'Todos');
 
   renderCriterios();
 }
@@ -873,30 +936,82 @@ function renderCriterios(){
 }
 
 // ── EVOLUÇÃO ──────────────────────────────────────────────────────────
+function setupEvolucao(){
+  const lotes=DATA.lotes;
+  if(!lotes.length)return;
+  state.evolA=lotes[0].id;
+  state.evolB=lotes[lotes.length-1].id;
+
+  // Toggle de visualização do gráfico
+  const modeDiv=$('evolModeBtns');
+  modeDiv.innerHTML=`<button class="filter-btn active" data-mode="criterio">Por critério</button><button class="filter-btn" data-mode="geral">Geral</button>`;
+  modeDiv.querySelectorAll('.filter-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      modeDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.evolMode=b.dataset.mode;renderEvolucao();
+    });
+  });
+
+  // Seletores de lote para a tabela comparativa (De / Para)
+  function buildEvolLoteBtns(divId,current,onSelect){
+    const div=$(divId);
+    div.innerHTML='';
+    lotes.forEach(l=>{
+      const b=document.createElement('button');
+      b.className='filter-btn'+(l.id===current?' active':'');
+      b.dataset.lot=l.id;b.textContent=l.label;
+      b.addEventListener('click',()=>{
+        div.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');onSelect(l.id);renderEvolucao();
+      });
+      div.appendChild(b);
+    });
+  }
+  buildEvolLoteBtns('evolLoteABtns',state.evolA,id=>{state.evolA=id;});
+  buildEvolLoteBtns('evolLoteBBtns',state.evolB,id=>{state.evolB=id;});
+
+  renderEvolucao();
+}
+
 function renderEvolucao(){
   const crits=DATA.meta.criterios;
   const lotes=DATA.lotes;
   const SERIES=['#2a78d6','#008300','#eda100','#e87ba4','#1baf7a','#eb6834','#2a78d6','#008300','#eda100','#e87ba4'];
-  
-  // Score per lote per criteria (human only)
   const loteLabels=lotes.map(l=>l.label);
-  const datasets=crits.map((c,i)=>{
+
+  if(state.evolMode==='geral'){
+    $('evolChartTitle').textContent='Evolução do score geral por lote (% do máximo)';
     const data=lotes.map(l=>{
       const calls=l.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
-      return critScore(calls,c.key)??0;
+      return calls.length?Math.round(calls.reduce((a,c)=>a+callScore(c.criterios),0)/calls.length):0;
     });
-    return{label:c.label.replace(/^\d+\.\s*/,''),data,borderColor:SERIES[i%10],backgroundColor:SERIES[i%10]+'22',
-      tension:.3,borderWidth:2,pointRadius:5,pointHoverRadius:7};
-  });
-  makeLineChart('chartEvolucao',loteLabels,datasets);
+    makeLineChart('chartEvolucao',loteLabels,[{label:'Score geral',data,borderColor:'#2a78d6',backgroundColor:'#2a78d622',
+      tension:.3,borderWidth:3,pointRadius:6,pointHoverRadius:8}]);
+  } else {
+    $('evolChartTitle').textContent='Evolução do score médio por critério (% do máximo)';
+    const datasets=crits.map((c,i)=>{
+      const data=lotes.map(l=>{
+        const calls=l.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
+        return critScore(calls,c.key)??0;
+      });
+      return{label:c.label.replace(/^\d+\.\s*/,''),data,borderColor:SERIES[i%10],backgroundColor:SERIES[i%10]+'22',
+        tension:.3,borderWidth:2,pointRadius:5,pointHoverRadius:7};
+    });
+    makeLineChart('chartEvolucao',loteLabels,datasets);
+  }
 
-  // Table
-  if(lotes.length>=2){
-    const l1Calls=lotes[0].operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
-    const l2Calls=lotes[1].operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
+  // Tabela comparativa entre os dois lotes selecionados (De / Para)
+  const loteA=lotes.find(l=>l.id===state.evolA);
+  const loteB=lotes.find(l=>l.id===state.evolB);
+  if(loteA&&loteB){
+    $('evolTableTitle').textContent=`Tabela comparativa ${loteA.label} × ${loteB.label}`;
+    $('evolColA').textContent=loteA.label;
+    $('evolColB').textContent=loteB.label;
+    const callsA=loteA.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
+    const callsB=loteB.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
     $('tbodyEvolucao').innerHTML=crits.map(c=>{
-      const s1=critScore(l1Calls,c.key)??0;
-      const s2=critScore(l2Calls,c.key)??0;
+      const s1=critScore(callsA,c.key)??0;
+      const s2=critScore(callsB,c.key)??0;
       const delta=s2-s1;
       const arrow=delta>0?'▲':delta<0?'▼':'→';
       const clr=delta>5?'#15803D':delta<-5?'#9C0006':delta===0?'var(--ink-muted)':'#92400E';
@@ -908,10 +1023,10 @@ function renderEvolucao(){
         <td style="text-align:center;font-size:1.2rem;color:${clr}">${arrow}</td>
       </tr>`;
     }).join('');
-    
+
     // Insights
     const sorted=crits.map(c=>{
-      const s1=critScore(l1Calls,c.key)??0,s2=critScore(l2Calls,c.key)??0;
+      const s1=critScore(callsA,c.key)??0,s2=critScore(callsB,c.key)??0;
       return{...c,delta:s2-s1,s2};
     }).sort((a,b)=>b.delta-a.delta);
     const improved=sorted.filter(c=>c.delta>0).slice(0,2);
@@ -990,17 +1105,46 @@ function renderLigacoes(){
 
 // ── ANÁLISE GERAL ─────────────────────────────────────────────────────
 function setupAnalise(){
-  const lDiv=$('filterLoteAnalise');
-  DATA.lotes.forEach((l,i)=>{
-    const b=document.createElement('button');
-    b.className='filter-btn'+(i===0?' active':'');
-    b.dataset.la=l.id;b.textContent=l.label;
-    b.addEventListener('click',()=>{
-      lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.loteAnalise=l.id;renderAnalise();
+  const lotes=DATA.lotes;
+
+  function renderLoteAnaliseBtns(lotesFiltrados){
+    const lDiv=$('filterLoteAnalise');
+    lDiv.innerHTML='';
+    lotesFiltrados.forEach((l,i)=>{
+      const b=document.createElement('button');
+      b.className='filter-btn'+(i===0?' active':'');
+      b.dataset.la=l.id;b.textContent=l.label;
+      b.addEventListener('click',()=>{
+        lDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');state.loteAnalise=l.id;renderAnalise();
+      });
+      lDiv.appendChild(b);
     });
-    lDiv.appendChild(b);
+    if(lotesFiltrados.length){state.loteAnalise=lotesFiltrados[0].id;}
+  }
+
+  const mesDiv=$('filterMesAnaliseBtns');
+  const meses=getMesesList();
+  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
+  meses.forEach(mes=>{
+    const b=document.createElement('button');
+    b.className='filter-btn';b.dataset.mes=mes;b.textContent=mesLabel(mes);
+    b.addEventListener('click',()=>{
+      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');state.mesAnalise=mes;
+      renderLoteAnaliseBtns(lotes.filter(l=>l.periodo===mes));
+      renderAnalise();
+    });
+    mesDiv.appendChild(b);
   });
+  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
+    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');state.mesAnalise='all';
+    renderLoteAnaliseBtns(lotes);
+    renderAnalise();
+  });
+
+  renderLoteAnaliseBtns(lotes);
   renderAnalise();
 }
 
