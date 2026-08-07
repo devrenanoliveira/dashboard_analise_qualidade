@@ -136,6 +136,31 @@ body.dark .detail-cell{background:#0f172a}
 body.dark .detail-inner{background:#0f172a}
 @media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr}.chart-grid{grid-template-columns:1fr}.tab-panel{padding:16px}}
 @media(max-width:480px){.header{padding:10px 16px}.header-sep,.header-title{display:none}.kpi-grid{grid-template-columns:1fr 1fr}.kpi-value{font-size:1.5rem}.tab-btn{padding:8px 10px;font-size:.7rem}}
+
+/* ── Análise Geral: cabeçalho + botão de exportação ─────────────────── */
+.analise-header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.export-pdf-btn{background:var(--brand-navy);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s}
+.export-pdf-btn:hover{background:var(--brand-navy-mid)}
+body.dark .export-pdf-btn{background:var(--brand-blue)}
+body.dark .export-pdf-btn:hover{background:var(--brand-blue-light)}
+.print-only{display:none}
+
+/* ── Impressão / exportação em PDF (via window.print) ───────────────── */
+@media print{
+  body.printing-analise *{visibility:hidden}
+  body.printing-analise #panel-analise,
+  body.printing-analise #panel-analise *{visibility:visible}
+  body.printing-analise #panel-analise{position:absolute;left:0;top:0;width:100%;padding:0;margin:0;max-width:none}
+  body.printing-analise .no-print{display:none!important}
+  body.printing-analise .print-only{display:block!important;margin-bottom:16px}
+  body.printing-analise .table-scroll{overflow:visible}
+  body.printing-analise table{width:100%;border-collapse:collapse}
+  body.printing-analise thead{display:table-header-group}
+  body.printing-analise tr{page-break-inside:avoid}
+  body.printing-analise td,body.printing-analise th{border:1px solid #CBD5E1;padding:8px;font-size:.72rem}
+  body.dark.printing-analise{background:#fff}
+  body.dark.printing-analise td,body.dark.printing-analise th{color:#0b0b0b;background:#fff}
+}
 </style>
 </head>
 <body>
@@ -337,17 +362,23 @@ body.dark .detail-inner{background:#0f172a}
 
 <!-- ═══ ANÁLISE GERAL ══════════════════════════════════════════════ -->
 <div class="tab-panel" id="panel-analise">
-  <p class="sec-label">ANÁLISE CONSOLIDADA</p>
-  <h1 class="sec-title">Análise Geral</h1>
-  <p class="sec-subtitle">Avaliação consolidada dos 10 critérios por lote</p>
-  <div class="filter-row">
+  <div class="analise-header-row">
+    <div>
+      <p class="sec-label">ANÁLISE CONSOLIDADA</p>
+      <h1 class="sec-title">Análise Geral</h1>
+      <p class="sec-subtitle">Avaliação consolidada dos 10 critérios por lote</p>
+    </div>
+    <button id="btnExportAnalisePdf" class="export-pdf-btn no-print">📄 Exportar PDF</button>
+  </div>
+  <div class="filter-row no-print">
     <span class="filter-label">Mês:</span>
     <div id="filterMesAnaliseBtns"></div>
   </div>
-  <div class="filter-row">
+  <div class="filter-row no-print">
     <span class="filter-label">Lote:</span>
     <div id="filterLoteAnalise"></div>
   </div>
+  <div class="print-only" id="printAnaliseHeader"></div>
   <div class="table-card">
     <div class="table-scroll"><table>
       <thead><tr><th>Critério</th><th>Avaliação</th><th>Análise e Recomendações</th></tr></thead>
@@ -1151,12 +1182,32 @@ function setupAnalise(){
 
   renderLoteAnaliseBtns(lotes);
   renderAnalise();
+
+  const btn=$('btnExportAnalisePdf');
+  if(btn&&!btn.dataset.wired){
+    btn.dataset.wired='1';
+    btn.addEventListener('click',()=>{
+      document.body.classList.add('printing-analise');
+      window.print();
+    });
+    window.addEventListener('afterprint',()=>{
+      document.body.classList.remove('printing-analise');
+    });
+  }
 }
 
 function renderAnalise(){
   const lote=DATA.lotes.find(l=>l.id===state.loteAnalise);
   if(!lote)return;
   const crits=DATA.meta.criterios;
+  const printHeader=$('printAnaliseHeader');
+  if(printHeader){
+    printHeader.innerHTML=`
+      <div style="font-size:1.1rem;font-weight:800;color:#0F2461">CRM Qualidade — Assessoria Fácil</div>
+      <div style="font-size:.85rem;font-weight:600;margin-top:2px">Análise Geral — ${lote.label}</div>
+      <div style="font-size:.7rem;color:#52514e;margin-top:2px">Gerado em ${DATA.meta.ultima_atualizacao||''} · ${lote.total_audios||0} ligações avaliadas</div>
+      <div style="height:1px;background:#CBD5E1;margin:10px 0 4px"></div>`;
+  }
   $('tbodyAnalise').innerHTML=crits.map((c,i)=>{
     const d=lote.analise_geral.find?lote.analise_geral.find(a=>a.key===c.key):lote.analise_geral[c.key];
     if(!d)return'';
