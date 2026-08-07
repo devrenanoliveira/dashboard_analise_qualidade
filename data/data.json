@@ -1406,12 +1406,12 @@
               "duracao": "~4",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificou-se, mencionou Fácil Resultado e Condor, mas não informou sobre gravação"
+                  "status": "ok",
+                  "obs": "Identificou-se como assessoria Fácil Resultado, representando o Condor — identificação válida."
                 },
                 "lgpd": {
-                  "status": "nao",
-                  "obs": "Confirmou apenas o nome do cliente; não solicitou dígitos do CPF"
+                  "status": "ok",
+                  "obs": "Confirmou o nome completo do cliente — validação aceita."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -1453,12 +1453,12 @@
               "duracao": "~7",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação completa, mas gravação não mencionada"
+                  "status": "ok",
+                  "obs": "Identificação completa: assessoria e produto (Condor) mencionados corretamente."
                 },
                 "lgpd": {
                   "status": "parcial",
-                  "obs": "Solicitou CPF completo da titular (não apenas dígitos); parcial por realizar verificação, porém no formato incorreto"
+                  "obs": "Solicitou o CPF completo da titular (não apenas dígitos) — validação realizada, porém fora do formato padrão (deveria pedir só os dígitos, não o número completo)."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -1507,7 +1507,7 @@
               "criterios": {
                 "abertura": {
                   "status": "parcial",
-                  "obs": "Identificação confusa no início; gravação mencionada apenas no encerramento"
+                  "obs": "Identificação confusa no início da ligação (cliente interrompeu antes de a operadora concluir a apresentação)."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -1554,7 +1554,7 @@
               "criterios": {
                 "abertura": {
                   "status": "parcial",
-                  "obs": "Identificação incompleta no início (cliente interrompeu); gravação mencionada somente no encerramento"
+                  "obs": "Identificação incompleta no início (cliente interrompeu antes de a operadora concluir a apresentação)."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -1589,8 +1589,8 @@
                   "obs": "Não mencionou benefícios ou consequências explicitamente"
                 },
                 "canais": {
-                  "status": "parcial",
-                  "obs": "Mencionou retorno via WhatsApp para dúvidas, mas não passou o 0800 (cliente estava dirigindo e não podia anotar)"
+                  "status": "ok",
+                  "obs": "Mencionou o WhatsApp como canal de retorno para dúvidas — canal de contato informado."
                 }
               }
             }
@@ -1606,8 +1606,8 @@
               "duracao": "~6",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação mencionada somente no encerramento"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
                   "status": "ok",
@@ -1642,8 +1642,8 @@
                   "obs": "Mencionou retirada da restrição e possibilidade de novo cartão, mas sem destacar consequências de nova quebra"
                 },
                 "canais": {
-                  "status": "parcial",
-                  "obs": "Explicou formas de pagamento (WhatsApp, app bancário, Condor, lotérica), mas não informou o 0800"
+                  "status": "nao",
+                  "obs": "Explicou apenas formas de pagamento (WhatsApp, app bancário, Condor, lotérica); não informou 0800 ou outro canal de contato propriamente dito."
                 }
               }
             },
@@ -1653,8 +1653,8 @@
               "duracao": "~4",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação não mencionada"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -1689,8 +1689,8 @@
                   "obs": "Não mencionou consequências do não pagamento ou benefícios de quitar"
                 },
                 "canais": {
-                  "status": "parcial",
-                  "obs": "Ofereceu o 0800 mas cliente não quis anotar; não forçou ou reforçou o canal"
+                  "status": "ok",
+                  "obs": "Informou o 0800 verbalmente (cliente apenas não quis anotar) — canal comunicado."
                 }
               }
             }
@@ -1706,8 +1706,8 @@
               "duracao": "~4",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação não mencionada"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -1753,12 +1753,12 @@
               "duracao": "~6",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação mencionada somente no final da ligação"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
-                  "status": "parcial",
-                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF"
+                  "status": "ok",
+                  "obs": "Confirmou data de nascimento — validação aceita."
                 },
                 "sondagem": {
                   "status": "ok",
@@ -1810,8 +1810,8 @@
                   "obs": "Identificação completa, produto e gravação informados no início da ligação"
                 },
                 "lgpd": {
-                  "status": "parcial",
-                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF — verificação válida, porém no formato não padrão"
+                  "status": "ok",
+                  "obs": "Confirmou data de nascimento — validação aceita."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -1857,8 +1857,8 @@
                   "obs": "Identificação completa, gravação informada no início"
                 },
                 "lgpd": {
-                  "status": "parcial",
-                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF"
+                  "status": "ok",
+                  "obs": "Confirmou data de nascimento — validação aceita."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -2007,11 +2007,11 @@
               "criterios": {
                 "abertura": {
                   "status": "parcial",
-                  "obs": "Disse 'Fácil Soluções' ao invés de 'Fácil Resultado'; gravação informada corretamente"
+                  "obs": "Disse 'Fácil Soluções' ao invés de 'Fácil Resultado'/'Fácil' — nome da assessoria incorreto, não é variante aceita."
                 },
                 "lgpd": {
-                  "status": "nao",
-                  "obs": "Solicitou nome completo para confirmação — não é o procedimento padrão (CPF dígitos)"
+                  "status": "ok",
+                  "obs": "Solicitou o nome completo para confirmação — validação aceita."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -2042,8 +2042,8 @@
                   "obs": "Destacou que ultrapassar a data gera mais juros, encargos e ligações de cobrança"
                 },
                 "canais": {
-                  "status": "parcial",
-                  "obs": "Mencionou que cliente pode retornar o contato e comparecer ao Condor, mas sem informar o número do 0800"
+                  "status": "nao",
+                  "obs": "Mencionou que a cliente pode retornar o contato e comparecer ao Condor, mas não informou nenhum canal de contato (0800, WhatsApp, portal)."
                 }
               }
             },
@@ -2054,11 +2054,11 @@
               "criterios": {
                 "abertura": {
                   "status": "parcial",
-                  "obs": "Disse 'Fácil Soluções' ao invés de 'Fácil Resultado'; gravação não mencionada"
+                  "obs": "Disse 'Fácil Soluções' ao invés de 'Fácil Resultado'/'Fácil' — nome da assessoria incorreto, não é variante aceita."
                 },
                 "lgpd": {
-                  "status": "nao",
-                  "obs": "Solicitou nome completo para confirmação — não é o procedimento padrão (CPF dígitos)"
+                  "status": "ok",
+                  "obs": "Solicitou o nome completo para confirmação — validação aceita."
                 },
                 "sondagem": {
                   "status": "ok",
@@ -2110,8 +2110,8 @@
                   "obs": "Identificação completa e gravação informada no início da ligação"
                 },
                 "lgpd": {
-                  "status": "nao",
-                  "obs": "Confirmou apenas o sobrenome ('De [cliente]'); não solicitou dígitos do CPF"
+                  "status": "parcial",
+                  "obs": "Confirmou apenas o sobrenome ('De [cliente]'), não o nome completo — validação parcial."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -2157,8 +2157,8 @@
                   "obs": "Identificação completa e gravação informada no início"
                 },
                 "lgpd": {
-                  "status": "nao",
-                  "obs": "Confirmou apenas o nome completo do cliente; não solicitou dígitos do CPF"
+                  "status": "ok",
+                  "obs": "Confirmou o nome completo do cliente — validação aceita."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -2206,8 +2206,8 @@
               "duracao": "~5",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação não mencionada"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -2259,12 +2259,12 @@
               "duracao": "~3",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação não mencionada"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
-                  "status": "parcial",
-                  "obs": "Confirmou data de nascimento em vez de dígitos do CPF"
+                  "status": "ok",
+                  "obs": "Confirmou data de nascimento — validação aceita."
                 },
                 "sondagem": {
                   "status": "parcial",
@@ -2295,8 +2295,8 @@
                   "obs": "Mencionou brevemente que a dívida seria quitada, sem explorar retirada da restrição ou outros benefícios"
                 },
                 "canais": {
-                  "status": "parcial",
-                  "obs": "Mencionou envio por WhatsApp, mas não passou o número do 0800"
+                  "status": "ok",
+                  "obs": "Mencionou o WhatsApp como canal para envio do boleto — canal de contato informado."
                 }
               }
             },
@@ -2306,8 +2306,8 @@
               "duracao": "~3",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Identificação adequada; gravação mencionada somente no encerramento"
+                  "status": "ok",
+                  "obs": "Identificação adequada, mencionando a assessoria e o Condor."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -2359,8 +2359,8 @@
               "duracao": "~3",
               "criterios": {
                 "abertura": {
-                  "status": "parcial",
-                  "obs": "Disse apenas 'assessoria Fácil' (sem 'Resultado') e não mencionou a gravação"
+                  "status": "ok",
+                  "obs": "Disse apenas 'assessoria Fácil' (sem 'Resultado') — variante aceita do nome; mencionou o Condor corretamente."
                 },
                 "lgpd": {
                   "status": "nao",
@@ -2453,56 +2453,56 @@
       "analise_geral": [
         {
           "key": "abertura",
-          "status": "parcial",
-          "obs": "A maioria dos operadores se identificou corretamente, mas poucos informaram sobre a gravação no início da ligação — a maior parte o fez apenas no encerramento ou não informou. DESTAQUES: Crislayne (Áudios 6 e 7), Mikaelly (Áudios 8 e 15) e João (Áudios 10 e 17) fizeram aberturas completas. FALHA CRÍTICA: Mateus (Áudio 18) se identificou apenas como 'do Condor', sem mencionar a assessoria. Geisa (Áudios 9 e 20) utilizou 'Fácil Soluções' em vez de 'Fácil Resultado'. AÇÃO: reforçar o script padrão de abertura com menção à gravação obrigatória no início da ligação."
+          "status": "ok",
+          "obs": "<strong>EVOLUÇÃO IMPORTANTE:</strong> 16 das 21 ligações (76%) atenderam plenamente ao critério — identificação da assessoria (variantes 'Fácil', 'Assessoria Fácil' ou 'Fácil Resultado' são equivalentes) somada à menção do Condor ou do cartão Z-ON. <strong>FALHA CRÍTICA:</strong> Mateus (Áudio 18) identificou-se apenas como 'do Condor', sem mencionar a assessoria. <strong>ATENÇÃO:</strong> Geisa (Áudios 9 e 20) usou 'Fácil Soluções' — nome incorreto, não é variante aceita. Thaís (Áudios 3 e 14) teve identificação confusa/incompleta por interrupção do cliente. <strong>AÇÃO:</strong> corrigir o nome da assessoria com Geisa e reforçar identificação completa com Mateus."
         },
         {
           "key": "lgpd",
           "status": "nao",
-          "obs": "FALHA CRÍTICA E GENERALIZADA: apenas Leonardo (Áudio 4) realizou o procedimento correto, solicitando os três primeiros dígitos do CPF. Crislayne (Áudios 6 e 7) e Clarisse (Áudio 13) utilizaram data de nascimento — verificação válida, porém fora do padrão. Jenifer (Áudio 2) solicitou CPF completo, formato incorreto. Todos os demais (12 de 21 ligações) não realizaram nenhuma confirmação de identidade. AÇÃO IMEDIATA: treinar e cobrar a confirmação via CPF em 100% das ligações — ponto de compliance não negociável."
+          "obs": "<strong>FALHA CRÍTICA PERSISTENTE:</strong> 10 das 21 ligações (48%) não realizaram nenhuma confirmação de identidade. <strong>DESTAQUES:</strong> Leonardo (Áudio 4) fez o procedimento padrão (3 primeiros dígitos do CPF); Crislayne (Áudios 6 e 7), Clarisse (Áudio 13) e Júlia (Áudio 19) confirmaram data de nascimento — validação aceita; Jenifer (Áudio 1), Geisa (Áudios 9 e 20) e João (Áudio 17) confirmaram nome completo — também aceito. <strong>PONTOS DE ATENÇÃO:</strong> Jenifer (Áudio 2) solicitou o CPF completo (não apenas dígitos) — formato incorreto; João (Áudio 10) confirmou só o sobrenome, não o nome completo. <strong>AÇÃO:</strong> padronizar para toda a equipe: CPF (3 dígitos), data de nascimento OU nome completo — qualquer uma dessas três opções é válida, mas uma delas precisa acontecer sempre."
         },
         {
           "key": "sondagem",
           "status": "parcial",
-          "obs": "Melhora em relação aos lotes anteriores: vários operadores ouviram e identificaram a situação do cliente (Leonardo, Suzana, Thaís no Áudio 14, Geisa no Áudio 20, Júlia no Áudio 19, Clarisse no Áudio 21). Contudo, a sondagem ainda é reativa — ocorre quando o cliente traz a situação espontaneamente, não como etapa proativa do roteiro. AÇÃO: estruturar 2 perguntas de sondagem obrigatórias antes da proposta: motivo do atraso + capacidade de pagamento no momento."
+          "obs": "Distribuição: 7 ok, 13 parcial, 1 não atendido. <strong>DESTAQUES:</strong> Leonardo (Áudio 4), Suzana (Áudio 12), Thaís (Áudio 14), Júlia (Áudio 19), Geisa (Áudio 20) e Clarisse (Áudio 21) ouviram e identificaram ativamente a situação do cliente antes de negociar. A maioria ainda pratica sondagem reativa — surge quando o cliente traz o contexto espontaneamente, não como etapa proativa do roteiro. <strong>AÇÃO:</strong> estruturar 2 perguntas obrigatórias de sondagem (motivo do atraso + capacidade de pagamento) antes da primeira proposta."
         },
         {
           "key": "conduzir",
           "status": "parcial",
-          "obs": "Resultado misto. DESTAQUES: Crislayne (Áudio 6), João (Áudio 10), Geisa (Áudio 9), Thaís (Áudio 14) e Clarisse (Áudio 21) mantiveram protagonismo e conduziram com firmeza. FALHAS GRAVES: Leonardo (Áudio 11) — 'se a senhora não puder também, a gente entende'; Mateus (Áudio 18) — aceitou integralmente as condições definidas pelo cliente; Júlia (Áudio 5) — cliente ditou todas as condições. A condução passiva é o principal vetor de perda de acordo evitável. AÇÃO: treinar a estrutura proposta afirmativa → objeção → contra-argumento → nova proposta."
+          "obs": "Resultado misto: 11 ok, 7 parcial, 3 não atendido. <strong>DESTAQUES:</strong> Crislayne (Áudio 6), Geisa (Áudio 9), João (Áudio 10), Clarisse (Áudio 13), Thaís (Áudio 14) e Clarisse (Áudio 21) mantiveram protagonismo e firmeza. <strong>FALHAS CRÍTICAS:</strong> Leonardo (Áudio 11) — 'se a senhora não puder também, a gente entende'; Mateus (Áudio 18) — aceitou integralmente as condições do cliente sem negociar; Júlia (Áudio 5) — perdeu totalmente o controle da negociação. <strong>AÇÃO:</strong> treinar a estrutura proposta afirmativa → objeção → contra-argumento → nova proposta, especialmente com os operadores citados nas falhas."
         },
         {
           "key": "gradatividade",
           "status": "parcial",
-          "obs": "Resultados heterogêneos. BONS EXEMPLOS: João (Áudio 10) seguiu a sequência correta à vista hoje → à vista prazo → parcelamento; Suzana (Áudio 12) negociou à vista com reduções progressivas até fechar. FALHAS RECORRENTES: Júlia (Áudios 5), Leonardo (Áudio 11), Mikaelly (Áudio 15), Geisa (Áudio 20) e Clarisse (Áudio 21) foram direto para parcelamento sem tentar à vista. Mikaelly (Áudio 8) e Jenifer apresentaram proposta à vista e, ao receber resistência, pularam para parcelamento sem tentar segunda proposta à vista. AÇÃO: reforçar que a passagem para parcelamento só deve ocorrer após pelo menos duas tentativas de à vista."
+          "obs": "Resultado heterogêneo: 6 ok, 4 parcial, 8 não atendido, 3 não aplicável (contexto de renegociação/valor único). <strong>BONS EXEMPLOS:</strong> João (Áudio 10) seguiu a sequência correta à vista hoje → à vista prazo → parcelamento; Suzana (Áudio 12) negociou à vista com reduções progressivas até fechar. <strong>FALHA RECORRENTE:</strong> Júlia (Áudio 5), Mikaelly (Áudio 15), Leonardo (Áudio 11), Geisa (Áudio 20) e Clarisse (Áudio 21) foram direto para parcelamento sem tentar à vista antes. <strong>AÇÃO:</strong> reforçar que a passagem para parcelamento só deve ocorrer após pelo menos duas tentativas de proposta à vista."
         },
         {
           "key": "criatividade",
           "status": "parcial",
-          "obs": "Evolução em relação a lotes anteriores. DESTAQUES: Crislayne (Áudio 6) usou histórico de três quebras para criar urgência; Suzana (Áudio 12) escalou descontos progressivamente; Geisa (Áudio 9) gerenciou situação de cliente insatisfeita com mudança de valor; Clarisse (Áudio 21) pediu contraproposta e escalou para exceção financeira. FALHAS: Leonardo (Áudio 11), Mateus (Áudio 18) e Júlia (Áudio 5) não tentaram nenhum recurso criativo. AÇÃO: criar banco de argumentos criativos por situação (cliente irritado, sem dinheiro, aguardando pagamento, acordo anterior quebrado)."
+          "obs": "7 ok, 9 parcial, 3 não atendido, 2 não aplicável. <strong>DESTAQUES:</strong> Crislayne (Áudio 6) usou histórico de quebras de acordo para criar urgência; Suzana (Áudio 12) escalou descontos progressivamente até fechar; Geisa (Áudio 9) geriu bem cliente insatisfeita com desconto personalizado; Clarisse (Áudio 21) pediu contraproposta e ofereceu escalada para exceção financeira. <strong>FALHAS:</strong> Leonardo (Áudio 11), Mateus (Áudio 18) e Júlia (Áudio 5) não tentaram nenhum recurso criativo. <strong>AÇÃO:</strong> criar banco de argumentos por situação (cliente irritado, sem dinheiro, aguardando pagamento, acordo quebrado)."
         },
         {
           "key": "clareza",
           "status": "ok",
-          "obs": "Ponto forte do lote: a grande maioria dos operadores apresentou valores, datas e condições com clareza. FALHA PONTUAL: Júlia (Áudio 5) mencionou 'R$800 e poucos reais' sem precisar o valor. GAP ESTRUTURAL PERSISTENTE: nenhum operador apresentou o percentual de desconto junto ao valor absoluto (ex.: '70% de desconto — de R$2.000 por R$600'). O percentual amplifica o impacto da proposta e deve fazer parte do script padrão."
+          "obs": "<strong>PONTO FORTE DO LOTE:</strong> 20 das 21 ligações (95%) apresentaram valores, datas e condições com clareza. <strong>FALHA PONTUAL:</strong> Júlia (Áudio 5) mencionou 'R$800 e poucos reais' sem precisar o valor exato. <strong>GAP ESTRUTURAL PERSISTENTE:</strong> nenhum operador apresentou o percentual de desconto junto ao valor absoluto (ex.: '70% de desconto — de R$2.000 por R$600'), recurso que amplifica o impacto psicológico da proposta."
         },
         {
           "key": "fechamento",
           "status": "parcial",
-          "obs": "Três acordos fechados no lote: Crislayne (Áudio 6), João (Áudio 10) e Suzana (Áudio 12). Destes, apenas João fez ratificação completa e explícita recapitulando todos os termos. Crislayne ratificou o valor e prazo de forma explícita. Suzana formalizou o acordo sem recapitulação estruturada. A maioria das ligações sem acordo encerrou sem nem tentar ratificação, por ausência de fechamento em si. AÇÃO: mesmo quando não há acordo, criar o hábito de confirmar o próximo passo: data de retorno do cliente, canal de envio do boleto e prazo de validade da proposta."
+          "obs": "3 acordos fechados no lote: Crislayne (Áudio 6), João (Áudio 10) e Suzana (Áudio 12). <strong>DESTAQUE:</strong> João fez a ratificação mais completa, recapitulando todos os termos (entrada, parcelas, datas). Crislayne também ratificou de forma explícita. Suzana formalizou o acordo, mas sem recapitulação estruturada. <strong>FALHA:</strong> Mateus (Áudio 16) — cliente aceitou a proposta, mas o operador não confirmou valor, prazo ou termos, apenas disse que 'formalizaria'. <strong>AÇÃO:</strong> mesmo sem acordo, criar o hábito de confirmar o próximo passo (data de retorno, canal do boleto, validade da proposta)."
         },
         {
           "key": "beneficios",
           "status": "parcial",
-          "obs": "Resultado misto. BONS EXEMPLOS: Crislayne (Áudio 6), Thaís (Áudio 3), Geisa (Áudio 9), João (Áudios 10 e 17), Suzana (Áudio 12) e Mikaelly (Áudio 15) mencionaram benefícios relevantes (saída da restrição, fim das ligações, perda do desconto com o tempo). FALHAS: Jenifer (Áudios 1 e 2), Júlia (Áudios 5 e 19), Mikaelly (Áudio 8), Leonardo (Áudio 11), Mateus (Áudios 16 e 18) e Geisa (Áudio 20) não utilizaram o argumento de benefícios/consequências. AÇÃO: incorporar no roteiro a estrutura 'pagando hoje você [benefício] — não pagando, [consequência]'."
+          "obs": "9 ok, 2 parcial, 10 não atendido. <strong>BONS EXEMPLOS:</strong> Crislayne (Áudios 6 e 7), Thaís (Áudio 3), Geisa (Áudio 9), João (Áudios 10 e 17), Suzana (Áudio 12) e Mikaelly (Áudio 15) estruturaram bem o argumento de benefício/consequência (saída da restrição, fim das ligações, perda do desconto com o tempo). <strong>FALHA GENERALIZADA:</strong> quase metade das ligações (10/21) não mencionou nenhum benefício ou consequência. <strong>AÇÃO:</strong> incorporar ao roteiro a estrutura fixa 'pagando hoje você [benefício] — não pagando, [consequência]'."
         },
         {
           "key": "canais",
-          "status": "parcial",
-          "obs": "Melhora expressiva em relação a lotes anteriores. A maioria informou o 0800 291 2213. FALHAS: Jenifer (Áudio 1), Thaís (Áudio 3), Mateus (Áudios 16 e 18) e Geisa (Áudio 20) não informaram nenhum canal. Geisa (Áudio 9) e Leonardo (Áudio 4) informaram canais parcialmente. DESTAQUE: Jenifer (Áudio 2) e João (Áudio 17) informaram também o site facilquitar.com.br. AÇÃO: padronizar o encerramento com 0800 + WhatsApp em 100% das ligações, independentemente do resultado da negociação."
+          "status": "ok",
+          "obs": "<strong>MELHORA EXPRESSIVA:</strong> 14 das 21 ligações (67%) informaram um canal de contato de fato — 0800, WhatsApp ou portal. <strong>ATENÇÃO AO CRITÉRIO:</strong> mencionar apenas formas de pagamento (boleto, app bancário, lotérica) não conta como canal — Leonardo (Áudio 4) e Geisa (Áudio 9) caem nessa distinção e ficaram como 'não atendido'. <strong>FALHAS TOTAIS:</strong> Jenifer (Áudio 1), Thaís (Áudio 3), Mateus (Áudios 16 e 18) e Geisa (Áudio 20) não informaram nenhum canal. <strong>AÇÃO:</strong> padronizar o encerramento com 0800 + WhatsApp em 100% das ligações, independentemente do resultado."
         }
       ]
     }
   ],
-  "ultima_atualizacao": "07/08/2026 15:04 (BRT)"
+  "ultima_atualizacao": "07/08/2026 15:43 (BRT)"
 }
