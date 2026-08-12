@@ -161,6 +161,15 @@ body.dark .export-pdf-btn:hover{background:var(--brand-blue-light)}
   body.dark.printing-analise{background:#fff}
   body.dark.printing-analise td,body.dark.printing-analise th{color:#0b0b0b;background:#fff}
 }
+
+/* ── Guia de Critérios ────────────────────────────────────────────── */
+.crit-row-head{display:flex;align-items:center}
+.crit-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--brand-navy);color:#fff;font-size:.72rem;font-weight:800;margin-right:8px;flex-shrink:0}
+.crit-name{font-weight:700;color:var(--brand-navy);white-space:nowrap}
+.opts{font-size:.72rem;color:var(--ink-muted);margin-top:6px}
+.opts strong{color:var(--ink-secondary)}
+body.dark .crit-name{color:#93c5fd}
+body.dark .opts strong{color:#cbd5e1}
 </style>
 </head>
 <body>
@@ -194,6 +203,7 @@ body.dark .export-pdf-btn:hover{background:var(--brand-blue-light)}
   <button class="tab-btn" data-tab="evolucao">📈 Evolução</button>
   <button class="tab-btn" data-tab="ligacoes">📞 Ligações</button>
   <button class="tab-btn" data-tab="analise">🔍 Análise Geral</button>
+  <button class="tab-btn" data-tab="guia">📖 Guia de Critérios</button>
 </nav>
 </div><!-- .sticky-header -->
 
@@ -385,6 +395,78 @@ body.dark .export-pdf-btn:hover{background:var(--brand-blue-light)}
       <tbody id="tbodyAnalise"></tbody>
     </table></div>
   </div>
+</div>
+
+<!-- ═══ GUIA DE CRITÉRIOS ═══════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-guia">
+  <p class="sec-label">REFERÊNCIA</p>
+  <h1 class="sec-title">Guia de Critérios de Avaliação</h1>
+  <p class="sec-subtitle">O que é avaliado em cada um dos 10 critérios — consulte sempre que tiver dúvida sobre uma nota</p>
+  <div class="table-card">
+    <div class="table-scroll"><table>
+      <thead><tr><th style="width:220px">Critério</th><th>O que é avaliado</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">1</span><span class="crit-name">Abertura da ligação</span></div></td>
+          <td>O operador precisa (a) identificar-se como da assessoria e (b) mencionar que representa o Condor ou o cartão Z-ON.
+            <div class="opts"><strong>Variantes aceitas para o nome:</strong> "Fácil", "Assessoria Fácil" ou "Fácil Resultado" — todas equivalem a "ok".<br>
+            <strong>Não atende:</strong> dizer apenas que representa "o Condor" sem citar o cartão, ou usar um nome de assessoria incorreto (ex.: "Fácil Soluções").<br>
+            Mencionar a gravação da ligação é um diferencial, mas não é obrigatório para considerar o critério atendido.</div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">2</span><span class="crit-name">LGPD</span></div></td>
+          <td>Confirmação de identidade do cliente antes de tratar dados da dívida.
+            <div class="opts"><strong>Aceito (qualquer uma das três vias):</strong> 3 primeiros dígitos do CPF · data de nascimento · nome completo do cliente.<br>
+            <strong>Não atende:</strong> nenhuma confirmação, ou pedir o CPF completo (deveria ser só os 3 primeiros dígitos), ou confirmar apenas parte do nome (ex.: só o sobrenome).</div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">3</span><span class="crit-name">Sondagem</span></div></td>
+          <td>O operador buscou entender o motivo do atraso e a situação financeira atual do cliente antes de apresentar a proposta, em vez de ir direto ao valor.</td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">4</span><span class="crit-name">Conduziu a negociação</span></div></td>
+          <td>O operador manteve o protagonismo e o ritmo da conversa: propôs afirmativamente, tratou objeções e não deixou o cliente ditar sozinho as condições.
+            <div class="opts">Postura passiva — perguntar "quando você pode pagar?" ou "fica bom pra você?" sem contrapropor — não atende plenamente ao critério.</div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">5</span><span class="crit-name">Gradatividade</span></div></td>
+          <td>O operador seguiu a sequência esperada de propostas: à vista hoje → segunda tentativa à vista (condição diferente) → só então parcelamento — sem pular direto para o parcelamento.
+            <div class="opts">Marcado como "na" quando o contexto não permite a sequência padrão (ex.: renegociação de acordo quebrado, valor irrisório, cliente já pagando integral).</div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">6</span><span class="crit-name">Criatividade</span></div></td>
+          <td>Uso de argumentos ou recursos além do script padrão para destravar a negociação — ex.: histórico do cliente, senso de urgência, exceções, contrapropostas, simulações personalizadas.</td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">7</span><span class="crit-name">Clareza dos números</span></div></td>
+          <td>Valores, datas e condições de pagamento foram comunicados de forma específica e compreensível (não apenas "uns 800 reais").
+            <div class="opts">Gap recorrente: nenhum operador costuma informar o percentual de desconto junto ao valor absoluto (ex.: "70% de desconto — de R$2.000 por R$600"), o que ampliaria o impacto da proposta.</div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">8</span><span class="crit-name">Fechamento do acordo</span></div></td>
+          <td>Quando há acordo, o operador recapitula os termos (valor, prazo, forma de pagamento) e busca confirmação verbal explícita do cliente — ratificação, não apenas "vou formalizar e te mando o boleto".
+            <div class="opts">Marcado como "na" quando não houve fechamento na ligação (cliente sem condição, pediu retorno, recusou proposta etc.).</div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">9</span><span class="crit-name">Benefícios/consequências</span></div></td>
+          <td>O operador estruturou o argumento em duas pontas: o benefício de pagar agora (ex.: saída da restrição, fim das ligações) e a consequência de não pagar (ex.: juros crescentes, dívida maior, restrição mantida).</td>
+        </tr>
+        <tr>
+          <td><div class="crit-row-head"><span class="crit-num">10</span><span class="crit-name">Canais de contato</span></div></td>
+          <td>Critério estrito: só é considerado atendido se o operador informar explicitamente um canal de contato — 0800, WhatsApp ou portal (ex.: facilquitar.com.br).
+            <div class="opts"><strong>Não atende:</strong> mencionar apenas formas de pagamento (boleto, app bancário, lotérica, "pode ir até o Condor") sem informar nenhum canal de contato de fato.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+  <p class="sec-subtitle" style="text-align:center;margin-top:14px">Pontuação: ok = 2 pts · parcial = 1 pt · não atendido = 0 pt · na = excluído do denominador</p>
 </div>
 </div><!-- #app -->
 
