@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRM Qualidade — Assessoria Fácil</title>
+<title>CRM Qualidade — Cobrança Z-ON</title>
 <script>try{if(localStorage.getItem('aqDarkMode')==='true')document.body.classList.add('dark')}catch(e){}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -194,8 +194,8 @@ body.dark .opts strong{color:#cbd5e1}
 
 <div class="assessoria-nav">
   <button class="assessoria-btn active" data-assessoria="facil">Fácil</button>
-  <button class="assessoria-btn" disabled title="Em breve">Decisão</button>
-  <button class="assessoria-btn" disabled title="Em breve">PG+</button>
+  <button class="assessoria-btn" data-assessoria="decisao" disabled title="Sem lotes avaliados ainda">Decisão</button>
+  <button class="assessoria-btn" data-assessoria="pgmais" disabled title="Sem lotes avaliados ainda">PG+</button>
 </div>
 
 <nav class="tab-nav">
@@ -410,9 +410,9 @@ body.dark .opts strong{color:#cbd5e1}
       <tbody>
         <tr>
           <td><div class="crit-row-head"><span class="crit-num">1</span><span class="crit-name">Abertura da ligação</span></div></td>
-          <td>O operador precisa (a) identificar-se como da assessoria e (b) mencionar que representa o Condor ou o cartão Z-ON.
-            <div class="opts"><strong>Variantes aceitas para o nome:</strong> "Fácil", "Assessoria Fácil" ou "Fácil Resultado" — todas equivalem a "ok".<br>
-            <strong>Não atende:</strong> dizer apenas que representa "o Condor" sem citar o cartão, ou usar um nome de assessoria incorreto (ex.: "Fácil Soluções").<br>
+          <td>O operador precisa (a) identificar-se corretamente como da assessoria responsável pela carteira e (b) mencionar que representa o Condor ou o cartão Z-ON.
+            <div class="opts"><strong>Variantes aceitas para o nome da assessoria:</strong> qualquer forma reconhecível do nome oficial da assessoria conta como atendido (ex.: nome abreviado ou nome completo) — o essencial é o cliente entender quem está ligando.<br>
+            <strong>Não atende:</strong> dizer apenas que representa "o Condor"/o cartão sem citar a assessoria, ou usar um nome de assessoria incorreto/inexistente.<br>
             Mencionar a gravação da ligação é um diferencial, mas não é obrigatório para considerar o critério atendido.</div>
           </td>
         </tr>
@@ -450,7 +450,7 @@ body.dark .opts strong{color:#cbd5e1}
           </td>
         </tr>
         <tr>
-          <td><div class="crit-row-head"><span class="crit-num">8</span><span class="crit-name">Fechamento do acordo</span></div></td>
+          <td><div class="crit-row-head"><span class="crit-num">8</span><span class="crit-name">Ratificação do acordo</span></div></td>
           <td>Quando há acordo, o operador recapitula os termos (valor, prazo, forma de pagamento) e busca confirmação verbal explícita do cliente — ratificação, não apenas "vou formalizar e te mando o boleto".
             <div class="opts">Marcado como "na" quando não houve fechamento na ligação (cliente sem condição, pediu retorno, recusou proposta etc.).</div>
           </td>
@@ -461,7 +461,7 @@ body.dark .opts strong{color:#cbd5e1}
         </tr>
         <tr>
           <td><div class="crit-row-head"><span class="crit-num">10</span><span class="crit-name">Canais de contato</span></div></td>
-          <td>Critério estrito: só é considerado atendido se o operador informar explicitamente um canal de contato — 0800, WhatsApp ou portal (ex.: facilquitar.com.br).
+          <td>Critério estrito: só é considerado atendido se o operador informar explicitamente um canal de contato — 0800, WhatsApp ou portal de autonegociação (o portal específico varia por assessoria).
             <div class="opts"><strong>Não atende:</strong> mencionar apenas formas de pagamento (boleto, app bancário, lotérica, "pode ir até o Condor") sem informar nenhum canal de contato de fato.</div>
           </td>
         </tr>
@@ -578,11 +578,39 @@ function makeDoughnut(id,labels,data,colors){
 let DATA=null;
 let state={op:'all',loteOp:'all',mesOp:'all',crit:'abertura',loteCrit:'all',mesCrit:'all',
            loteEv:'all',loteAnalise:1,mesAnalise:'all',crmLote:'all',crmOp:'all',crmFech:'all',
-           geralMes:'all',geralLote:'all',evolA:null,evolB:null,evolMode:'criterio'};
+           geralMes:'all',geralLote:'all',evolA:null,evolB:null,evolMode:'criterio',
+           assessoria:'facil'};
+
+// ── Assessorias (multi-assessoria) ─────────────────────────────────────
+const ASSESSORIA_LABELS={facil:'Fácil',decisao:'Decisão',pgmais:'PG+'};
+function lotesDaAssessoria(){
+  return DATA.lotes.filter(l=>(l.assessoria||'facil')===state.assessoria);
+}
+function setupAssessoriaNav(){
+  document.querySelectorAll('.assessoria-btn').forEach(btn=>{
+    if(btn.disabled)return; // sem dados ainda para essa assessoria
+    btn.addEventListener('click',()=>{
+      const nova=btn.dataset.assessoria;
+      if(nova===state.assessoria)return;
+      document.querySelectorAll('.assessoria-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      state.assessoria=nova;
+      const label=ASSESSORIA_LABELS[nova]||nova;
+      $('subtitleGeral').textContent=`Cartão Z-ON Condor — dados consolidados da assessoria ${label}`;
+      // Recarrega todos os filtros e painéis para refletir a nova assessoria
+      setupGeralFiltros();
+      setupOperadores();
+      setupCriterios();
+      setupEvolucao();
+      setupLigacoes();
+      setupAnalise();
+    });
+  });
+}
 
 // ── Mês helpers (reused across tabs) ───────────────────────────────────
-function getMesesList(){ return [...new Set(DATA.lotes.map(l=>l.periodo))].sort(); }
-function mesLabel(mes){ return DATA.lotes.find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes; }
+function getMesesList(){ return [...new Set(lotesDaAssessoria().map(l=>l.periodo))].sort(); }
+function mesLabel(mes){ return lotesDaAssessoria().find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes; }
 function buildLoteButtons(lDiv, lotes, onSelect, allLabel='Todos'){
   lDiv.innerHTML=`<button class="filter-btn active" data-lot="all">${allLabel}</button>`;
   lotes.forEach(l=>{
@@ -630,6 +658,7 @@ async function init(){
     $('updateDate').textContent=DATA.meta.ultima_atualizacao||'—';
     setupTabs();
     setupDarkMode();
+    setupAssessoriaNav();
     setupGeralFiltros();
     setupOperadores();
     setupCriterios();
@@ -673,7 +702,7 @@ function setupDarkMode(){
 // ── helpers: get all calls across lotes filtered ──────────────────────
 function getAllCalls(loteFilter='all'){
   const calls=[];
-  DATA.lotes.forEach(lote=>{
+  lotesDaAssessoria().forEach(lote=>{
     if(loteFilter!=='all'&&lote.id!==+loteFilter)return;
     lote.operadores.forEach(op=>{
       op.ligacoes.forEach(lig=>{
@@ -690,7 +719,7 @@ function getOpCalls(opNome,loteFilter='all'){
 
 function getAllOps(loteFilter='all'){
   const seen=new Set(),ops=[];
-  DATA.lotes.forEach(lote=>{
+  lotesDaAssessoria().forEach(lote=>{
     if(loteFilter!=='all'&&lote.id!==+loteFilter)return;
     lote.operadores.forEach(op=>{
       if(!seen.has(op.nome)){seen.add(op.nome);ops.push({nome:op.nome,isVirtual:op.isVirtual});}
@@ -702,11 +731,11 @@ function getAllOps(loteFilter='all'){
 // ── PAINEL GERAL ──────────────────────────────────────────────────────
 function setupGeralFiltros(){
   // Extrair meses únicos dos lotes
-  const meses=[...new Set(DATA.lotes.map(l=>l.periodo))].sort();
+  const meses=[...new Set(lotesDaAssessoria().map(l=>l.periodo))].sort();
   const mesDiv=$('filterMesGeral');
   mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
   meses.forEach(mes=>{
-    const label=DATA.lotes.find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes;
+    const label=lotesDaAssessoria().find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes;
     const b=document.createElement('button');
     b.className='filter-btn';b.dataset.mes=mes;b.textContent=label;
     b.addEventListener('click',()=>{
@@ -726,7 +755,7 @@ function setupGeralFiltros(){
 
 function atualizarFiltroLoteGeral(){
   const mes=state.geralMes;
-  const lotesFiltrados=DATA.lotes.filter(l=>l.periodo===mes);
+  const lotesFiltrados=lotesDaAssessoria().filter(l=>l.periodo===mes);
   const row=$('filterLoteGeralRow');
   if(lotesFiltrados.length<=1){row.style.display='none';return;}
   row.style.display='flex';
@@ -749,7 +778,7 @@ function atualizarFiltroLoteGeral(){
 
 function getGeralCalls(){
   // Filtra por mês e/ou lote de acordo com o estado
-  return DATA.lotes
+  return lotesDaAssessoria()
     .filter(l=>state.geralMes==='all'||l.periodo===state.geralMes)
     .filter(l=>state.geralLote==='all'||l.id===+state.geralLote)
     .flatMap(l=>l.operadores.flatMap(op=>
@@ -782,7 +811,7 @@ function renderGeral(){
   const humanOps=new Set(humanCalls.map(c=>c.operador));
 
   // Lotes visíveis no filtro atual
-  const lotesVisiveis=DATA.lotes
+  const lotesVisiveis=lotesDaAssessoria()
     .filter(l=>state.geralMes==='all'||l.periodo===state.geralMes)
     .filter(l=>state.geralLote==='all'||l.id===+state.geralLote);
   const subtitleTxt=state.geralMes==='all'
@@ -856,7 +885,7 @@ function renderGeral(){
 // ── OPERADORES ────────────────────────────────────────────────────────
 function setupOperadores(){
   const allOps=getAllOps();
-  const lotes=DATA.lotes;
+  const lotes=lotesDaAssessoria();
   
   // Op filter buttons
   const opDiv=$('filterOpBtns');
@@ -989,7 +1018,7 @@ function setupCriterios(){
     cDiv.appendChild(b);
   });
 
-  const lotes=DATA.lotes;
+  const lotes=lotesDaAssessoria();
 
   // Mês filter (filtra quais lotes aparecem no filtro de Lote abaixo)
   const mesDiv=$('filterMesCritBtns');
@@ -1057,7 +1086,7 @@ function renderCriterios(){
 
 // ── EVOLUÇÃO ──────────────────────────────────────────────────────────
 function setupEvolucao(){
-  const lotes=DATA.lotes;
+  const lotes=lotesDaAssessoria();
   if(!lotes.length)return;
   state.evolA=lotes[0].id;
   state.evolB=lotes[lotes.length-1].id;
@@ -1095,7 +1124,7 @@ function setupEvolucao(){
 
 function renderEvolucao(){
   const crits=DATA.meta.criterios;
-  const lotes=DATA.lotes;
+  const lotes=lotesDaAssessoria();
   const SERIES=['#2a78d6','#008300','#eda100','#e87ba4','#1baf7a','#eb6834','#2a78d6','#008300','#eda100','#e87ba4'];
   const loteLabels=lotes.map(l=>l.label);
 
@@ -1164,7 +1193,7 @@ function renderEvolucao(){
 
 // ── LIGAÇÕES (CRM) ────────────────────────────────────────────────────
 function setupLigacoes(){
-  const lotes=DATA.lotes;
+  const lotes=lotesDaAssessoria();
   const allOps=getAllOps().filter(o=>!o.isVirtual);
   
   function mkBtn(container,text,dataKey,dataVal,filterKey,initial){
@@ -1225,7 +1254,7 @@ function renderLigacoes(){
 
 // ── ANÁLISE GERAL ─────────────────────────────────────────────────────
 function setupAnalise(){
-  const lotes=DATA.lotes;
+  const lotes=lotesDaAssessoria();
 
   function renderLoteAnaliseBtns(lotesFiltrados){
     const lDiv=$('filterLoteAnalise');
@@ -1281,13 +1310,13 @@ function setupAnalise(){
 }
 
 function renderAnalise(){
-  const lote=DATA.lotes.find(l=>l.id===state.loteAnalise);
+  const lote=lotesDaAssessoria().find(l=>l.id===state.loteAnalise);
   if(!lote)return;
   const crits=DATA.meta.criterios;
   const printHeader=$('printAnaliseHeader');
   if(printHeader){
     printHeader.innerHTML=`
-      <div style="font-size:1.1rem;font-weight:800;color:#0F2461">CRM Qualidade — Assessoria Fácil</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#0F2461">CRM Qualidade — Assessoria ${ASSESSORIA_LABELS[state.assessoria]||state.assessoria}</div>
       <div style="font-size:.85rem;font-weight:600;margin-top:2px">Análise Geral — ${lote.label}</div>
       <div style="font-size:.7rem;color:#52514e;margin-top:2px">Gerado em ${DATA.meta.ultima_atualizacao||''} · ${lote.total_audios||0} ligações avaliadas</div>
       <div style="height:1px;background:#CBD5E1;margin:10px 0 4px"></div>`;
