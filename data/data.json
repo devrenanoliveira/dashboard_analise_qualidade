@@ -34,7 +34,7 @@
       },
       {
         "key": "fechamento",
-        "label": "8. Fechamento do acordo"
+        "label": "8. Ratificação do acordo"
       },
       {
         "key": "beneficios",
@@ -764,7 +764,8 @@
           "status": "nao",
           "obs": "FALHA MAJORITÁRIA: Apenas 4 das 13 ligações deixaram canal de contato — Clarisse (Áudio 1), Jennifer (Áudio 2), Micaela (Áudio 10) e Thaís (Áudio 12). Jennifer e Micaela também informaram o portal digital. Os 9 demais atendimentos encerraram sem fornecer qualquer referência ao cliente — ponto crítico a ser padronizado e cobrado de imediato."
         }
-      ]
+      ],
+      "assessoria": "facil"
     },
     {
       "id": 2,
@@ -1388,7 +1389,8 @@
           "status": "parcial",
           "obs": "INCONSISTÊNCIA: Jhenifer (Áudios 8 e 12) e Clarice (Áudio 10) deixaram 0800 e portal sistematicamente — MODELO A SEGUIR. Leonardo não deixou o 0800 em nenhuma das 5 ligações — falha crítica por volume. João detalhou formas de pagamento mas sem 0800 explícito. Thaís e Crislayne não informaram canais. AÇÃO: 0800 + portal obrigatório em 100% das ligações."
         }
-      ]
+      ],
+      "assessoria": "facil"
     },
     {
       "id": 3,
@@ -2501,7 +2503,8 @@
           "status": "ok",
           "obs": "<strong>MELHORA EXPRESSIVA:</strong> 14 das 21 ligações (67%) informaram um canal de contato de fato — 0800, WhatsApp ou portal. <strong>ATENÇÃO AO CRITÉRIO:</strong> mencionar apenas formas de pagamento (boleto, app bancário, lotérica) não conta como canal — Leonardo (Áudio 4) e Geisa (Áudio 9) caem nessa distinção e ficaram como 'não atendido'. <strong>FALHAS TOTAIS:</strong> Jenifer (Áudio 1), Thaís (Áudio 3), Mateus (Áudios 16 e 18) e Geisa (Áudio 20) não informaram nenhum canal. <strong>AÇÃO:</strong> padronizar o encerramento com 0800 + WhatsApp em 100% das ligações, independentemente do resultado."
         }
-      ]
+      ],
+      "assessoria": "facil"
     }
   ],
   "ultima_atualizacao": "07/08/2026 15:43 (BRT)"
