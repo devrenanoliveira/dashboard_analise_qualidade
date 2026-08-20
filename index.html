@@ -82,6 +82,12 @@ tbody td{padding:8px 14px;border-bottom:1px solid #F1F5F9;vertical-align:top}
 .filter-label{font-size:.74rem;color:var(--ink-secondary);font-weight:600;white-space:nowrap}
 .filter-btn{padding:5px 12px;border:1px solid #CBD5E1;border-radius:20px;background:#fff;font-size:.74rem;cursor:pointer;color:var(--ink-secondary);transition:all .15s}
 .filter-btn.active{background:var(--brand-navy);border-color:var(--brand-navy);color:#fff}
+.filter-select{padding:6px 12px;border:1px solid #CBD5E1;border-radius:20px;background:#fff;font-size:.74rem;font-weight:600;cursor:pointer;color:var(--ink-primary);min-width:150px}
+.filter-select:focus{outline:2px solid var(--brand-blue);outline-offset:1px}
+.filter-search{padding:5px 12px;border:1px solid #CBD5E1;border-radius:20px;background:#fff;font-size:.74rem;color:var(--ink-primary);min-width:220px}
+.filter-search:focus{outline:2px solid var(--brand-blue);outline-offset:1px}
+body.dark .filter-select{background:#1e293b;color:#f1f5f9;border-color:#334155}
+body.dark .filter-search{background:#1e293b;color:#f1f5f9;border-color:#334155}
 .insight-panel{background:var(--surface-card);border-radius:8px;border:1px solid #E2E8F0;padding:18px;margin-bottom:18px}
 .insight-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-blue);margin-bottom:10px}
 .destaque-block{background:#EFF6FF;border-radius:8px;padding:16px 18px;border:1px solid #BFDBFE;margin-bottom:12px}
@@ -216,7 +222,7 @@ body.dark .opts strong{color:#cbd5e1}
   <p class="sec-subtitle" id="subtitleGeral">Cartão Z-ON Condor — dados consolidados de todos os lotes</p>
   <div class="filter-row">
     <span class="filter-label">Mês:</span>
-    <div id="filterMesGeral"></div>
+    <select id="filterMesGeral" class="filter-select"></select>
   </div>
   <div class="filter-row" id="filterLoteGeralRow" style="display:none">
     <span class="filter-label">Lote:</span>
@@ -252,11 +258,12 @@ body.dark .opts strong{color:#cbd5e1}
   <p class="sec-subtitle">Radar de competências e histórico de ligações</p>
   <div class="filter-row">
     <span class="filter-label">Operador:</span>
-    <div id="filterOpBtns"></div>
+    <input type="text" id="filterOpSearchOperadores" class="filter-search" list="opDatalistOperadores" placeholder="Todos (digite para buscar)" autocomplete="off">
+    <datalist id="opDatalistOperadores"></datalist>
   </div>
   <div class="filter-row">
     <span class="filter-label">Mês:</span>
-    <div id="filterMesOpBtns"></div>
+    <select id="filterMesOpBtns" class="filter-select"></select>
   </div>
   <div class="filter-row">
     <span class="filter-label">Lote:</span>
@@ -292,7 +299,7 @@ body.dark .opts strong{color:#cbd5e1}
   </div>
   <div class="filter-row">
     <span class="filter-label">Mês:</span>
-    <div id="filterMesCritBtns"></div>
+    <select id="filterMesCritBtns" class="filter-select"></select>
   </div>
   <div class="filter-row">
     <span class="filter-label">Lote:</span>
@@ -327,8 +334,16 @@ body.dark .opts strong{color:#cbd5e1}
     <div class="chart-wrap h340"><canvas id="chartEvolucao"></canvas></div>
   </div>
   <div class="filter-row">
+    <span class="filter-label">Mês (De):</span>
+    <select id="evolMesA" class="filter-select"></select>
+  </div>
+  <div class="filter-row">
     <span class="filter-label">Comparar (De):</span>
     <div id="evolLoteABtns"></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Mês (Para):</span>
+    <select id="evolMesB" class="filter-select"></select>
   </div>
   <div class="filter-row">
     <span class="filter-label">Comparar (Para):</span>
@@ -350,12 +365,17 @@ body.dark .opts strong{color:#cbd5e1}
   <h1 class="sec-title">Todas as Ligações</h1>
   <p class="sec-subtitle">Clique em qualquer linha para expandir e ver os 10 critérios com observações</p>
   <div class="filter-row">
+    <span class="filter-label">Mês:</span>
+    <select id="filterMesCRM" class="filter-select"></select>
+  </div>
+  <div class="filter-row">
     <span class="filter-label">Lote:</span>
     <div id="filterLoteCRM"></div>
   </div>
   <div class="filter-row">
     <span class="filter-label">Operador:</span>
-    <div id="filterOpCRM"></div>
+    <input type="text" id="filterOpCRMSearch" class="filter-search" list="opCRMDatalist" placeholder="Todos (digite para buscar)" autocomplete="off">
+    <datalist id="opCRMDatalist"></datalist>
   </div>
   <div class="filter-row">
     <span class="filter-label">Fechamento:</span>
@@ -384,7 +404,7 @@ body.dark .opts strong{color:#cbd5e1}
   </div>
   <div class="filter-row no-print">
     <span class="filter-label">Mês:</span>
-    <div id="filterMesAnaliseBtns"></div>
+    <select id="filterMesAnaliseBtns" class="filter-select"></select>
   </div>
   <div class="filter-row no-print">
     <span class="filter-label">Lote:</span>
@@ -647,12 +667,35 @@ function kpiColorNao(pct){
   return 'red';
 }
 
+// ── Normalização de nomes de operadores ─────────────────────────────────
+// Corrige variações de grafia do mesmo operador entre lotes (ex.: erros de
+// digitação na transcrição). Aplicado em todo carregamento de dados, então
+// cobre lotes futuros automaticamente sem precisar editar o data.json.
+const OP_NAME_MAP={
+  'jennifer':'Jenifer Josimara','jhenifer':'Jenifer Josimara','jenifer':'Jenifer Josimara',
+  'clarisse':'Clarice França','clarice':'Clarice França',
+  'micaela':'Mikaelly Lorrana','mikaelly':'Mikaelly Lorrana'
+};
+function normalizarOperadores(data){
+  (data.lotes||[]).forEach(lote=>{
+    const merged={},order=[];
+    (lote.operadores||[]).forEach(op=>{
+      const canon=OP_NAME_MAP[String(op.nome||'').trim().toLowerCase()]||op.nome;
+      if(!merged[canon]){merged[canon]={nome:canon,isVirtual:!!op.isVirtual,ligacoes:[]};order.push(canon);}
+      merged[canon].ligacoes.push(...(op.ligacoes||[]));
+      if(op.isVirtual)merged[canon].isVirtual=true;
+    });
+    lote.operadores=order.map(c=>merged[c]);
+  });
+}
+
 // ── Init ──────────────────────────────────────────────────────────────
 async function init(){
   try{
     const r=await fetch('data/data.json?v='+Date.now());
     if(!r.ok)throw new Error('HTTP '+r.status);
     DATA=await r.json();
+    normalizarOperadores(DATA);
     $('loadingMsg').style.display='none';
     $('app').style.display='block';
     $('updateDate').textContent=DATA.meta.ultima_atualizacao||'—';
@@ -730,26 +773,18 @@ function getAllOps(loteFilter='all'){
 
 // ── PAINEL GERAL ──────────────────────────────────────────────────────
 function setupGeralFiltros(){
-  // Extrair meses únicos dos lotes
-  const meses=[...new Set(lotesDaAssessoria().map(l=>l.periodo))].sort();
-  const mesDiv=$('filterMesGeral');
-  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
-  meses.forEach(mes=>{
-    const label=lotesDaAssessoria().find(l=>l.periodo===mes)?.label?.split('—')[1]?.trim()||mes;
-    const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.mes=mes;b.textContent=label;
-    b.addEventListener('click',()=>{
-      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.geralMes=mes;state.geralLote='all';
-      atualizarFiltroLoteGeral();renderGeral();
-    });
-    mesDiv.appendChild(b);
-  });
-  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
-    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.geralMes='all';state.geralLote='all';
-    $('filterLoteGeralRow').style.display='none';renderGeral();
-  });
+  const meses=getMesesList();
+  const mesSel=$('filterMesGeral');
+  mesSel.innerHTML='<option value="all">Todos os meses</option>'+
+    meses.slice().reverse().map(mes=>`<option value="${mes}">${mesLabel(mes)}</option>`).join('');
+  mesSel.value='all';
+  mesSel.onchange=()=>{
+    state.geralMes=mesSel.value;state.geralLote='all';
+    if(mesSel.value==='all'){$('filterLoteGeralRow').style.display='none';}
+    else{atualizarFiltroLoteGeral();}
+    renderGeral();
+  };
+  $('filterLoteGeralRow').style.display='none';
   renderGeral();
 }
 
@@ -886,45 +921,34 @@ function renderGeral(){
 function setupOperadores(){
   const allOps=getAllOps();
   const lotes=lotesDaAssessoria();
-  
-  // Op filter buttons
-  const opDiv=$('filterOpBtns');
-  opDiv.innerHTML='<button class="filter-btn active" data-op="all">Todos</button>';
-  allOps.filter(o=>!o.isVirtual).forEach(o=>{
-    const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.op=o.nome;b.textContent=o.nome;
-    b.addEventListener('click',()=>{
-      opDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.op=o.nome;renderOperadores();
-    });
-    opDiv.appendChild(b);
-  });
-  opDiv.querySelector('[data-op="all"]').addEventListener('click',e=>{
-    opDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.op='all';renderOperadores();
-  });
+  const humanOps=allOps.filter(o=>!o.isVirtual);
+
+  // Op filter: campo de busca com autocomplete (substitui a fileira de botões)
+  const opInput=$('filterOpSearchOperadores'),opDl=$('opDatalistOperadores');
+  opDl.innerHTML=humanOps.map(o=>`<option value="${o.nome}">`).join('');
+  opInput.value=state.op==='all'?'':state.op;
+  opInput.oninput=()=>{
+    const val=opInput.value.trim();
+    if(val===''){state.op='all';renderOperadores();return;}
+    const match=humanOps.find(o=>o.nome.toLowerCase()===val.toLowerCase());
+    if(match){state.op=match.nome;renderOperadores();}
+  };
 
   // Mês filter (filtra quais lotes aparecem no filtro de Lote abaixo)
-  const mesDiv=$('filterMesOpBtns');
   const meses=getMesesList();
-  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
-  meses.forEach(mes=>{
-    const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.mes=mes;b.textContent=mesLabel(mes);
-    b.addEventListener('click',()=>{
-      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.mesOp=mes;state.loteOp='all';
-      buildLoteButtons($('filterLoteOpBtns'),lotes.filter(l=>l.periodo===mes),id=>{state.loteOp=id;renderOperadores();},'Todos do mês');
-      renderOperadores();
-    });
-    mesDiv.appendChild(b);
-  });
-  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
-    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.mesOp='all';state.loteOp='all';
-    buildLoteButtons($('filterLoteOpBtns'),lotes,id=>{state.loteOp=id;renderOperadores();},'Todos os lotes');
+  const mesSel=$('filterMesOpBtns');
+  mesSel.innerHTML='<option value="all">Todos os meses</option>'+
+    meses.slice().reverse().map(mes=>`<option value="${mes}">${mesLabel(mes)}</option>`).join('');
+  mesSel.value='all';
+  mesSel.onchange=()=>{
+    state.mesOp=mesSel.value;state.loteOp='all';
+    if(mesSel.value==='all'){
+      buildLoteButtons($('filterLoteOpBtns'),lotes,id=>{state.loteOp=id;renderOperadores();},'Todos os lotes');
+    }else{
+      buildLoteButtons($('filterLoteOpBtns'),lotes.filter(l=>l.periodo===mesSel.value),id=>{state.loteOp=id;renderOperadores();},'Todos do mês');
+    }
     renderOperadores();
-  });
+  };
 
   // Lote filter (estado inicial: todos os lotes)
   buildLoteButtons($('filterLoteOpBtns'),lotes,id=>{state.loteOp=id;renderOperadores();},'Todos os lotes');
@@ -1021,26 +1045,20 @@ function setupCriterios(){
   const lotes=lotesDaAssessoria();
 
   // Mês filter (filtra quais lotes aparecem no filtro de Lote abaixo)
-  const mesDiv=$('filterMesCritBtns');
   const meses=getMesesList();
-  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
-  meses.forEach(mes=>{
-    const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.mes=mes;b.textContent=mesLabel(mes);
-    b.addEventListener('click',()=>{
-      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.mesCrit=mes;state.loteCrit='all';
-      buildLoteButtons($('filterLoteCritBtns'),lotes.filter(l=>l.periodo===mes),id=>{state.loteCrit=id;renderCriterios();},'Todos do mês');
-      renderCriterios();
-    });
-    mesDiv.appendChild(b);
-  });
-  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
-    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.mesCrit='all';state.loteCrit='all';
-    buildLoteButtons($('filterLoteCritBtns'),lotes,id=>{state.loteCrit=id;renderCriterios();},'Todos');
+  const mesSel=$('filterMesCritBtns');
+  mesSel.innerHTML='<option value="all">Todos os meses</option>'+
+    meses.slice().reverse().map(mes=>`<option value="${mes}">${mesLabel(mes)}</option>`).join('');
+  mesSel.value='all';
+  mesSel.onchange=()=>{
+    state.mesCrit=mesSel.value;state.loteCrit='all';
+    if(mesSel.value==='all'){
+      buildLoteButtons($('filterLoteCritBtns'),lotes,id=>{state.loteCrit=id;renderCriterios();},'Todos');
+    }else{
+      buildLoteButtons($('filterLoteCritBtns'),lotes.filter(l=>l.periodo===mesSel.value),id=>{state.loteCrit=id;renderCriterios();},'Todos do mês');
+    }
     renderCriterios();
-  });
+  };
 
   const lDiv=$('filterLoteCritBtns');
   buildLoteButtons(lDiv,lotes,id=>{state.loteCrit=id;renderCriterios();},'Todos');
@@ -1090,6 +1108,7 @@ function setupEvolucao(){
   if(!lotes.length)return;
   state.evolA=lotes[0].id;
   state.evolB=lotes[lotes.length-1].id;
+  const meses=getMesesList();
 
   // Toggle de visualização do gráfico
   const modeDiv=$('evolModeBtns');
@@ -1101,11 +1120,13 @@ function setupEvolucao(){
     });
   });
 
-  // Seletores de lote para a tabela comparativa (De / Para)
-  function buildEvolLoteBtns(divId,current,onSelect){
+  // Seletores de lote para a tabela comparativa (De / Para) — a lista de lotes
+  // fica restrita ao mês escolhido no select correspondente, para não virar
+  // uma fileira infinita de botões conforme os lotes se acumulam.
+  function buildEvolLoteBtns(divId,lotesDisponiveis,current,onSelect){
     const div=$(divId);
     div.innerHTML='';
-    lotes.forEach(l=>{
+    lotesDisponiveis.forEach(l=>{
       const b=document.createElement('button');
       b.className='filter-btn'+(l.id===current?' active':'');
       b.dataset.lot=l.id;b.textContent=l.label;
@@ -1116,8 +1137,24 @@ function setupEvolucao(){
       div.appendChild(b);
     });
   }
-  buildEvolLoteBtns('evolLoteABtns',state.evolA,id=>{state.evolA=id;});
-  buildEvolLoteBtns('evolLoteBBtns',state.evolB,id=>{state.evolB=id;});
+
+  function setupMesEvol(selId,btnDivId,stateKey,initialLoteId){
+    const sel=$(selId);
+    sel.innerHTML=meses.slice().reverse().map(m=>`<option value="${m}">${mesLabel(m)}</option>`).join('');
+    const initialLote=lotes.find(l=>l.id===initialLoteId);
+    sel.value=initialLote?initialLote.periodo:meses[meses.length-1];
+    const lotesDoMes=()=>lotes.filter(l=>l.periodo===sel.value);
+    buildEvolLoteBtns(btnDivId,lotesDoMes(),initialLoteId,id=>{state[stateKey]=id;});
+    sel.onchange=()=>{
+      const ld=lotesDoMes();
+      if(!ld.length)return;
+      state[stateKey]=ld[0].id;
+      buildEvolLoteBtns(btnDivId,ld,state[stateKey],id=>{state[stateKey]=id;});
+      renderEvolucao();
+    };
+  }
+  setupMesEvol('evolMesA','evolLoteABtns','evolA',state.evolA);
+  setupMesEvol('evolMesB','evolLoteBBtns','evolB',state.evolB);
 
   renderEvolucao();
 }
@@ -1195,24 +1232,32 @@ function renderEvolucao(){
 function setupLigacoes(){
   const lotes=lotesDaAssessoria();
   const allOps=getAllOps().filter(o=>!o.isVirtual);
-  
-  function mkBtn(container,text,dataKey,dataVal,filterKey,initial){
-    const b=document.createElement('button');
-    b.className='filter-btn'+(initial?' active':'');
-    b.dataset[dataKey]=dataVal;b.textContent=text;
-    b.addEventListener('click',()=>{
-      $(container).querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state[filterKey]=dataVal;renderLigacoes();
-    });
-    $(container).appendChild(b);
-  }
-  
-  mkBtn('filterLoteCRM','Todos','lot','all','crmLote',true);
-  lotes.forEach(l=>mkBtn('filterLoteCRM',l.label,'lot',l.id,'crmLote'));
-  
-  mkBtn('filterOpCRM','Todos','op','all','crmOp',true);
-  allOps.forEach(o=>mkBtn('filterOpCRM',o.nome,'op',o.nome,'crmOp'));
-  
+  const meses=getMesesList();
+
+  // Mês filter (restringe quais lotes aparecem no filtro de Lote abaixo)
+  const mesSel=$('filterMesCRM');
+  mesSel.innerHTML='<option value="all">Todos os meses</option>'+
+    meses.slice().reverse().map(mes=>`<option value="${mes}">${mesLabel(mes)}</option>`).join('');
+  mesSel.value='all';
+  mesSel.onchange=()=>{
+    state.crmLote='all';
+    const lotesFiltrados=mesSel.value==='all'?lotes:lotes.filter(l=>l.periodo===mesSel.value);
+    buildLoteButtons($('filterLoteCRM'),lotesFiltrados,id=>{state.crmLote=id;renderLigacoes();},mesSel.value==='all'?'Todos':'Todos do mês');
+    renderLigacoes();
+  };
+  buildLoteButtons($('filterLoteCRM'),lotes,id=>{state.crmLote=id;renderLigacoes();},'Todos');
+
+  // Operador: campo de busca com autocomplete (substitui a fileira de botões)
+  const opInput=$('filterOpCRMSearch'),opDl=$('opCRMDatalist');
+  opDl.innerHTML=allOps.map(o=>`<option value="${o.nome}">`).join('');
+  opInput.value=state.crmOp==='all'?'':state.crmOp;
+  opInput.oninput=()=>{
+    const val=opInput.value.trim();
+    if(val===''){state.crmOp='all';renderLigacoes();return;}
+    const match=allOps.find(o=>o.nome.toLowerCase()===val.toLowerCase());
+    if(match){state.crmOp=match.nome;renderLigacoes();}
+  };
+
   $('filterFechCRM').innerHTML='';
   [{v:'all',t:'Todos'},{v:'ok',t:'✅ Fechado'},{v:'parcial',t:'⚠️ Parcial'},{v:'nao',t:'❌ Não fechado'},{v:'na',t:'N/A'}].forEach((it,i)=>{
     const b=document.createElement('button');
@@ -1272,26 +1317,16 @@ function setupAnalise(){
     if(lotesFiltrados.length){state.loteAnalise=lotesFiltrados[0].id;}
   }
 
-  const mesDiv=$('filterMesAnaliseBtns');
   const meses=getMesesList();
-  mesDiv.innerHTML='<button class="filter-btn active" data-mes="all">Todos os meses</button>';
-  meses.forEach(mes=>{
-    const b=document.createElement('button');
-    b.className='filter-btn';b.dataset.mes=mes;b.textContent=mesLabel(mes);
-    b.addEventListener('click',()=>{
-      mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');state.mesAnalise=mes;
-      renderLoteAnaliseBtns(lotes.filter(l=>l.periodo===mes));
-      renderAnalise();
-    });
-    mesDiv.appendChild(b);
-  });
-  mesDiv.querySelector('[data-mes="all"]').addEventListener('click',e=>{
-    mesDiv.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-    e.target.classList.add('active');state.mesAnalise='all';
-    renderLoteAnaliseBtns(lotes);
+  const mesSel=$('filterMesAnaliseBtns');
+  mesSel.innerHTML='<option value="all">Todos os meses</option>'+
+    meses.slice().reverse().map(mes=>`<option value="${mes}">${mesLabel(mes)}</option>`).join('');
+  mesSel.value='all';
+  mesSel.onchange=()=>{
+    state.mesAnalise=mesSel.value;
+    renderLoteAnaliseBtns(mesSel.value==='all'?lotes:lotes.filter(l=>l.periodo===mesSel.value));
     renderAnalise();
-  });
+  };
 
   renderLoteAnaliseBtns(lotes);
   renderAnalise();
