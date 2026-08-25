@@ -96,7 +96,7 @@ dashboard-qualidade/
 | 5 | Gradatividade | Sequência à vista hoje → segunda à vista → parcelamento |
 | 6 | Criatividade | Busca de alternativas para viabilizar o acordo |
 | 7 | Clareza dos números | Valores e condições apresentados sem ambiguidade |
-| 8 | Fechamento do acordo | Ratificação das condições e confirmação verbal do cliente |
+| 8 | Ratificação do acordo | Ratificação das condições e confirmação verbal do cliente |
 | 9 | Benefícios/consequências | Menção aos benefícios do acordo ou consequências da inadimplência |
 | 10 | Canais de contato | Informação de canais ao encerrar |
 
