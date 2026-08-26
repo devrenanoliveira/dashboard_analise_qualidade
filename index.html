@@ -597,7 +597,7 @@ function makeDoughnut(id,labels,data,colors){
 // ── State ─────────────────────────────────────────────────────────────
 let DATA=null;
 let state={op:'all',loteOp:'all',mesOp:'all',crit:'abertura',loteCrit:'all',mesCrit:'all',
-           loteEv:'all',loteAnalise:1,mesAnalise:'all',crmLote:'all',crmOp:'all',crmFech:'all',
+           loteEv:'all',loteAnalise:1,mesAnalise:'all',crmLote:'all',crmMes:'all',crmOp:'all',crmFech:'all',
            geralMes:'all',geralLote:'all',evolA:null,evolB:null,evolMode:'criterio',
            assessoria:'facil'};
 
@@ -743,9 +743,10 @@ function setupDarkMode(){
 }
 
 // ── helpers: get all calls across lotes filtered ──────────────────────
-function getAllCalls(loteFilter='all'){
+function getAllCalls(loteFilter='all',mesFilter='all'){
   const calls=[];
   lotesDaAssessoria().forEach(lote=>{
+    if(mesFilter!=='all'&&lote.periodo!==mesFilter)return;
     if(loteFilter!=='all'&&lote.id!==+loteFilter)return;
     lote.operadores.forEach(op=>{
       op.ligacoes.forEach(lig=>{
@@ -756,13 +757,14 @@ function getAllCalls(loteFilter='all'){
   return calls;
 }
 
-function getOpCalls(opNome,loteFilter='all'){
-  return getAllCalls(loteFilter).filter(c=>c.operador===opNome);
+function getOpCalls(opNome,loteFilter='all',mesFilter='all'){
+  return getAllCalls(loteFilter,mesFilter).filter(c=>c.operador===opNome);
 }
 
-function getAllOps(loteFilter='all'){
+function getAllOps(loteFilter='all',mesFilter='all'){
   const seen=new Set(),ops=[];
   lotesDaAssessoria().forEach(lote=>{
+    if(mesFilter!=='all'&&lote.periodo!==mesFilter)return;
     if(loteFilter!=='all'&&lote.id!==+loteFilter)return;
     lote.operadores.forEach(op=>{
       if(!seen.has(op.nome)){seen.add(op.nome);ops.push({nome:op.nome,isVirtual:op.isVirtual});}
@@ -959,9 +961,10 @@ function setupOperadores(){
 function renderOperadores(){
   const crits=DATA.meta.criterios;
   const loteFilter=state.loteOp;
+  const mesFilter=state.mesOp;
   const opFilter=state.op;
-  
-  let calls=opFilter==='all'?getAllCalls(loteFilter).filter(c=>!c.isVirtual):getOpCalls(opFilter,loteFilter);
+
+  let calls=opFilter==='all'?getAllCalls(loteFilter,mesFilter).filter(c=>!c.isVirtual):getOpCalls(opFilter,loteFilter,mesFilter);
   
   // Radar chart
   const radarLabels=crits.map(c=>c.label.replace(/^\d+\.\s*/,''));
@@ -974,9 +977,9 @@ function renderOperadores(){
     $('radarTitle').textContent='Radar de critérios — '+opFilter;
   } else {
     // Multiple operators
-    const ops=getAllOps(loteFilter).filter(o=>!o.isVirtual);
+    const ops=getAllOps(loteFilter,mesFilter).filter(o=>!o.isVirtual);
     radarDatasets=ops.slice(0,6).map((op,i)=>{
-      const opCalls=getOpCalls(op.nome,loteFilter);
+      const opCalls=getOpCalls(op.nome,loteFilter,mesFilter);
       return{label:op.nome,data:crits.map(c=>critScore(opCalls,c.key)??0),
         borderColor:SERIES[i%6],backgroundColor:SERIES[i%6]+'18',
         pointBackgroundColor:SERIES[i%6],borderWidth:2};
@@ -1069,7 +1072,8 @@ function setupCriterios(){
 function renderCriterios(){
   const crit=state.crit;
   const loteFilter=state.loteCrit;
-  const calls=getAllCalls(loteFilter).filter(c=>!c.isVirtual);
+  const mesFilter=state.mesCrit;
+  const calls=getAllCalls(loteFilter,mesFilter).filter(c=>!c.isVirtual);
   const critLabel=DATA.meta.criterios.find(c=>c.key===crit)?.label||crit;
 
   $('critChartTitle').textContent=critLabel+' — score por operador';
@@ -1240,7 +1244,7 @@ function setupLigacoes(){
     meses.slice().reverse().map(mes=>`<option value="${mes}">${mesLabel(mes)}</option>`).join('');
   mesSel.value='all';
   mesSel.onchange=()=>{
-    state.crmLote='all';
+    state.crmMes=mesSel.value;state.crmLote='all';
     const lotesFiltrados=mesSel.value==='all'?lotes:lotes.filter(l=>l.periodo===mesSel.value);
     buildLoteButtons($('filterLoteCRM'),lotesFiltrados,id=>{state.crmLote=id;renderLigacoes();},mesSel.value==='all'?'Todos':'Todos do mês');
     renderLigacoes();
@@ -1274,7 +1278,7 @@ function setupLigacoes(){
 }
 
 function renderLigacoes(){
-  let calls=getAllCalls(state.crmLote).filter(c=>!c.isVirtual);
+  let calls=getAllCalls(state.crmLote,state.crmMes).filter(c=>!c.isVirtual);
   if(state.crmOp!=='all')calls=calls.filter(c=>c.operador===state.crmOp);
   if(state.crmFech!=='all')calls=calls.filter(c=>c.criterios.fechamento?.status===state.crmFech);
   calls.sort((a,b)=>a.loteId-b.loteId||a.audio-b.audio);
