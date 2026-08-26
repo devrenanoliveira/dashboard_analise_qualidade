@@ -869,18 +869,20 @@ function renderGeral(){
     <div class="kpi-card"><div class="kpi-label">Operadores Avaliados</div><div class="kpi-value">${humanOps.size}</div><div class="kpi-sub">operadores humanos únicos</div></div>
   `;
 
-  // Chart: score médio por critério
+  // Chart: score médio por critério (null = critério sem nenhuma avaliação aplicável
+  // no recorte atual — Chart.js pula o ponto em vez de desenhar uma barra em 0%)
   const critLabels=crits.map(c=>c.label.replace(/^\d+\.\s*/,''));
-  const critScores=crits.map(c=>critScore(humanCalls,c.key)??0);
-  const colors=critScores.map(s=>s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
+  const critScores=crits.map(c=>critScore(humanCalls,c.key));
+  const colors=critScores.map(s=>s==null?'rgba(148,163,184,.5)':s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
   makeBarChart('chartCriterioGeral',critLabels,[{label:'Score %',data:critScores,backgroundColor:colors,borderRadius:4}],{horizontal:true});
 
   // Chart: distribuição status
   makeDoughnut('chartDistStatus',['✅ Atendido','⚠️ Parcialmente','❌ Não atendido','N/A'],[totalOk,totalParcial,totalNao,totalNa],
     ['#22c55e','#eab308','#ef4444','#d1d5db']);
 
-  // Insights
-  const sortedCrits=[...crits].map(c=>({...c,sc:critScore(humanCalls,c.key)??0})).sort((a,b)=>a.sc-b.sc);
+  // Insights — critérios sem avaliação aplicável (sc===null) ficam de fora do
+  // ranking de melhor/pior, senão "sem dado" vira "pior nota" por coalescer pra 0
+  const sortedCrits=crits.map(c=>({...c,sc:critScore(humanCalls,c.key)})).filter(c=>c.sc!==null).sort((a,b)=>a.sc-b.sc);
   const worst3=sortedCrits.slice(0,3),best3=sortedCrits.slice(-3).reverse();
   $('insightsGeral').innerHTML=`
     <div class="two-col">
@@ -972,7 +974,7 @@ function renderOperadores(){
   
   let radarDatasets;
   if(opFilter!=='all'){
-    const scores=crits.map(c=>critScore(calls,c.key)??0);
+    const scores=crits.map(c=>critScore(calls,c.key));
     radarDatasets=[{label:opFilter,data:scores,borderColor:SERIES[0],backgroundColor:SERIES[0]+'22',pointBackgroundColor:SERIES[0],borderWidth:2}];
     $('radarTitle').textContent='Radar de critérios — '+opFilter;
   } else {
@@ -980,7 +982,7 @@ function renderOperadores(){
     const ops=getAllOps(loteFilter,mesFilter).filter(o=>!o.isVirtual);
     radarDatasets=ops.slice(0,6).map((op,i)=>{
       const opCalls=getOpCalls(op.nome,loteFilter,mesFilter);
-      return{label:op.nome,data:crits.map(c=>critScore(opCalls,c.key)??0),
+      return{label:op.nome,data:crits.map(c=>critScore(opCalls,c.key)),
         borderColor:SERIES[i%6],backgroundColor:SERIES[i%6]+'18',
         pointBackgroundColor:SERIES[i%6],borderWidth:2};
     });
@@ -1086,8 +1088,8 @@ function renderCriterios(){
     opMap[c.operador].push(c);
   });
   const opNames=Object.keys(opMap);
-  const opScores=opNames.map(n=>critScore(opMap[n],crit)??0);
-  const colors=opScores.map(s=>s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
+  const opScores=opNames.map(n=>critScore(opMap[n],crit));
+  const colors=opScores.map(s=>s==null?'rgba(148,163,184,.5)':s>=70?'rgba(34,197,94,.8)':s>=40?'rgba(234,179,8,.8)':'rgba(239,68,68,.8)');
   makeBarChart('chartCritOp',opNames,[{label:critLabel,data:opScores,backgroundColor:colors,borderRadius:4}]);
 
   // Detail table
@@ -1182,7 +1184,7 @@ function renderEvolucao(){
     const datasets=crits.map((c,i)=>{
       const data=lotes.map(l=>{
         const calls=l.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
-        return critScore(calls,c.key)??0;
+        return critScore(calls,c.key);
       });
       return{label:c.label.replace(/^\d+\.\s*/,''),data,borderColor:SERIES[i%10],backgroundColor:SERIES[i%10]+'22',
         tension:.3,borderWidth:2,pointRadius:5,pointHoverRadius:7};
@@ -1200,25 +1202,29 @@ function renderEvolucao(){
     const callsA=loteA.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
     const callsB=loteB.operadores.filter(o=>!o.isVirtual).flatMap(o=>o.ligacoes);
     $('tbodyEvolucao').innerHTML=crits.map(c=>{
-      const s1=critScore(callsA,c.key)??0;
-      const s2=critScore(callsB,c.key)??0;
-      const delta=s2-s1;
-      const arrow=delta>0?'▲':delta<0?'▼':'→';
-      const clr=delta>5?'#15803D':delta<-5?'#9C0006':delta===0?'var(--ink-muted)':'#92400E';
+      const s1=critScore(callsA,c.key);
+      const s2=critScore(callsB,c.key);
+      // null = critério sem nenhuma avaliação aplicável naquele lote (todas 'na') —
+      // não é "caiu pra 0%", é "não dá pra comparar". Antes isso virava um -100%
+      // fabricado sempre que um lote não tinha nenhum caso aplicável do critério.
+      const delta=(s1!=null&&s2!=null)?s2-s1:null;
+      const arrow=delta==null?'—':delta>0?'▲':delta<0?'▼':'→';
+      const clr=delta==null?'var(--ink-muted)':delta>5?'#15803D':delta<-5?'#9C0006':delta===0?'var(--ink-muted)':'#92400E';
       return`<tr>
         <td><strong>${c.label}</strong></td>
-        <td style="text-align:center;font-weight:700">${s1}%</td>
-        <td style="text-align:center;font-weight:700">${s2}%</td>
-        <td style="text-align:center;font-weight:700;color:${clr}">${delta>0?'+':''}${delta}%</td>
+        <td style="text-align:center;font-weight:700">${s1!=null?s1+'%':'—'}</td>
+        <td style="text-align:center;font-weight:700">${s2!=null?s2+'%':'—'}</td>
+        <td style="text-align:center;font-weight:700;color:${clr}">${delta==null?'sem dado aplicável':(delta>0?'+':'')+delta+'%'}</td>
         <td style="text-align:center;font-size:1.2rem;color:${clr}">${arrow}</td>
       </tr>`;
     }).join('');
 
-    // Insights
+    // Insights — só entram critérios com dado aplicável nos dois lotes (mesmo
+    // motivo do "sem dado aplicável" da tabela acima)
     const sorted=crits.map(c=>{
-      const s1=critScore(callsA,c.key)??0,s2=critScore(callsB,c.key)??0;
-      return{...c,delta:s2-s1,s2};
-    }).sort((a,b)=>b.delta-a.delta);
+      const s1=critScore(callsA,c.key),s2=critScore(callsB,c.key);
+      return{...c,delta:(s1!=null&&s2!=null)?s2-s1:null,s2};
+    }).filter(c=>c.delta!==null).sort((a,b)=>b.delta-a.delta);
     const improved=sorted.filter(c=>c.delta>0).slice(0,2);
     const declined=sorted.filter(c=>c.delta<0).slice(-2).reverse();
     $('evolInsights').innerHTML=`<div class="two-col">
