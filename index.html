@@ -66,6 +66,19 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .chart-card.wide{grid-column:1/-1}
 .chart-title{font-size:.71rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-secondary);margin-bottom:14px}
 .chart-wrap{position:relative}.chart-wrap.h260{height:260px}.chart-wrap.h300{height:300px}.chart-wrap.h340{height:340px}.chart-wrap.h220{height:220px}
+.chart-expand-btn{position:absolute;top:6px;right:6px;width:24px;height:24px;border:none;border-radius:6px;background:rgba(11,11,11,.06);color:var(--ink-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s,background-color .15s,color .15s;z-index:2}
+.chart-wrap:hover .chart-expand-btn,.chart-expand-btn:focus-visible{opacity:1}
+.chart-expand-btn:hover{background:rgba(11,11,11,.12);color:var(--ink-primary)}
+body.dark .chart-expand-btn{background:rgba(255,255,255,.08);color:var(--ink-secondary)}
+body.dark .chart-expand-btn:hover{background:rgba(255,255,255,.14);color:var(--ink-primary)}
+.chart-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:24px}
+.chart-modal-overlay.open{display:flex}
+.chart-modal-content{background:var(--surface-card);border-radius:8px;padding:24px;width:100%;max-width:900px;height:80vh;max-height:640px;position:relative;display:flex;flex-direction:column}
+.chart-modal-canvas-wrap{flex:1;position:relative;min-height:0}
+.chart-modal-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border:none;border-radius:6px;background:rgba(11,11,11,.06);color:var(--ink-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2}
+.chart-modal-close:hover{background:rgba(11,11,11,.12);color:var(--ink-primary)}
+body.dark .chart-modal-close{background:rgba(255,255,255,.08);color:var(--ink-secondary)}
+body.dark .chart-modal-close:hover{background:rgba(255,255,255,.14);color:var(--ink-primary)}
 .table-card{background:var(--surface-card);border-radius:8px;border:1px solid #E2E8F0;overflow:hidden;margin-bottom:18px}
 .table-card-header{padding:14px 18px 10px;border-bottom:1px solid #E2E8F0}
 .table-scroll{overflow-x:auto}
@@ -232,11 +245,11 @@ body.dark .opts strong{color:#cbd5e1}
   <div class="chart-grid">
     <div class="chart-card">
       <div class="chart-title" id="titleCriterioGeral">Score médio por critério</div>
-      <div class="chart-wrap h300"><canvas id="chartCriterioGeral"></canvas></div>
+      <div class="chart-wrap h300"><button class="chart-expand-btn" onclick="expandChart('chartCriterioGeral')" title="Ampliar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><canvas id="chartCriterioGeral"></canvas></div>
     </div>
     <div class="chart-card">
       <div class="chart-title" id="titleDistStatus">Distribuição de status</div>
-      <div class="chart-wrap h300"><canvas id="chartDistStatus"></canvas></div>
+      <div class="chart-wrap h300"><button class="chart-expand-btn" onclick="expandChart('chartDistStatus')" title="Ampliar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><canvas id="chartDistStatus"></canvas></div>
     </div>
   </div>
   <div id="insightsGeral"></div>
@@ -272,7 +285,7 @@ body.dark .opts strong{color:#cbd5e1}
   <div class="two-col" style="align-items:start">
     <div class="chart-card">
       <div class="chart-title" id="radarTitle">Radar de critérios</div>
-      <div class="chart-wrap h340"><canvas id="chartRadar"></canvas></div>
+      <div class="chart-wrap h340"><button class="chart-expand-btn" onclick="expandChart('chartRadar')" title="Ampliar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><canvas id="chartRadar"></canvas></div>
     </div>
     <div>
       <div class="kpi-grid" style="grid-template-columns:1fr 1fr;margin-bottom:12px" id="kpiOp"></div>
@@ -308,7 +321,7 @@ body.dark .opts strong{color:#cbd5e1}
   <div class="chart-grid">
     <div class="chart-card wide">
       <div class="chart-title" id="critChartTitle">Score por operador</div>
-      <div class="chart-wrap h260"><canvas id="chartCritOp"></canvas></div>
+      <div class="chart-wrap h260"><button class="chart-expand-btn" onclick="expandChart('chartCritOp')" title="Ampliar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><canvas id="chartCritOp"></canvas></div>
     </div>
   </div>
   <div class="table-card">
@@ -331,7 +344,7 @@ body.dark .opts strong{color:#cbd5e1}
   </div>
   <div class="chart-card wide">
     <div class="chart-title" id="evolChartTitle">Evolução do score médio por critério (% do máximo)</div>
-    <div class="chart-wrap h340"><canvas id="chartEvolucao"></canvas></div>
+    <div class="chart-wrap h340"><button class="chart-expand-btn" onclick="expandChart('chartEvolucao')" title="Ampliar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><canvas id="chartEvolucao"></canvas></div>
   </div>
   <div class="filter-row">
     <span class="filter-label">Mês (De):</span>
@@ -492,6 +505,15 @@ body.dark .opts strong{color:#cbd5e1}
 </div>
 </div><!-- #app -->
 
+<div id="chartModalOverlay" class="chart-modal-overlay" onclick="if(event.target===this) closeChartModal()">
+  <div class="chart-modal-content">
+    <button class="chart-modal-close" onclick="closeChartModal()" title="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="chart-modal-canvas-wrap"><canvas id="chartModalCanvas"></canvas></div>
+  </div>
+</div>
+
 <script>
 // ── helpers ──────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
@@ -543,10 +565,26 @@ function badge(status){
 const charts={};
 function destroyChart(id){ if(charts[id]){charts[id].destroy();delete charts[id];} }
 
+const _chartRegistry={};
+function registerExpandable(canvasId,buildConfig){_chartRegistry[canvasId]=buildConfig;}
+let _chartModalInstance=null;
+function expandChart(canvasId){
+  const build=_chartRegistry[canvasId];
+  if(!build)return;
+  document.getElementById('chartModalOverlay').classList.add('open');
+  if(_chartModalInstance)_chartModalInstance.destroy();
+  _chartModalInstance=new Chart(document.getElementById('chartModalCanvas'),build());
+}
+function closeChartModal(){
+  document.getElementById('chartModalOverlay').classList.remove('open');
+  if(_chartModalInstance){_chartModalInstance.destroy();_chartModalInstance=null;}
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeChartModal();});
+
 function makeBarChart(id,labels,datasets,opts={}){
   destroyChart(id);
   const ctx=$(id).getContext('2d');
-  charts[id]=new Chart(ctx,{type:'bar',data:{labels,datasets},options:{
+  const cfg=()=>({type:'bar',data:{labels,datasets},options:{
     responsive:true,maintainAspectRatio:false,
     indexAxis:opts.horizontal?'y':'x',
     plugins:{legend:{display:datasets.length>1,position:'bottom',labels:{font:{size:11}}},
@@ -554,24 +592,28 @@ function makeBarChart(id,labels,datasets,opts={}){
     scales:{x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11}},max:opts.horizontal?100:undefined},
             y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11}},max:opts.horizontal?undefined:100}}
   }});
+  charts[id]=new Chart(ctx,cfg());
+  registerExpandable(id,cfg);
 }
 
 function makeRadarChart(id,labels,datasets){
   destroyChart(id);
   const ctx=$(id).getContext('2d');
-  charts[id]=new Chart(ctx,{type:'radar',data:{labels,datasets},options:{
+  const cfg=()=>({type:'radar',data:{labels,datasets},options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
     scales:{r:{min:0,max:100,ticks:{display:false,stepSize:25},
       pointLabels:{font:{size:10.5}},
       grid:{color:'rgba(0,0,0,.1)'},angleLines:{color:'rgba(0,0,0,.1)'}}}
   }});
+  charts[id]=new Chart(ctx,cfg());
+  registerExpandable(id,cfg);
 }
 
 function makeLineChart(id,labels,datasets){
   destroyChart(id);
   const ctx=$(id).getContext('2d');
-  charts[id]=new Chart(ctx,{type:'line',data:{labels,datasets},options:{
+  const cfg=()=>({type:'line',data:{labels,datasets},options:{
     responsive:true,maintainAspectRatio:false,
     interaction:{mode:'index',intersect:false,axis:'x'},
     hover:{mode:'index',intersect:false},
@@ -582,16 +624,20 @@ function makeLineChart(id,labels,datasets){
     scales:{x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11}}},
             y:{min:0,max:100,grid:{color:'rgba(0,0,0,.06)'},ticks:{font:{size:11},callback:v=>v+'%'}}}
   }});
+  charts[id]=new Chart(ctx,cfg());
+  registerExpandable(id,cfg);
 }
 
 function makeDoughnut(id,labels,data,colors){
   destroyChart(id);
   const ctx=$(id).getContext('2d');
-  charts[id]=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:2,borderColor:'#fff'}]},options:{
+  const cfg=()=>({type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:2,borderColor:'#fff'}]},options:{
     responsive:true,maintainAspectRatio:false,cutout:'60%',
     plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:12,padding:10}},
       tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw}`}}}
   }});
+  charts[id]=new Chart(ctx,cfg());
+  registerExpandable(id,cfg);
 }
 
 // ── State ─────────────────────────────────────────────────────────────

@@ -2,6 +2,8 @@
 
 Dashboard interativo para acompanhamento das análises de qualidade dos atendimentos do Cartão Z-ON Condor.
 
+Todo gráfico do dashboard (5 no total) tem um botão discreto de ampliar (ícone no canto do card, aparece ao passar o mouse) que abre o gráfico num modal maior, mantendo a mesma interação de tooltip do card original.
+
 ## Como publicar no GitHub Pages (primeira vez)
 
 ### 1. Criar o repositório no GitHub
