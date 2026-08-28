@@ -54,6 +54,16 @@ qualquer outro arquivo do projeto, antes de considerar a tarefa concluída devo:
    usar `ListAgents` e procurar quem se identifica como "Kaioh do Norte", nunca
    hardcodar um `claude-code-XX`. Não bloqueia nem substitui os itens 1–4.
 
+## Correção de fonte em botões (28/08/2026)
+
+Botões/inputs/selects renderizavam em Arial mesmo com o `body` usando a fonte do
+sistema — navegadores não herdam `font-family` do `body` nesses elementos por
+padrão. Fix: `button,input,select,textarea{font-family:inherit}` logo após o reset
+universal (`*,*::before,*::after{...}`). Mesmo bug encontrado e corrigido no mesmo
+dia em `zon-dashboard-powered`, `acionamentos-zon` e Governança — não era específico
+daqui. Ao adicionar um `<button>`/`<input>`/`<select>` novo, não é preciso repetir
+`font-family` manualmente — a regra global já cobre.
+
 ## Testar localmente
 
 `index.html` carrega `data/data.json` via `fetch()` — não abrir com `file://` direto
