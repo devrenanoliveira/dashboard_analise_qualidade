@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRM Qualidade — Cobrança Z-ON</title>
 <script>try{if(localStorage.getItem('aqDarkMode')==='true')document.body.classList.add('dark')}catch(e){}</script>
+<!-- Tipografia (Manrope, Google Fonts — dígitos tabulares para os KPIs) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
@@ -21,7 +25,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 button,input,select,textarea{font-family:inherit}
-body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--surface);color:var(--ink-primary);font-size:14px;min-height:100vh}
+body{font-family:'Manrope',system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--surface);color:var(--ink-primary);font-size:14px;min-height:100vh}
 .header{background:var(--brand-navy);color:#fff;padding:11px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.25)}
 .header-left{display:flex;align-items:center;gap:16px}
 .logo{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color:#fff}
@@ -58,7 +62,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .kpi-card.red{background:#FEF2F2;border-color:#FECACA}
 .kpi-label{font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
 .kpi-card.navy .kpi-label,.kpi-card.blue .kpi-label{color:rgba(255,255,255,.65)}
-.kpi-value{font-size:1.8rem;font-weight:700;line-height:1;color:var(--brand-navy);margin-bottom:4px}
+.kpi-value{font-size:1.8rem;font-weight:700;line-height:1;color:var(--brand-navy);margin-bottom:4px;font-variant-numeric:tabular-nums}
 .kpi-card.navy .kpi-value,.kpi-card.blue .kpi-value{color:#fff}
 .kpi-sub{font-size:.74rem;color:var(--ink-secondary)}
 .kpi-card.navy .kpi-sub,.kpi-card.blue .kpi-sub{color:rgba(255,255,255,.65)}

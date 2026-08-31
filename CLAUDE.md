@@ -64,6 +64,14 @@ dia em `zon-dashboard-powered`, `acionamentos-zon` e Governança — não era es
 daqui. Ao adicionar um `<button>`/`<input>`/`<select>` novo, não é preciso repetir
 `font-family` manualmente — a regra global já cobre.
 
+## Tipografia Manrope (28/08/2026)
+
+`body{font-family:'Manrope',...}` (fallback pro stack de sistema mantido) + `<link>`
+do Google Fonts no `<head>` + `font-variant-numeric:tabular-nums` em `.kpi-value`.
+Mesmo pacote já aplicado em `zon-dashboard-powered`/`acionamentos-zon`/Governança —
+replicado aqui a pedido do usuário. Dependência de rede nova
+(fonts.googleapis.com/fonts.gstatic.com), confirmado carregando com sucesso.
+
 ## Testar localmente
 
 `index.html` carrega `data/data.json` via `fetch()` — não abrir com `file://` direto
