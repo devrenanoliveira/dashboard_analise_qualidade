@@ -106,3 +106,8 @@ dentro do modal.
   não alterar `git config` por conta própria; avisar o usuário se for necessário.
 - `credential.helper` do sistema é o Git Credential Manager — push deve funcionar via
   autenticação no browser quando autorizado.
+
+⚠️ **LGPD (15/10/2026):** repositório e site são **públicos**. O campo `cliente` de cada ligação
+é sempre anônimo (`"Cliente 01"`, `"Cliente 02"`…) e nenhuma observação cita nome de cliente
+(nem o que o operador "confirmou"). O `validar_lote` do script recusa nome. Nome do operador
+pode ficar. Em 15/10 o histórico do git foi reescrito para remover 75 nomes que estavam no ar.

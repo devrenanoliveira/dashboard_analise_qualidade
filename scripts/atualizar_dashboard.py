@@ -103,6 +103,9 @@ def validar_lote(lote: dict) -> list[str]:
         nome = op.get("nome", f"operador_{i}")
         for j, lig in enumerate(op.get("ligacoes", [])):
             audio = lig.get("audio", j + 1)
+            # o repositório e o site são públicos: cliente nunca pelo nome (LGPD), só "Cliente 01", "Cliente 02"...
+            if lig.get("cliente") and not str(lig["cliente"]).startswith("Cliente "):
+                erros.append(f"{nome} / Áudio {audio}: 'cliente' deve ser anônimo (\"Cliente 01\"), nunca o nome. Tire o nome das observações também.")
             chaves_encontradas = {c["key"] for c in lig.get("criterios", [])}
             chaves_faltando = set(CRITERIOS_VALIDOS) - chaves_encontradas
 
